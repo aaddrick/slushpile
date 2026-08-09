@@ -303,7 +303,10 @@ as awkward prose.
 3. The diagrams a page embeds, and `alt` text at least a quarter the length of
    the English. Translated pages embed the English renders; only the alt text
    moves. The fraction is there because a fixed character floor tuned for Latin
-   script fails a correct Chinese translation for being dense.
+   script fails a correct Chinese translation for being dense. The hero card at
+   the top of each `README.md` is the exception, and the only one: it is a
+   picture made of sentences rather than of boxes and arrows, so each language
+   gets its own, drawn by `scripts/make_card.py` and checked by the same file.
 4. Reachability from that language's own `docs/index.md`, because a reader who
    cannot reach a page from their index has no way to know it exists — the
    language nav only ever points at the same page in another language.
@@ -372,15 +375,17 @@ documentation still has to prove the plugin loads.
 
 ## The cards
 
-`scripts/make_card.py` draws two images into `.github/assets/`, and they are not
+`scripts/make_card.py` draws the images in `.github/assets/`, and they are not
 interchangeable.
 
 | File | Where it is seen | What it holds |
 |---|---|---|
 | `hero.png` | the top of `README.md` | the loop in three columns: hook, kept files, seven reviewers |
+| `hero-<tag>.png` | the top of `translations/<tag>/README.md` | the same card, in that language |
 | `social.png` | uploaded at Settings → General → Social preview | the wordmark and the hook, nothing else |
 
-They are separate because they are read at different sizes. An unfurl in
+The hero and the social card are separate because they are read at different
+sizes. An unfurl in
 LinkedIn, Signal, Teams, or Slack renders around 400px wide, where the hero's
 columns collapse into grey texture. Rather than thin the hero until it survives
 a thumbnail, the social card is drawn nearly empty at two to three times the
@@ -394,8 +399,8 @@ unfurl shows the owner's avatar. Check with:
 gh api graphql -f query='{ repository(owner:"aaddrick", name:"slushpile") { usesCustomOpenGraphImage } }'
 ```
 
-Redraw both after any change to the header text, the file list, or the agent
-list:
+Redraw all of them after any change to the header text, the file list, or the
+agent list:
 
 ```bash
 python3 scripts/make_card.py
@@ -405,7 +410,27 @@ It needs Pillow and reads the vendored fonts in `assets/fonts/`. Pillow is not a
 test dependency, so no gate runs this script and no gate compares the committed
 PNG against a fresh render. Pillow encodes the same pixels differently across
 versions, so a checksum gate would fail on an unrelated upgrade. Commit the
-redrawn file yourself.
+redrawn files yourself.
+
+The hero is the one image here that is mostly words, which is why it is the one
+image translated rather than captioned. It is also the first thing on the page,
+so a reader who arrived in their own language otherwise reads the pitch in
+somebody else's before reaching a word of the translation. `CARDS` in the script
+holds one `Card` per language and the script refuses to draw when the mirror
+carries a language it has no `Card` for, on the same rule as a skill missing
+from `SKILLS`. `tests/test_translations.py` holds the other half, because the
+script cannot see whether the page it drew for actually embeds the result:
+every translated `README.md` must name its own `hero-<tag>.png`.
+
+Three things about writing those cards. Every line is written by hand rather
+than wrapped, because the columns are narrow and a break is a choice about what
+the card emphasises. Every line is then measured, and the script refuses to draw
+a card whose text crosses into the next column — a Spanish sentence is reliably
+a third longer than the English one it translates, and an overflow does not look
+like an overflow, it looks like the three-column structure failing. And the
+strings should say what that page's `alt` text says: the alt is the description
+of that card, in that language, and the two drifting apart is a screen reader
+describing a picture nobody else is looking at.
 
 Two of the three facts the card depends on are now held by the script itself:
 
@@ -424,6 +449,10 @@ Two of the three facts the card depends on are now held by the script itself:
    dispatch table through `sync_docs.Facts`, so changing the pipeline's shape in
    `adversarial-review` moves the column with it rather than leaving a diagram
    of a system that no longer exists. Redraw and commit after any such change.
+   Every number any card prints comes from the same place, in every language,
+   and a card keys its reviewer labels by the agent's English dispatch name — so
+   a renamed agent fails loudly per language instead of shifting one column's
+   labels down by one.
 
 The third no test can hold:
 
@@ -432,23 +461,39 @@ The third no test can hold:
    to `social.png` at 400px, since that is the only size anyone sees it at, and
    it is the one card with no room to hide an illegible element.
 
-The eyebrow and the two hook lines are module constants that both cards draw, so
-the social preview cannot drift from the README subtitle without the hero
-drifting too. Keep it that way — the alternative is discovering that the image
-people actually see says something the repository stopped claiming.
+The eyebrow and the hook come from the English `Card`, which both the hero and
+the social preview draw, so the unfurl cannot drift from the README subtitle
+without the hero drifting too. Keep it that way — the alternative is discovering
+that the image people actually see says something the repository stopped
+claiming. There is no translated social card: a repository has one social
+preview and GitHub picks it without knowing who is looking.
 
-Update the `README.md` image `alt` text alongside `hero.png`. It is the only
-description of the card a screen reader gets, and it drifts silently.
+Update each `README.md` image `alt` text alongside its card. It is the only
+description a screen reader gets, and it drifts silently.
+
+The Chinese card needs a font this repository would otherwise have no reason to
+carry: neither Saira Condensed nor Plex Mono has a Han glyph, and a full CJK
+face is twenty thousand of them. `scripts/subset_cjk_font.py` cuts Noto Sans CJK
+SC down to the characters that one card draws, which is about a hundred, and
+writes the two faces plus a coverage manifest into `assets/fonts/`. Change a
+Chinese string and you must run it, from a machine with Noto Sans CJK installed
+or with the path to a copy — `make_card.py` reads that manifest and refuses to
+draw a character the subset lacks, because a missing glyph renders as a blank
+box rather than as an error and would ship looking like a rendering bug.
 
 ## The document fonts
 
 `assets/fonts/` now serves two unrelated consumers. `make_card.py` draws the
-cards with Saira Condensed and Plex Mono Medium. `templates/resume.tex` and
-`templates/cover_letter.tex` are set in Public Sans and Plex Mono Regular and
-SemiBold. Only Plex Mono is shared, which is why there is one directory instead
-of two, and why `install_fonts.py` carries an explicit `FACES` list rather than
-installing the directory: nobody's system should acquire a card font because
-they built a resume.
+cards with Saira Condensed, Plex Mono Medium, and the subset of Noto Sans CJK SC
+the Chinese card needs. `templates/resume.tex` and `templates/cover_letter.tex`
+are set in Public Sans and Plex Mono Regular and SemiBold. Only Plex Mono is
+shared, which is why there is one directory instead of two, and why
+`install_fonts.py` carries an explicit `FACES` list rather than installing the
+directory: nobody's system should acquire a card font because they built a
+resume, least of all the CJK subset, which holds about a hundred characters and
+draws a box for everything else. That subset carries its own family name,
+`Noto Sans CJK SC Subset`, for the same reason: a hundred-character file
+answering to `Noto Sans CJK SC` would shadow the real face wherever it landed.
 
 Three decisions here are easy to undo by accident.
 
@@ -517,7 +562,8 @@ A commit subject states what changed. The body states why, with the evidence.
 | `scripts/check_configs.py` | parses every shipped manifest |
 | `scripts/check_no_pii.py` | the personal-data gate |
 | `scripts/sync_docs.py` | the generator and its `--check` gate |
-| `scripts/make_card.py` | draws `.github/assets/hero.png` and `social.png` |
+| `scripts/make_card.py` | draws the hero card in every language, and `social.png` |
+| `scripts/subset_cjk_font.py` | cuts the Chinese card's font down to the characters it draws |
 | `docs/diagrams/render.sh` | renders every diagram's light and dark SVG from its `.d2` |
 | `scripts/install_fonts.py` | installs the document fonts into the user's font directory |
 | `assets/fonts/` | the vendored fonts the card and the templates are drawn with, and all three OFL licenses |

@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../../.github/assets/hero.png" alt="Slushpile：一场有记忆的对抗式求职。7个智能体抢在招聘人员之前把你拒掉，而它们发现的东西归你。你留下的：profile.md，每一条事实性主张；preferences.yaml，薪酬、地点和约束条件；stories.md，四到八个讲得出口的故事；job_search.md，用于校准的结果。写一次，每个阶段都读它，每次审阅都更新它。7个审阅者：初筛者、需求分析师、ATS 模拟器、疲惫的读者、申请者池分析师、招聘经理、唱反调者。其中5个并行审阅者彼此盲评，然后是综合，然后是一个专职推翻结论的智能体。" width="100%">
+  <img src="../../.github/assets/hero-zh-CN.png" alt="Slushpile：一场有记忆的对抗式求职。7个智能体抢在招聘人员之前把你拒掉，而它们发现的东西归你。你留下的：profile.md，每一条事实性主张；preferences.yaml，薪酬、地点和约束条件；stories.md，四到八个讲得出口的故事；job_search.md，用于校准的结果。写一次，每个阶段都读它，每次审阅都更新它。7个审阅者：初筛者、需求分析师、ATS 模拟器、疲惫的读者、申请者池分析师、招聘经理、唱反调者。其中5个并行审阅者彼此盲评，然后是综合，然后是一个专职推翻结论的智能体。" width="100%">
 </p>
 
 <p align="center">

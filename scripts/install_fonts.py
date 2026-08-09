@@ -25,8 +25,10 @@ into a user's home directory is not a thing a documentation check should do
 behind their back.
 
 Only the faces the templates actually use are installed. assets/fonts/ also
-holds Saira Condensed and IBM Plex Mono Medium, which exist for the README card
-and have no business on someone's system as a side effect of building a resume.
+holds Saira Condensed, IBM Plex Mono Medium, and a subset of Noto Sans CJK SC,
+which exist for the README cards and have no business on someone's system as a
+side effect of building a resume -- least of all the subset, which carries about
+a hundred characters and draws a box for everything else.
 """
 
 from __future__ import annotations

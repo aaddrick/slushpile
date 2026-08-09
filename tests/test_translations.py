@@ -234,6 +234,44 @@ class Parity(unittest.TestCase):
                 )
 
 
+class Hero(unittest.TestCase):
+    """Each README carries the card drawn in its own language.
+
+    The hero is the one image here that is mostly words, so it is the one image
+    with a translation to get wrong, and getting it wrong is invisible: an
+    English card on a Chinese page renders perfectly. It is also the first thing
+    on the page, which makes it the first thing a reader who came for their own
+    language reads in somebody else's.
+
+    scripts/make_card.py draws one per language and refuses to run when the
+    mirror gains a language it has no text for. This is the other half: the
+    generator cannot see whether the page it was drawn for actually embeds it,
+    because the src is hand-written prose in a file the generator does not own.
+    """
+
+    def test_every_translated_readme_embeds_its_own_card(self) -> None:
+        for language in sync_docs.LANGUAGES:
+            page = sync_docs.page_path("README.md", language.tag)
+            card = f".github/assets/hero-{language.tag}.png"
+            with self.subTest(page=page):
+                self.assertTrue(
+                    (ROOT / card).is_file(),
+                    f"{card} is missing. Run python3 scripts/make_card.py.",
+                )
+                self.assertIn(
+                    f'src="../../{card}"',
+                    read(page),
+                    f"{page} does not embed {card}. A README left on the English "
+                    f"hero looks finished and reads as a translation nobody "
+                    f"got round to.",
+                )
+
+    def test_the_english_readme_keeps_the_untagged_card(self) -> None:
+        """The English hero has no tag in its name, so an unfurl, a fork's
+        README, and every link anyone has ever pasted keeps resolving."""
+        self.assertIn('src=".github/assets/hero.png"', read("README.md"))
+
+
 class Diagrams(unittest.TestCase):
     """Translated pages embed the English renders. Only the alt text moves."""
 
