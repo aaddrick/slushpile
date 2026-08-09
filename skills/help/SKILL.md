@@ -23,7 +23,7 @@ It never submits anything. Every skill writes files. The user reads them and sen
 | Order | Command | What it does |
 |---|---|---|
 | Once | `/slushpile:onboard` | Builds the workspace: `profile.md`, `preferences.yaml`, `stories.md` |
-| Per company | `/slushpile:job-board-search <company>` | Searches, extracts postings, scores pool-anchored fit, runs the contrarian gate, creates role folders |
+| Per company | `/slushpile:job-board-search <company\|query>` | Searches, extracts postings, scores pool-anchored fit, runs the contrarian gate, creates role folders. Takes a company name, or a query describing the work and where — a query is resolved into a company list and confirmed before anything is searched |
 | As needed | `/slushpile:explore-experience <role folder>` | Interviews to surface experience the user has but never wrote down |
 | Per role | `/slushpile:application-builder <role folder>` | Builds resume and cover letter, iterates against review until stable |
 | Per role | `/slushpile:adversarial-review <role folder>` | Seven agents, five in parallel, verdict per channel |

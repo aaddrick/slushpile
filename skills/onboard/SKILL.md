@@ -250,8 +250,13 @@ Then show the user:
 Close with the next command:
 
 ```
-/slushpile:job-board-search <company>
+/slushpile:job-board-search <company|query>
 ```
+
+Say which form fits them. A user who named target companies during the
+interview has a company to type; one who described the work but no employer
+should be handed the query form, because telling that user to name a company is
+asking them for the answer they came here without.
 
 ## Anti-Patterns
 

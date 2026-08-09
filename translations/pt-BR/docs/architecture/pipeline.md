@@ -91,6 +91,16 @@ Este é o estágio de maior retorno, e é o que a maioria das ferramentas não t
 Tudo rio abaixo custa ao usuário uma tarde por candidatura. Este estágio custa
 minutos e pode terminar com “não se candidate a nenhuma destas”.
 
+O diagrama acima começa na descoberta porque é ali que uma empresa nomeada
+entra. Um usuário que não tem empresa em mente passa uma consulta no lugar, e a
+Fase 0 a resolve em uma lista de empresas antes de a descoberta rodar, lendo as
+mesmas restrições em `preferences.yaml` que o resto do pipeline lê e o mesmo
+histórico em `companies.md`, de modo que uma consulta de mercado não vasculha de
+novo o que a consulta do mês passado já cobriu. A Fase 0 produz uma lista e nada
+mais. Tudo da descoberta em diante é idêntico nos dois modos, e é isso que
+mantém as avaliações de uma execução por consulta comparáveis às de uma execução
+por empresa nomeada na tabela de calibração.
+
 O anúncio é capturado **literalmente**. 3 agentes mais adiante analisam esse
 texto diretamente, o analista de requisitos, o simulador de ATS e o analista do
 pool, e um anúncio resumido remove em silêncio a redação exata das qualificações

@@ -104,9 +104,9 @@ python3 scripts/install_fonts.py --uninstall
 ## 你的第一个小时
 
 ```
-/slushpile:onboard                    # once, in your workspace directory
-/slushpile:job-board-search <company> # search, score, and create role folders
-/slushpile:application-builder <path> # build and review one application
+/slushpile:onboard                          # once, in your workspace directory
+/slushpile:job-board-search <company|query> # search, score, and create role folders
+/slushpile:application-builder <path>       # build and review one application
 ```
 
 `onboard` 是一场访谈，不是一张表单，而且它是唯一一个会问你那些以后不会再被问到的问题的
@@ -114,5 +114,10 @@ python3 scripts/install_fonts.py --uninstall
 
 先拿 `job-board-search` 对着一家你真正感兴趣的公司跑，而不是对着你找到的第一个岗位。搜索
 这一阶段是唯一还能免费劝你别投的阶段，也是这条流水线每花一分钟回报最高的地方。
+
+如果你心里没有具体的公司，那就改成描述你在找什么，同一条命令会把它解析成一份清单 ——
+`applied AI roles within 50 miles of Martinsville, VA that fit my profile` 就可以直接当参数
+用。它会在搜索其中任何一家之前，先把它挑出来的公司摆给你看，所以一份建立在误读你查询之上
+的清单，代价是你做一次修正，而不是一个小时。
 
 [技能](skills.md) 是完整的命令参考。

@@ -1,6 +1,6 @@
 {
   "name": "slushpile",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "An adversarial job search for Gemini CLI that gets better as it goes. Score fit against the realistic applicant pool, build the resume and cover letter, review them the way a fatigued recruiter would, then keep what the review finds in your profile.",
   "contextFileName": "GEMINI.md"
 }

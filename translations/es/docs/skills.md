@@ -37,13 +37,18 @@ Consulta [Primeros pasos](getting-started.md) para saber qué tener listo y
 
 ### `/slushpile:job-board-search`
 
-Busca en el portal de empleo de una empresa, extrae cada publicación
-textualmente, estima el pool real de postulantes, califica el ajuste anclado al
-pool y condicionado al canal, corre los criterios de descarte,
-pone a un contrarian frente a la lista de niveles y crea una carpeta de puesto
-por cada puesto que sobrevive.
+Busca en un portal de empleo, extrae cada publicación textualmente, estima el
+pool real de postulantes, califica el ajuste anclado al pool y condicionado al
+canal, corre los criterios de descarte, pone a un contrarian frente a la lista
+de niveles y crea una carpeta de puesto por cada puesto que sobrevive.
 
-**Argumento:** el nombre de una empresa.
+**Argumento:** el nombre de una empresa, o una consulta que describa el trabajo
+y dónde lo quieres. Dada una consulta, la Fase 0 la resuelve en una lista de
+empresas (leyendo tus restricciones desde `preferences.yaml` y tu historial
+desde `companies.md`), te muestra esa lista y la busca en cuanto la confirmas.
+Todo lo que viene después de la Fase 0 es igual en ambos casos, así que una
+evaluación de una corrida por consulta es comparable con una de una corrida por
+empresa nombrada y la tabla de calibración puede juntarlas.
 
 Es la etapa de mayor retorno del pipeline y la que la mayoría de las
 herramientas no tiene. Todo lo que viene después cuesta una tarde por

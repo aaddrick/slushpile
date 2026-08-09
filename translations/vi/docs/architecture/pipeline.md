@@ -92,6 +92,17 @@ trống và mọi ước lượng ở phía sau đều bị gắn nhãn là chư
 không có. Mọi thứ ở phía sau tốn của bạn một buổi chiều cho mỗi hồ sơ. Giai đoạn
 này tốn vài phút và có thể kết thúc bằng “đừng nộp cái nào trong số này cả”.
 
+Sơ đồ ở trên bắt đầu từ bước khám phá vì đó là chỗ một công ty được nêu đích
+danh đi vào. Nếu bạn chưa nhắm sẵn công ty nào, bạn đưa vào một truy vấn thay
+cho tên công ty, và Giai đoạn 0 phân giải nó thành một danh sách công ty trước
+khi bước khám phá chạy: nó đọc đúng những ràng buộc trong `preferences.yaml` mà
+phần còn lại của quy trình vẫn đọc, và đúng phần lịch sử trong `companies.md`,
+nên một truy vấn theo thị trường không đi tìm lại những gì truy vấn của tháng
+trước đã phủ. Giai đoạn 0 cho ra một danh sách, và không gì khác. Mọi thứ từ
+bước khám phá trở đi đều y hệt nhau ở cả hai chế độ, và chính điều đó giữ cho
+các bản đánh giá của một lần chạy bằng truy vấn vẫn so sánh được với của một lần
+chạy nêu đích danh công ty trong bảng hiệu chỉnh.
+
 Tin tuyển dụng được thu lại **nguyên văn**. Về sau có 3 tác nhân phân tích trực
 tiếp đoạn văn bản đó, là chuyên viên phân tích yêu cầu, trình mô phỏng ATS và
 chuyên viên phân tích nhóm ứng viên, và một tin tuyển dụng đã bị tóm tắt sẽ âm
