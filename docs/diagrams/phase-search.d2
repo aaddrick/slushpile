@@ -1,0 +1,31 @@
+# /slushpile:job-board-search. Search a company's careers board and decide
+# which of its roles are worth an afternoon.
+#
+# GRID SNAKE, boustrophedon. The contrarian gate can demote a tier or kill a
+# role outright, which re-derives the fit score two cells away. That edge is
+# stated in the gate's own label rather than drawn: a connector between
+# non-neighbouring cells is a diagonal that cuts through the box between them.
+
+grid-rows: 2
+grid-columns: 4
+horizontal-gap: 80
+vertical-gap: 70
+
+# row 1, left to right
+disc: "1. DISCOVERY\n\nfind the careers URL · several\nqueries · triage on titles" { class: stage }
+cap: "2. CAPTURE VERBATIM\n\nthe posting as written, not\nsummarized · quals unedited" { class: stage }
+pool: "3. POOL ESTIMATION\n\nwho else applies · p50, p75,\np90 archetypes for this role" { class: stage }
+fit: "4. FIT SCORE\n\nthe pool percentile, not the\nkeyword match, is the number" { class: stage }
+# row 2, right to left
+fold: "8. ROLE FOLDERS\n\none per role · JD and analysis\ntracker and companies updated" { class: terminal }
+gate: "7. CONTRARIAN GATE\n\nruns before tiers are final\ndemotes a tier, or kills it" { class: gate }
+kill: "6. KILL CRITERIA\n\ncomp · location · clearance\nchecked and stated either way" { class: gate }
+ev: "5. CHANNEL EV MATRIX\n\ncold · referral · outreach\ninbound · the tier is the\nbest channel available" { class: stage }
+
+disc -> cap: { class: flow }
+cap -> pool: { class: flow }
+pool -> fit: { class: flow }
+fit -> ev: { class: flow }
+ev -> kill: { class: flow }
+kill -> gate: { class: flow }
+gate -> fold: { class: flow }

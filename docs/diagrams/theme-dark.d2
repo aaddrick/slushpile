@@ -1,0 +1,134 @@
+# Dark palette. Prepended to each diagram body by render.sh.
+# Keep the class names identical to theme-light.d2. The bodies reference
+# only class names, never raw colors.
+
+vars: {
+  d2-config: {
+    layout-engine: dagre
+    pad: 28
+  }
+}
+
+# Transparent canvas: d2 paints an opaque white background rect by default,
+# which shows up as a white slab behind the dark SVG on a dark page.
+style: {
+  fill: transparent
+}
+
+classes: {
+  phase: {
+    style: {
+      fill: "#111827"
+      stroke: "#374151"
+      stroke-width: 1
+      border-radius: 10
+      font-color: "#e5e7eb"
+      font-size: 17
+      bold: true
+    }
+  }
+  stage: {
+    shape: rectangle
+    style: {
+      bold: false
+      fill: "#1f2937"
+      stroke: "#6b7280"
+      stroke-width: 1
+      border-radius: 6
+      font-color: "#f3f4f6"
+      font-size: 14
+      shadow: false
+    }
+  }
+  agent: {
+    shape: rectangle
+    style: {
+      bold: false
+      fill: "#2e1065"
+      stroke: "#a78bfa"
+      stroke-width: 2
+      border-radius: 6
+      font-color: "#ede9fe"
+      font-size: 14
+    }
+  }
+  gate: {
+    shape: rectangle
+    style: {
+      bold: false
+      fill: "#422006"
+      stroke: "#f59e0b"
+      stroke-width: 2
+      border-radius: 6
+      font-color: "#fef3c7"
+      font-size: 14
+    }
+  }
+  memory: {
+    shape: rectangle
+    style: {
+      bold: false
+      fill: "#083344"
+      stroke: "#22d3ee"
+      stroke-width: 2
+      border-radius: 6
+      font-color: "#cffafe"
+      font-size: 14
+    }
+  }
+  human: {
+    shape: rectangle
+    style: {
+      bold: false
+      fill: "#172554"
+      stroke: "#60a5fa"
+      stroke-width: 2
+      border-radius: 6
+      font-color: "#dbeafe"
+      font-size: 14
+    }
+  }
+  terminal: {
+    shape: rectangle
+    style: {
+      bold: false
+      fill: "#022c22"
+      stroke: "#34d399"
+      stroke-width: 2
+      border-radius: 6
+      font-color: "#d1fae5"
+      font-size: 14
+    }
+  }
+  flow: {
+    style: {
+      bold: false
+      stroke: "#9ca3af"
+      stroke-width: 2
+      font-color: "#d1d5db"
+      font-size: 12
+    }
+  }
+  loop: {
+    style: {
+      bold: false
+      stroke: "#f59e0b"
+      stroke-width: 2
+      stroke-dash: 4
+      font-color: "#fcd34d"
+      font-size: 12
+      italic: true
+    }
+  }
+  writeback: {
+    style: {
+      bold: false
+      stroke: "#22d3ee"
+      stroke-width: 2
+      stroke-dash: 4
+      font-color: "#67e8f9"
+      font-size: 12
+      italic: true
+    }
+  }
+}

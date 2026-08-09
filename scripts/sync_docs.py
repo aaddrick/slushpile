@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Generate every derived documentation file from its canonical source.
 
-Six surfaces describe this pipeline to a reader or to another model: CLAUDE.md
-and its AGENTS.md mirror, the two Cursor router files, GEMINI.md, README.md, and
-the paste-in snippet in INSTALL.md. Every one of them lists the skills, and most
-of them state the review's shape. None of those facts is theirs to hold. They
+Several surfaces describe this pipeline to a reader or to another model:
+CLAUDE.md and its AGENTS.md mirror, the two Cursor router files, GEMINI.md,
+README.md, the paste-in snippet in INSTALL.md, and the docs/ tree. Every one of
+them lists the skills, and most of them state the review's shape. None of those facts is theirs to hold. They
 live in `skills/`, in `agents/`, and in the dispatch table inside
 `skills/adversarial-review/SKILL.md`.
 
@@ -273,7 +273,7 @@ COUNT_CLAIMS = (
 # long as there have been nine, and it is the surface whose entire job is
 # answering "what do I run next", so the missing one was unreachable from the
 # only place a confused user looks.
-COMMAND_ROSTERS = ("skills/help/SKILL.md",)
+COMMAND_ROSTERS = ("skills/help/SKILL.md", "docs/skills.md")
 
 # --- the sweep ---------------------------------------------------------------
 
@@ -340,7 +340,12 @@ BLIND_NOUNS = {
 SWEEP_PATTERNS = ((COUNTED_PHRASE, COUNTED_NOUNS), (BLIND_PHRASE, BLIND_NOUNS))
 
 # Files the sweep reads: every surface a user or another model is shipped.
-SWEPT_SUFFIXES = (".md", ".mdc", ".json")
+#
+# `.d2` is here because the diagram sources under docs/diagrams/ carry label
+# text like "five blind" that a reader sees as a picture. The rendered SVGs are
+# generated from those sources and are checked against them by
+# tests/test_docs.py, so covering the source covers the picture.
+SWEPT_SUFFIXES = (".md", ".mdc", ".json", ".d2")
 SWEPT_SKIP_DIRS = {".git", "assets", "node_modules", "__pycache__"}
 
 # Sentences that count a subset rather than a total. A subset count is a real
@@ -351,6 +356,10 @@ COUNT_EXEMPT = {
     # capture has to be verbatim, and the number is the point of the sentence.
     ("skills/job-board-search/SKILL.md", "Three agents"),
     ("templates/job_description.md", "Three agents"),
+    # The same subset, explained to a reader rather than to the model: it is
+    # why the posting is captured verbatim instead of summarized.
+    ("docs/architecture/pipeline.md", "Three agents"),
+    ("docs/workspace.md", "Three agents"),
 }
 
 CURSOR_SKILL_FRONTMATTER = """---
@@ -842,6 +851,29 @@ def readme_reviewers(facts: Facts) -> str:
     )
 
 
+def docs_agent_table(facts: Facts) -> str:
+    """Dispatch order, the model each agent declares, and what it simulates.
+
+    Three facts from three places: the order comes from the dispatch table in
+    the review skill, the model from each agent's own frontmatter, and the blurb
+    from REVIEWERS above. Hand-written in docs/ it would be a fourth place a
+    renamed agent has to reach, and the one nothing checks.
+    """
+    rows = [
+        f"| {number} | `{name}` | {agent_model(name) or '—'} | {REVIEWERS[name]} |"
+        for number, name in enumerate(facts.dispatch, 1)
+    ]
+    note = fill(
+        f"Plus the voice agent, `{facts.voice[0]}`, which the review never "
+        f"dispatches and which is named in `preferences.yaml` rather than here. "
+        f"The first {spell(len(facts.blind))} run in parallel and are blind to "
+        f"each other; the last two run in order."
+    )
+    return "\n".join(
+        ["| # | Agent | Model | Simulates |", "|---|---|---|---|", *rows]
+    ) + "\n\n" + note
+
+
 def install_snippet(facts: Facts) -> str:
     """The block INSTALL.md tells a user to paste into their own AGENTS.md.
 
@@ -889,6 +921,22 @@ REGIONS: dict[str, dict[str, Callable[[Facts], str]]] = {
     "GEMINI.md": {"skills": gemini_skills, "agents": gemini_agents},
     "README.md": {"pipeline": readme_pipeline, "reviewers": readme_reviewers},
     "INSTALL.md": {"harness-snippet": install_snippet},
+    "docs/architecture/agents-and-models.md": {"agent-table": docs_agent_table},
+}
+
+
+# A directory's AGENTS.md, written as a byte-identical copy of its CLAUDE.md
+# sibling, so an agent finds the same guidance under whichever name its harness
+# looks for. tests/test_docs.py checks the pairs for equality independently, and
+# finds them by scanning rather than from this table, so a pair added here
+# without a generator run fails there too.
+#
+# The repository root is deliberately not in this table. Its AGENTS.md is built
+# by build_agents_md, which stamps a provenance header, so the two differ by
+# design and equality would be the wrong check.
+TWINS: dict[str, str] = {
+    "docs/architecture/AGENTS.md": "docs/architecture/CLAUDE.md",
+    "docs/diagrams/AGENTS.md": "docs/diagrams/CLAUDE.md",
 }
 
 
@@ -1037,6 +1085,9 @@ def generate() -> dict[str, str]:
         for region, builder in regions.items():
             text = replace_region(text, region, builder(facts), target)
         wanted[target] = text
+
+    for twin, source in TWINS.items():
+        wanted[twin] = (ROOT / source).read_text(encoding="utf-8")
 
     sources = {
         name: wanted.get(name) or (ROOT / name).read_text(encoding="utf-8")

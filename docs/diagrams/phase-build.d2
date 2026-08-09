@@ -1,0 +1,30 @@
+# /slushpile:application-builder. Build the materials, then attack them until
+# they stop improving.
+#
+# GRID SNAKE, boustrophedon. The rework loop is a bidirectional connector
+# between two neighbouring cells rather than a self-loop, because a self-loop
+# on the review names the arrow and not the work the run picks back up at.
+
+grid-rows: 2
+grid-columns: 4
+horizontal-gap: 80
+vertical-gap: 70
+
+# row 1, left to right
+ang: "1. ANGLE\n\nbase resume · thesis · hook\nthe one story worth telling" { class: stage }
+res: "2. RESUME\n\nadapt, compile, and read the\nextracted text, not the source" { class: stage }
+let: "3. COVER LETTER\n\nwritten by the voice agent\nnamed in preferences.yaml" { class: agent }
+hum: "4. HUMANIZE\n\nremoving-ai-tells · the\norchestrator gates each change" { class: stage }
+# row 2, right to left
+fin: "8. FINISH\n\nfinal build, then\napplication.yaml, profile,\nand the tracker updated" { class: terminal }
+two: "7. REVIEW, ROUND 2\n\nthe decision gate reads the\nhighest-EV channel verdict" { class: gate }
+fix: "6. FIX\n\nmechanical first, then depth\nfrom profile.md" { class: stage }
+one: "5. REVIEW, ROUND 1\n\nATS score, swap tests,\nexpected value per channel" { class: gate }
+
+ang -> res: { class: flow }
+res -> let: { class: flow }
+let -> hum: { class: flow }
+hum -> one: { class: flow }
+one -> fix: { class: flow }
+fix <-> two: "three rounds\nmaximum" { class: loop }
+two -> fin: { class: flow }

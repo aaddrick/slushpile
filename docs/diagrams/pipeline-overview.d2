@@ -1,0 +1,39 @@
+# Slushpile end to end. Detail per stage in phase-*.d2.
+#
+# GRID SNAKE. Reading order is boustrophedon: row 1 left-to-right, then the
+# flow drops straight down the LAST column and row 2 reads back
+# right-to-left, closing the loop at the workspace it started from.
+#
+# Why a grid and not a layout engine: neither bundled engine can wrap a long
+# chain into rows, so a straight chain renders either 2000px wide or 3000px
+# tall. Grid placement is the only way to fold it, and it fills row-major
+# over the declaration order below.
+#
+# THE DIAGONAL RULE: grid connections are center-to-center straight segments
+# with no path-finding. An edge is orthogonal only if its two cells are
+# neighbours sharing a row or a column. Place nodes to suit the edges.
+
+grid-rows: 2
+grid-columns: 4
+horizontal-gap: 90
+vertical-gap: 70
+
+# row 1, left to right
+on: "ONBOARD\n\ninterview · ingest a resume\nprofile · preferences · stories" { class: stage }
+search: "JOB BOARD SEARCH\n\nextract postings verbatim\npool-anchored fit · channel EV" { class: stage }
+build: "APPLICATION BUILDER\n\nangle · resume · letter\nvoice pass · humanize" { class: stage }
+review: "ADVERSARIAL REVIEW\n\nseven personas · five blind\nverdict per channel" { class: gate }
+# row 2, right to left
+mem: "WORKSPACE\n\nprofile.md · preferences.yaml\nstories.md · job_search.md" { class: memory }
+status: "STATUS\n\nthe queue, and the pipeline's\npredictions against outcomes" { class: stage }
+out: "OUTCOME RECORDED\n\nrejection · screen · offer\nwritten into the tracker" { class: stage }
+send: "YOU SEND IT\n\nno skill touches a portal,\nan email, or a form" { class: human }
+
+on -> search: { class: flow }
+search -> build: { class: flow }
+build <-> review: "up to three\nrounds" { class: loop }
+review -> send: { class: flow }
+send -> out: { class: flow }
+out -> status: { class: flow }
+status -> mem: "priors" { class: writeback }
+mem <-> on: "written by onboarding\nread by every stage" { class: writeback }

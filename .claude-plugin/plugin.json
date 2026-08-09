@@ -1,6 +1,6 @@
 {
   "name": "slushpile",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "An adversarial job search that gets better as it goes. Search a careers board, score fit against the realistic applicant pool, build the resume and cover letter, run seven agents at the result before a human ever sees it, then write what they find back into your profile.",
   "author": {
     "name": "aaddrick",
