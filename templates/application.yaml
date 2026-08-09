@@ -1,0 +1,132 @@
+# application.yaml — the machine-readable record for one requisition.
+#
+# One of these per role folder. Every skill in the pipeline reads and writes it,
+# and it is what makes the search auditable six months later when you are trying
+# to work out why the pipeline said yes to something that went nowhere.
+
+schema_version: 1
+
+# --- identity ------------------------------------------------------------
+
+company: ""
+role_title: ""
+req_id: ""            # the company's own requisition number, if it has one
+url: ""               # the posting
+level: ""             # as posted: L5, Staff, Senior, IC4, ""
+location: ""
+remote: ""            # onsite | hybrid | remote | unspecified
+posted_date: ""       # YYYY-MM-DD
+discovered_date: ""   # YYYY-MM-DD
+comp_band_posted: ""  # verbatim from the posting, "" if not disclosed
+
+# --- status --------------------------------------------------------------
+
+# assessed | materials_ready | applied | screening | interviewing |
+# offer | rejected | withdrawn | expired | passed
+status: "assessed"
+date_applied: ""      # YYYY-MM-DD
+channel_used: ""      # cold_submission | warm_referral | cold_outreach |
+                      # recruiter_inbound | public_visibility_inbound
+
+# --- fit assessment (written by job-board-search) ------------------------
+
+fit:
+  # Pool position is the primary signal. Not keyword match.
+  pool_percentile: null       # 0-100, where you sit in the realistic applicant pool
+  tier: null                  # 1-4. Tier is channel-conditional; see channel_ev.
+  tier_via_channel: ""        # which channel produces that tier
+  confidence: ""              # high | medium | low
+  narrative_angle: ""         # one sentence: why you, for this seat
+
+  min_quals_met: null         # e.g. "6 of 8"
+  preferred_quals_met: null
+  strengths: []
+  gaps: []
+  risk_factors: []            # noted, not disqualifying
+
+# Expected value per submission channel. Probabilities, not verdict words.
+channel_ev:
+  cold_submission:            { p_interview: "", verdict: "", note: "" }
+  warm_referral:              { p_interview: "", verdict: "", note: "" }
+  cold_outreach:              { p_interview: "", verdict: "", note: "" }
+  recruiter_inbound:          { p_interview: "", verdict: "", note: "" }
+  public_visibility_inbound:  { p_interview: "", verdict: "", note: "" }
+highest_ev_channel: ""
+
+# Auto-kill checks against preferences.yaml. null if nothing triggered.
+kill_criteria:
+  triggered: null             # null, or a list of triggered criterion names
+  detail: ""
+
+# What past applications predicted about this one, and where it came from.
+calibration_prior:
+  basis: ""                   # e.g. "3 prior applications at this company tier"
+  predicted_outcome: ""
+  note: ""
+
+# --- adversarial review (written by adversarial-review) ------------------
+
+adversarial_review:
+  rounds: 0
+  ats_score: null             # 0-100
+  materials_quality: null     # 1-10 — how well the materials convey you
+  hm_verdict_by_channel:
+    cold_submission: ""       # e.g. "REJECT (1-3%)"
+    warm_referral: ""
+    cold_outreach: ""
+    public_visibility_inbound: ""
+  swap_tests:
+    company: ""               # PASS | FAIL
+    name: ""
+    jd: ""
+  contrarian_net: ""          # SUBMIT | SUBMIT_AS_PORTFOLIO_ONLY | DO_NOT_SUBMIT
+  contrarian_legs_struck: []  # which contrarian arguments the gatekeeper removed, and why
+
+# Seven metrics, 1-5 each. Feeds materials_quality.
+cover_letter_scores:
+  hook: null
+  thesis: null
+  jd_targeting: null
+  gap_handling: null
+  company_specificity: null
+  story_quality: null
+  voice: null
+cover_letter_total: null      # out of 35
+
+# --- expectations (set explicitly, before submitting) --------------------
+#
+# The most common way a job search burns a person out is over-investing in a
+# low-probability application because the verdict was framed as INTERVIEW.
+# Writing the honest expectation down before you submit is the cheapest
+# available fix.
+
+submission_expectations:
+  expected_outcome: ""        # auto_reject | recruiter_screen | hm_screen | onsite | offer
+  reason_to_submit: ""        # direct_conversion | portfolio_building |
+                              # record_creation | warm_channel_routing
+
+# --- outcome (fill in as reality arrives) --------------------------------
+
+outcome:
+  response_received: null     # true | false | null
+  days_to_response: null
+  stage_reached: ""           # no_response | auto_reject | recruiter_screen |
+                              # hm_screen | onsite | offer | withdrew
+  rejection_reason: ""        # if given
+  notes: ""
+
+# --- assets --------------------------------------------------------------
+
+files:
+  job_description: "job_description.md"
+  role_analysis: "role_analysis.md"
+  resume: ""
+  cover_letter: ""
+  form_answers: ""        # screening-question answers, when the form has any
+  assessment_history: ""  # only when the assessment was revised
+
+# --- free-form log -------------------------------------------------------
+
+log: []
+  # - date: "YYYY-MM-DD"
+  #   entry: "what happened"

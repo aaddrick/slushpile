@@ -1,0 +1,64 @@
+name: checks
+
+# Cheap gates that catch what a reviewer cannot see in a diff: a manifest with
+# a missing comma, a skill whose declared name no longer matches its directory,
+# a generated doc that drifted from its source, and — the one that matters most
+# — a personal fact leaking out of the author's original workspace into a skill
+# that ships to everyone.
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install the YAML parser
+        run: pip install pyyaml
+
+      - name: No personal data in the shipped pipeline
+        run: python3 scripts/check_no_pii.py
+
+      - name: Every shipped config, skill, and agent is valid
+        run: python3 scripts/check_configs.py
+
+      - name: Every generated doc matches its source
+        run: python3 scripts/sync_docs.py --check
+
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      # Both run to completion. One failure tells you more when you can see
+      # whether the other version passed.
+      fail-fast: false
+      matrix:
+        # 3.11 is the floor the scripts support. 3.14 is what development runs
+        # on, so a deprecation lands here before it lands in a working tree.
+        python-version: ["3.11", "3.14"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install the YAML parser
+        run: pip install pyyaml
+
+      - name: Unit tests
+        run: python3 -m unittest discover -s tests -v

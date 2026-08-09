@@ -1,0 +1,195 @@
+% =============================================================================
+%  slushpile cover letter template
+%
+%  Build:  latexmk -xelatex cover_letter.tex && latexmk -c
+%  Needs:  XeLaTeX (for fontspec). Same font set and fallback as resume.tex.
+%          The house fonts are vendored: `python3 scripts/install_fonts.py`
+%          installs them. Skipping it falls back to DejaVu and still builds.
+%          The FONTS block in templates/resume.tex explains why it works this
+%          way rather than by path.
+%
+%  This is the visual companion to resume.tex: same palette, same fonts, same
+%  header treatment. Send them together. A letter in a different typeface than
+%  the resume reads as two documents from two sources, and the pair is the only
+%  thing in the application a screener sees side by side.
+%
+%  ---------------------------------------------------------------------------
+%  WHAT THIS DOCUMENT IS FOR
+%  ---------------------------------------------------------------------------
+%  The resume answers "can this person do the job." The letter answers "why this
+%  person, at this company, now." If a paragraph here could be moved into the
+%  resume without loss, it belongs in the resume.
+%
+%  The body is written by the voice agent named in preferences.yaml under
+%  `voice.agent`, not drafted here. This file is the container and the structure.
+%  Check `voice.is_mine` before you send anything: if it is false, the letter is
+%  in the shipped example voice rather than yours.
+%
+%  ---------------------------------------------------------------------------
+%  STRUCTURE, AND WHY IT IS THIS ORDER
+%  ---------------------------------------------------------------------------
+%   1. The hook. One or two sentences. Never background. "I have spent twelve
+%      years doing X" is the most common opening in the bottom half of the pile
+%      and a screener has read it forty times before reaching yours.
+%   2. The thesis, made company-specific. Test it by swapping the company name
+%      for a direct competitor. If the thesis survives the swap it is not
+%      specific enough, and the hiring manager runs that same test by instinct.
+%   3. Evidence, two to four paragraphs. One story with room to breathe beats
+%      three summarized ones. Lead each paragraph with the claim, then the
+%      mechanism, then the number.
+%   4. The close. The thing you would build here first, or the habit you would
+%      bring. Concrete. Not "I would welcome the opportunity to discuss."
+%
+%  ---------------------------------------------------------------------------
+%  LENGTH
+%  ---------------------------------------------------------------------------
+%  One page is the convention and it is a real constraint: a second page of a
+%  cover letter is read at a much lower rate than the first. Going over is a
+%  decision to make deliberately, per application, not a thing to discover after
+%  the build. Check the page count before you send.
+%
+%  ---------------------------------------------------------------------------
+%  HOUSE STYLE
+%  ---------------------------------------------------------------------------
+%  No em dashes: comma, colon, semicolon, or parentheses instead. En dashes for
+%  ranges. Contractions are fine and usually better -- this is the one document
+%  in the application where a human voice is the point.
+%
+%  Placeholders are UPPERCASE so a forgotten one is visible on the page.
+% =============================================================================
+
+\documentclass[10pt,letterpaper]{article}
+
+\usepackage[top=0.45in,bottom=0.4in,left=0.65in,right=0.65in]{geometry}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage{microtype}
+\usepackage{hyperref}
+
+% ---- palette: identical to resume.tex. Change both or neither. -------------
+\definecolor{base900}{HTML}{1A1B1E}
+\definecolor{ink}{HTML}{181B20}
+\definecolor{muted}{HTML}{43505D}
+\definecolor{faint}{HTML}{6B7480}
+\definecolor{accent}{HTML}{B05B33}
+\definecolor{accentink}{HTML}{7C3E20}
+
+\hypersetup{
+    colorlinks=true, urlcolor=accentink, linkcolor=accentink,
+    pdftitle={NAME -- Cover Letter, ROLE}, pdfauthor={NAME}
+}
+
+% ---- fonts, with the same fallback so this builds on a bare TeX Live -------
+\IfFontExistsTF{Public Sans}{%
+    \setmainfont{Public Sans}[
+      UprightFont={* Regular}, BoldFont={* Bold},
+      ItalicFont={* Italic}, BoldItalicFont={* Bold Italic}]
+    \newfontfamily\heavy{Public Sans}[UprightFont={* ExtraBold}]
+}{%
+    \setmainfont{DejaVu Sans}
+    \newfontfamily\heavy{DejaVu Sans}[UprightFont={* Bold}]
+}
+
+\IfFontExistsTF{IBM Plex Mono}{%
+    \setmonofont{IBM Plex Mono}[Scale=0.84, UprightFont={* Regular}, BoldFont={* SemiBold}]
+}{%
+    \setmonofont{DejaVu Sans Mono}[Scale=0.78]
+}
+
+\color{ink}
+\linespread{1.04}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5.5pt}
+\emergencystretch=3em
+\hyphenpenalty=400
+
+\newcommand{\eyebrow}[1]{{\ttfamily\scriptsize\color{faint}\addfontfeatures{LetterSpace=4.0}\MakeUppercase{#1}}}
+
+\pagestyle{empty}
+
+\begin{document}
+
+% ============================== HEADER ==============================
+% Same contact line as the resume, character for character. A phone number that
+% differs between the two documents is the kind of small inconsistency a
+% fatigued reader notices and then starts looking for more of.
+%
+% The Re: line carries the exact role title and the requisition ID from the
+% posting. Large employers route on the requisition, and a letter that names it
+% lands in the right pile without a human deciding where it goes.
+
+{\heavy\fontsize{19}{21}\selectfont\color{base900}NAME}\\[2pt]
+{\ttfamily\footnotesize\color{muted}CITY, STATE \ \textbullet\ PHONE \ \textbullet\ EMAIL \ \textbullet\ \href{https://github.com/USER}{github.com/USER} \ \textbullet\ \href{https://linkedin.com/in/USER}{linkedin.com/in/USER}}\\[6pt]
+\eyebrow{Re: ROLE TITLE \ \textbullet\ \ req REQUISITION ID (LOCATION) \ \textbullet\ \ DD Month YYYY}
+
+\vspace{4pt}
+{\color{accent}\hrule height 1.4pt}
+\vspace{4pt}
+
+% ============================== SALUTATION ==============================
+% Name the hiring manager when you know it and can verify it. Do not guess: a
+% letter addressed to the wrong person is worse than one addressed to nobody.
+% "Hi," is the safe default and it costs you nothing. "To Whom It May Concern"
+% costs you something.
+
+Hi,
+
+% ============================== HOOK ==============================
+% The first line presents the angle, not the background. It lands when it makes
+% a reader curious about someone they would not otherwise interview: a concrete
+% detail, a reframe, or a provocation. Not a credential.
+%
+% Then, in the same paragraph, turn it toward this company specifically. Name
+% something true about how they operate that you could not say about a
+% competitor, and connect it to the problem in the posting.
+
+THE HOOK. One or two sentences that reframe the problem in this role, stated as
+a fact rather than a claim about yourself. THE TURN: the thing this company does
+that a competitor does not, and why it makes the reframe theirs rather than
+generic. THE CONNECTION back to the seat being filled.
+
+% ============================== EVIDENCE ==============================
+% Two to four paragraphs. Each opens with the claim, then gives the mechanism,
+% then the number. A paragraph that opens with the number and works backward
+% reads as a metrics dump.
+%
+% Every factual claim here must already exist in profile.md, and every number
+% must match the "Numbers You Can Defend" table. A figure that appears as 2,400
+% in the letter and 2,707 in the resume reads as carelessness, and a reader who
+% catches one inconsistency starts hunting for others.
+%
+% Link the public artifacts inline. A stranger who clicks one and finds it real
+% has verified you in thirty seconds without calling a reference.
+
+Here is what that looks like in my own work. \href{https://github.com/USER/PROJECT}{PROJECT}
+is THE ONE-LINE DESCRIPTION. THE DECISION YOU MADE, and the failure it prevents.
+The version that would have been easier is THE EASIER WRONG THING, and it would
+have been WHY IT WAS WRONG.
+
+THE MAIN STORY, from stories.md. Give it the space: scene, then the
+complication, then what you personally did as distinct from what the team did,
+then the resolution with its number. This is the paragraph a reader remembers,
+and the reason it works is the moment in it, not the summary of it. Check the
+"Used in" field before reusing a story on a second application to this company.
+
+THE PARAGRAPH THAT ANSWERS THE ROLE'S HARDEST REQUIREMENT. If the role analysis
+found a gap that the posting weights heavily, this is where the nearest real
+thing you have done goes. Do not name the gap and do not apologize for it. The
+pipeline does not volunteer weaknesses to employers: recorded gaps exist so the
+fit scoring is honest, not so the letter can confess them.
+
+% ============================== CLOSE ==============================
+% One paragraph. The specific thing you would do here, or the habit you would
+% bring, named concretely enough that it could be wrong. A close that could
+% appear at the bottom of any letter is a wasted paragraph in the position a
+% reader is most likely to actually finish.
+
+THE CLOSE. The one practice you would bring, described so specifically that
+someone could disagree with it. Then why it matters here rather than in general.
+
+\vspace{2pt}
+NAME\\[1pt]
+\eyebrow{WORK AUTHORIZATION \ \textbullet\ \ CERTIFICATIONS}
+
+\end{document}

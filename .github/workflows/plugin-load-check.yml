@@ -1,0 +1,63 @@
+name: plugin loads in Claude Code
+
+# Installs the plugin from this checkout into a scratch CLAUDE_CONFIG_DIR and
+# fails if it does not reach "enabled". Catches load-layer breakage that JSON
+# validation misses — a component path that points at nothing, a skill
+# directory the loader will not walk.
+#
+# No paths filter. It used to skip pull requests that touched neither
+# .claude-plugin/, skills/, nor agents/, on the theory that nothing else can
+# break the load. That theory is wrong in both directions: the manifests name
+# files outside those directories, and the push-to-main trigger below has never
+# had a filter, so a docs change got the check when pushed and skipped it when
+# proposed. The same commit deserves the same gate whichever way it arrives.
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: plugin-load-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Pinned so a CLI release breaks this job on the commit that bumps the pin,
+  # not on an unrelated pull request. Bump this line to test a newer CLI.
+  CLAUDE_CODE_VERSION: "2.1.220"
+
+jobs:
+  load:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Claude Code
+        run: npm install -g "@anthropic-ai/claude-code@$CLAUDE_CODE_VERSION"
+
+      - name: Manifests pass the official validator
+        run: claude plugin validate "$GITHUB_WORKSPACE" --strict
+
+      - name: Install the plugin from this checkout into a scratch config
+        run: |
+          export CLAUDE_CONFIG_DIR="$RUNNER_TEMP/claude-scratch"
+          mkdir -p "$CLAUDE_CONFIG_DIR"
+          claude plugin marketplace add "$GITHUB_WORKSPACE"
+          claude plugin install slushpile@slushpile
+          claude plugin list --json | tee "$RUNNER_TEMP/plugin-list.json"
+          python3 - "$RUNNER_TEMP/plugin-list.json" <<'PY'
+          import json
+          import sys
+
+          wanted = "slushpile@slushpile"
+          plugins = json.load(open(sys.argv[1], encoding="utf-8"))
+          loaded = [p for p in plugins if p.get("id") == wanted and p.get("enabled")]
+          if not loaded:
+              print(f"::error::{wanted} did not install and enable")
+              print(f"installed: {[p.get('id') for p in plugins]}")
+              sys.exit(1)
+          print(f"{wanted} loaded and enabled at version {loaded[0].get('version')}")
+          PY

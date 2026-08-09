@@ -1,0 +1,31 @@
+# Local harness state, never shipped.
+.claude/settings.local.json
+
+# A workspace scaffolded inside a checkout of this repo. The plugin is the
+# product; your applications are not. Keep them in their own repository.
+#
+# Every pattern is anchored with a leading slash so it matches only the repo
+# root. Unanchored, `profile.md` also matches `templates/profile.md`, which
+# silently drops five shipped templates from the first commit.
+/workspace/
+/profile.md
+/preferences.yaml
+/stories.md
+/voice-profile.md
+/voice-samples/
+/applications/
+/searches/
+/job_search.md
+/companies.md
+
+__pycache__/
+*.pyc
+.venv/
+
+# LaTeX build artifacts, in case you compile a template in place.
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.xdv

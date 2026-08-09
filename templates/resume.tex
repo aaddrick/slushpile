@@ -1,0 +1,328 @@
+% =============================================================================
+%  slushpile resume template
+%
+%  Build:  latexmk -xelatex resume.tex && latexmk -c
+%  Needs:  XeLaTeX (for fontspec). Fonts degrade gracefully -- see FONTS below.
+%
+%    Fedora  sudo dnf install -y texlive-xetex texlive-fontspec texlive-microtype \
+%                                latexmk dejavu-fonts-all
+%    Debian  sudo apt install texlive-xetex texlive-fonts-extra fonts-dejavu latexmk
+%    macOS   brew install --cask mactex-no-gui
+%
+%  Why LaTeX at all: an ATS reads the extracted text layer, and a text-based PDF
+%  from XeLaTeX extracts cleanly and deterministically. Word and Google Docs
+%  exports vary by exporter version. If you would rather not use LaTeX, write the
+%  resume in Markdown -- every skill in this pipeline works on extracted text and
+%  none of them require .tex. Only this template does.
+%
+%  Check the extraction before you send anything:
+%
+%      pdftotext resume.pdf - | less
+%
+%  That text is what an ATS parses and what every review agent in this pipeline
+%  is handed. If it reads badly, fix the document rather than the review.
+%
+%  ---------------------------------------------------------------------------
+%  ATS RULES BAKED INTO THIS LAYOUT. Do not undo them.
+%  ---------------------------------------------------------------------------
+%   - Single column. Multi-column layouts get read in the wrong order.
+%   - No tables for content. No text boxes. No icons carrying meaning.
+%   - Contact details in the body, never in \header or \footer. Roughly a
+%     quarter of ATS drop header and footer content entirely.
+%   - Standard section names. "Work Experience", not "Where I've Been".
+%   - Month and year on every role. Year-only dates make tenure ambiguous, and
+%     an ambiguous tenure gets resolved against you.
+%   - Every link is also readable as text where it matters. A recruiter reading
+%     a printout cannot click \href{}{}, so the visible text is the URL itself.
+%
+%  ---------------------------------------------------------------------------
+%  FONTS
+%  ---------------------------------------------------------------------------
+%  The house style is Public Sans (body) with IBM Plex Mono (eyebrows, dates).
+%  Both are OFL-licensed and both are vendored with this plugin, so installing
+%  them is one command and needs no network:
+%
+%      python3 scripts/install_fonts.py
+%
+%  Confirm with:
+%
+%      fc-list | grep -iE 'public sans|plex mono'
+%
+%  Neither ships with TeX Live, and a missing font is a hard XeLaTeX error
+%  rather than a warning: the document does not look wrong, it does not build.
+%  So the preamble names each family through \IfFontExistsTF and falls back to
+%  DejaVu. Skipping the install is a supported outcome. The documents build and
+%  they are set in something else.
+%
+%  The families are named here rather than pointed at by path on purpose. This
+%  file gets copied into a per-role folder in your workspace, at a depth the
+%  plugin does not control, so a relative Path= would resolve to nothing and an
+%  absolute one would name a checkout that the next plugin update replaces.
+%
+%  ---------------------------------------------------------------------------
+%  HOUSE STYLE
+%  ---------------------------------------------------------------------------
+%  No em dashes anywhere in the body: comma, colon, semicolon, or parentheses
+%  instead. En dashes for ranges only. The reason is not typographic taste. A
+%  document dense with em dashes reads as model output to a fatigued screener,
+%  and they bin it before they could tell you why.
+%
+%  Placeholders are UPPERCASE so the onboard skill's placeholder check catches
+%  anything you forgot. Leave them uppercase until you replace them.
+% =============================================================================
+
+\documentclass[10pt,letterpaper]{article}
+
+\usepackage[top=0.4in,bottom=0.35in,left=0.55in,right=0.55in]{geometry}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage{microtype}
+\usepackage{hyperref}
+
+% ---- palette ----------------------------------------------------------------
+% Graphite for structure, one copper accent for emphasis. One accent, used
+% sparingly, reads as designed. Three accents read as a template someone found.
+\definecolor{base900}{HTML}{1A1B1E}   % section titles, role titles, the name
+\definecolor{ink}{HTML}{181B20}       % body
+\definecolor{muted}{HTML}{43505D}     % employer line, contact line
+\definecolor{faint}{HTML}{6B7480}     % eyebrows, dates
+\definecolor{accent}{HTML}{B05B33}    % rules and bullets
+\definecolor{accentink}{HTML}{7C3E20} % links, darkened so they stay legible
+
+\hypersetup{
+    colorlinks=true, urlcolor=accentink, linkcolor=accentink,
+    pdftitle={NAME -- ROLE}, pdfauthor={NAME}
+}
+
+% ---- fonts, with a fallback so this builds on a bare TeX Live ---------------
+\IfFontExistsTF{Public Sans}{%
+    \setmainfont{Public Sans}[
+      UprightFont={* Regular}, BoldFont={* Bold},
+      ItalicFont={* Italic}, BoldItalicFont={* Bold Italic}]
+    \newfontfamily\heavy{Public Sans}[UprightFont={* ExtraBold}]
+}{%
+    \setmainfont{DejaVu Sans}
+    \newfontfamily\heavy{DejaVu Sans}[UprightFont={* Bold}]
+}
+
+\IfFontExistsTF{IBM Plex Mono}{%
+    \setmonofont{IBM Plex Mono}[Scale=0.84, UprightFont={* Regular}, BoldFont={* SemiBold}]
+}{%
+    \setmonofont{DejaVu Sans Mono}[Scale=0.78]
+}
+
+\color{ink}
+\linespread{0.98}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\emergencystretch=3em
+\hyphenpenalty=400
+
+% ---- eyebrow: letterspaced uppercase mono, for tags and credential lines ----
+\newcommand{\eyebrow}[1]{{\ttfamily\scriptsize\color{faint}\addfontfeatures{LetterSpace=4.0}\MakeUppercase{#1}}}
+\newcommand{\dateline}[1]{{\ttfamily\footnotesize\color{faint}#1}}
+
+% ---- section: heavy graphite title over a copper rule ----------------------
+\titleformat{\section}
+    {\heavy\large\color{base900}}{}{0em}{}[{\color{accent}\titlerule[1.4pt]}]
+\titlespacing*{\section}{0pt}{7pt}{2pt}
+
+% ---- \resumesubheading{Employer}{Location}{Title}{Dates} -------------------
+\newcommand{\resumesubheading}[4]{%
+    \noindent{\bfseries\color{base900}#1} \hfill \dateline{#2} \\
+    {\itshape\color{muted}#3} \hfill \dateline{#4}}
+
+% ---- \work{Headline}{EYEBROW TAG}{Body} ------------------------------------
+% For public or portfolio work. The headline is a claim, not a project name:
+% "A pipeline that refuses to publish a number it cannot defend" gets read.
+% "kernel-cve-watch" gets skipped by anyone who does not already know it.
+%
+% NOTE: \sep is used inside \eyebrow, which applies \MakeUppercase. A \color{}
+% argument would be uppercased into an undefined color name, so this stays plain.
+\newcommand{\sep}{\,\textbullet\,}
+\newcommand{\work}[3]{%
+    \noindent{\bfseries\color{base900}#1} \hfill \eyebrow{#2}\\[1pt]
+    \noindent #3\par\vspace{3pt}}
+
+\setlist[itemize]{leftmargin=1.2em, label={\small\color{accent}\textbullet}}
+
+\pagestyle{empty}
+
+\begin{document}
+
+% ============================== HEADER ==============================
+% Contact details live here, in the body. Never in a \header. See the top note.
+%
+% Line 2 is a positioning line, not a job title. It states what you do and the
+% condition you do it under, and it is rewritten per application. "Senior
+% Engineer" tells a screener nothing they cannot read from your last role.
+%
+% The eyebrow line carries the hard credentials a screener would otherwise have
+% to hunt for: work authorization, active certifications, years in discipline,
+% licences. Delete what does not apply rather than softening it. Every one of
+% these comes out of preferences.yaml and profile.md, never invented here.
+
+{\heavy\fontsize{21}{23}\selectfont\color{base900}NAME}\\[2pt]
+{\bfseries\color{accentink}POSITIONING LINE: What You Do, And The Condition You Do It Under}\\[3pt]
+{\ttfamily\footnotesize\color{muted}CITY, STATE \ \textbullet\ PHONE \ \textbullet\ EMAIL \ \textbullet\ \href{https://github.com/USER}{github.com/USER} \ \textbullet\ \href{https://linkedin.com/in/USER}{linkedin.com/in/USER}}\\[4pt]
+\eyebrow{WORK AUTHORIZATION \textbullet\ CERTIFICATIONS \textbullet\ YEARS IN DISCIPLINE}
+
+\vspace{4pt}
+{\color{accent}\hrule height 1.4pt}
+\vspace{5pt}
+
+% ============================== SUMMARY ==============================
+% Two short paragraphs, both rewritten per application.
+%
+% Do not paste phrases from the job description here. A screener who reads their
+% own posting back at them stops reading, and the ATS gains nothing the Skills
+% section is not already giving it.
+%
+% Paragraph one: lead with the strongest match to the core function. Name the
+% years in discipline directly rather than defending their absence. End on what
+% makes you unusual rather than what makes you adequate.
+
+\noindent SUMMARY. Open on the thing you own rather than the thing you are
+familiar with. Put one checkable number in the first three lines: a scale, a
+volume, a population that acts on your output. Close on the combination the rest
+of the queue does not have.
+
+\vspace{4pt}
+
+% Paragraph two is optional and it is the strongest move in this template when
+% you are making a stretch application. State the boundary of what you have done,
+% in your own words, before a screener infers a worse version of it.
+%
+% Naming a gap yourself converts it from a discovered misrepresentation into a
+% disclosed limit, and it buys the rest of the document credibility it cannot
+% otherwise earn from a stranger. Do this only where the gap is load-bearing for
+% the role. Volunteering an irrelevant weakness is not honesty, it is noise.
+%
+% Delete this paragraph outright when the role has no such gap.
+
+\noindent Underneath that is YEARS doing ADJACENT WORK, including THE ONE
+ACHIEVEMENT THAT TRANSFERS. What I have not done: THE NAMED BOUNDARY, stated
+plainly and without hedging. THE HONEST VERSION OF WHAT I DO HAVE, and I would
+be learning YOUR SPECIFIC TOOL.
+
+% ============================== PUBLIC WORK ==============================
+% Move this section below Work Experience when the role weights tenure over
+% public technical credibility. Section order is a per-application decision, and
+% whichever section proves your thesis goes first.
+%
+% Two rules for this section specifically:
+%
+%   1. Everything here must be checkable in thirty seconds by a stranger who
+%      will not call a reference. That is the entire reason it outranks a
+%      Projects section: verifiable evidence is disproportionately valuable in a
+%      stretch application.
+%   2. Deep-link where the on-axis artifact is not the repository root. Landing
+%      a reader on a README that buries the relevant part costs you the click.
+
+\section{Public Work}
+
+\work{A headline that states what the work proves, not what the project is called}{DOMAIN \sep LICENSE}{%
+\href{https://github.com/USER/PROJECT}{github.com/USER/PROJECT}. What it does, who
+uses it, and the number that makes it real. Then the mechanism: the specific
+decision you made and the failure it prevents. \textbf{Bold the load-bearing
+clause} so a skimming reader gets the argument without reading the block, and
+use it at most twice per entry. Bold applied to five clauses is the same as bold
+applied to none.}
+
+\work{Second entry}{DOMAIN \sep TAG}{%
+\href{https://github.com/USER/PROJECT}{github.com/USER/PROJECT}. Ordering in this
+section is an argument. If one project caused another, put them adjacent and in
+that order, because the causality is the point a list of projects cannot make.}
+
+% ============================== EXPERIENCE ==============================
+% Standard heading. Reverse chronological. Month and year, always.
+
+\section{Work Experience}
+
+\resumesubheading{COMPANY}{City, State}{JOB TITLE}{Month YYYY -- Month YYYY}
+
+\vspace{2pt}
+
+% An orienting line under the employer, in italic. A reader who has never heard
+% of this company cannot size anything you did there without it: what the company
+% does, how big, under what constraint. One sentence. Delete for employers the
+% reader certainly knows.
+\noindent\textit{\small What this company does, at what scale, under what
+constraint that shaped your work.}
+
+\vspace{2pt}
+
+\begin{itemize}[nosep, topsep=2pt, itemsep=3pt]
+    \item \textbf{Every bullet passes the ``So What?'' test: baseline, then
+          action, then significance.} ``Cut deployment time 60\%'' is a claim.
+          ``Cut deployment time from 45 minutes to 18, unblocking daily releases
+          for six teams'' is evidence. The baseline is the part people drop and
+          it is the part that makes the number mean anything.
+    \item \textbf{Lead with what you decided}, not what you participated in.
+          The gap between a senior resume and a mid-level one is almost entirely
+          here, and most resumes never capture it.
+    \item Put scope in the sentence. ``Ran a program'' and ``Ran a program across
+          six teams in three orgs against a \$4M budget'' are read as different
+          levels by the same reader.
+    \item Vary the length deliberately. Bullets all within five words of each
+          other is one of the loudest AI tells a fatigued reader picks up, and
+          they pick it up before consciously noticing why. This bullet is short.
+\end{itemize}
+
+\vspace{2pt}
+
+\resumesubheading{COMPANY}{City, State}{JOB TITLE}{Month YYYY -- Month YYYY}
+
+\begin{itemize}[nosep, topsep=2pt, itemsep=3pt]
+    \item
+\end{itemize}
+
+% An early role can collapse to a single line once it stops carrying weight.
+% Deleting it entirely creates a gap in the dates, and an unexplained gap gets
+% resolved against you by a reader who has other resumes to get through.
+\vspace{2pt}
+\resumesubheading{COMPANY}{City, State}{EARLY JOB TITLE}{Month YYYY -- Month YYYY}\\[3pt]
+\noindent{\small One line naming the ground-level skills, so the date range is
+accounted for without spending space defending it.}
+
+% If you have independent, contract, or side work that is real, it belongs here
+% with dates, not in a Projects section. An undated Projects entry does not count
+% toward years-of-experience in an ATS, and for anyone making a career transition
+% that is usually the number that decides the screen.
+
+% ============================== SKILLS ==============================
+% Keywords carry more weight here than anywhere else in the document. Three
+% rules:
+%
+%   1. Everything here must be defensible in an interview. The requirements
+%      analyst in this pipeline checks each entry against your Work Experience
+%      and flags anything unsupported, so an inflated claim gets caught in the
+%      review rather than in the interview. Cheaper to be honest now.
+%   2. Group them. A flat 40-item comma list reads as keyword stuffing to a
+%      human and gains nothing with the machine.
+%   3. Put the group the role is actually hiring for first, and expand it. The
+%      other groups exist to establish range, and range is worth less than depth
+%      on the one axis being screened.
+
+\section{Skills}
+
+{\footnotesize
+\noindent\textbf{Category the role is hiring for:} the specific things, named
+the way the posting names them, each one traceable to a bullet above\par\vspace{1pt}
+\noindent\textbf{Category:} item, item, item\par\vspace{1pt}
+\noindent\textbf{Category:} item, item, item\par}
+
+% ============================== EDUCATION ==============================
+% A combined "Education \& Certifications" heading parses unreliably in some ATS.
+% Keep them separate when both are substantial. Combine them, as below, only when
+% neither carries much weight for this role and the space is better spent above.
+
+\section{Certifications \& Education}
+
+{\footnotesize\noindent \textbf{CERTIFICATION} (status, number if it is
+verifiable), ISSUING BODY, YYYY. DEGREE, INSTITUTION, YYYY.\par}
+
+\end{document}

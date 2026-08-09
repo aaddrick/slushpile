@@ -1,0 +1,225 @@
+# slushpile preferences
+#
+# This file is the single source of truth for every personal constraint the
+# pipeline applies. Nothing in the skills or the agents hardcodes a fact about
+# you. They read this.
+#
+# Written by `/slushpile:onboard`. Edit it by hand whenever your situation
+# changes — a lifted constraint you forget to remove here will keep silently
+# killing roles you would have taken.
+#
+# One block is maintained by a skill rather than by you: `calibration_priors`,
+# which `/slushpile:status` rewrites from your resolved applications. It shows
+# you the diff before it writes. Everything else here is yours.
+#
+# Every field is optional. A field you delete is a constraint the pipeline
+# stops applying. A field you leave at its placeholder value is treated as
+# unset, not as a real constraint.
+
+schema_version: 1
+
+identity:
+  name: "Your Name"
+  location: "City, State/Province, Country"
+  # Where you actually live right now. Used for relocation and cost-of-living math.
+
+  links:
+    # Anything a recruiter would open. Delete the ones you do not have.
+    github: ""
+    linkedin: ""
+    website: ""
+    portfolio: ""
+
+work_authorization:
+  # Countries where you can work without sponsorship.
+  authorized_in: ["US"]
+  needs_sponsorship: false
+  # Free text. E.g. "TN eligible", "EU passport", "H-1B transfer required".
+  notes: ""
+
+clearance:
+  # Security clearances. Most postings that list one will still interview an
+  # otherwise strong candidate who is eligible, so the pipeline treats these as
+  # risk factors, not blockers, unless you set hard_blocker below.
+  held: []            # e.g. ["US Secret (lapsed)", "NATO Secret"]
+  eligible_for: []    # e.g. ["US Secret"]
+  hard_blocker: false # true = a clearance requirement kills the role outright
+
+education:
+  highest_degree: ""  # "" if none. E.g. "BS Computer Science", "Associate", ""
+  # Most postings list a degree requirement that the hiring manager does not
+  # enforce. Leave this false unless you have evidence otherwise for your field.
+  degree_requirement_is_hard_blocker: false
+  certifications: []  # e.g. ["PMP", "AWS Solutions Architect"]
+
+relocation:
+  willing: true
+  # Regions you would move to. "anywhere" is valid.
+  target_regions: ["anywhere"]
+  # Places you would not move to, for any compensation.
+  excluded_regions: []
+  # A place you would take a pay cut to reach. Relaxes the compensation gate.
+  homecoming_corridor: []   # e.g. ["Raleigh, NC", "Durham, NC"]
+  remote_preference: "no_preference"  # remote_only | hybrid_ok | onsite_ok | no_preference
+
+compensation:
+  # How the pipeline decides a role clears your bar. Pick one method.
+  #
+  #   nominal   — compare total compensation against a flat floor. Simple.
+  #               Wrong across metros: $180k in Austin is not $180k in SF.
+  #
+  #   net_qol   — compare after-tax, after-housing money left over against your
+  #               current situation. Survives cost-of-living differences.
+  #               Needs more inputs. This is the recommended method if you are
+  #               considering roles in more than one metro.
+  #
+  #   none      — do not gate on compensation at all.
+  method: "nominal"
+
+  currency: "USD"
+
+  # --- used when method: nominal ---
+  nominal:
+    floor: 0            # hard kill below this total compensation
+    target: 0           # what you are actually aiming for
+    include_equity: true
+
+  # --- used when method: net_qol ---
+  net_qol:
+    # Your current after-tax, after-housing annual surplus, in `currency`.
+    # Take gross, subtract tax, subtract rent or mortgage plus property tax,
+    # and that is the number. This is the baseline every role is measured against.
+    current_baseline: 0
+
+    # A role must beat the baseline by at least this much or it is killed.
+    minimum_delta: 20000
+    # Below this delta, the role is flagged as a tight band rather than killed.
+    comfortable_delta: 40000
+    # At or above this delta, the role is flagged as strong compensation.
+    strong_delta: 60000
+
+    # Annual amount subtracted from a US offer to cover family health insurance
+    # that your current employer or country provides. Set to 0 if not applicable.
+    healthcare_haircut: 0
+
+    # Housing cost is estimated for where you would actually live, not the
+    # office address. Set this if you would commute from a cheaper area.
+    housing_notes: ""
+
+    # In a homecoming corridor, the minimum delta relaxes to this value.
+    homecoming_minimum_delta: 0
+
+  # Free text the compensation reasoning should respect. E.g. "will not take
+  # equity-heavy offers", "needs a signing bonus to cover a clawback".
+  # Note: these are negotiated after an offer exists. They never kill an
+  # application. See the contrarian's scope limits.
+  notes: ""
+
+targeting:
+  # What you are actually looking for. Drives job-board-search.
+  functions: []       # e.g. ["Technical Program Management", "Manufacturing Engineering"]
+  levels: []          # e.g. ["Senior", "Staff", "L6"]
+  industries: []      # e.g. ["AI infrastructure", "defense", "semiconductors"]
+  # Companies you want to work at, in rough priority order.
+  target_companies: []
+  # Companies you will not apply to, and why.
+  excluded_companies: []   # e.g. [{name: "Acme", reason: "worked there, left badly"}]
+
+  # Where you differentiate. Feeds the pool analyst and the cover letter thesis.
+  # Be honest. A differentiator you list here that is median in the pool will be
+  # caught and called out, which is the system working.
+  claimed_differentiators: []
+
+constraints:
+  # Anything that genuinely rules a role out. The pipeline auto-kills on these.
+  max_travel_percent: 100
+  # Roles requiring a start date before this are killed.
+  earliest_start: ""    # YYYY-MM-DD, "" for no constraint
+  # Free-text hard requirements. Each one is checked against the JD.
+  hard_requirements: []   # e.g. ["no on-call rotation", "must allow a 4-day week"]
+  # Free-text soft preferences. Noted, never killed on.
+  soft_preferences: []
+
+voice:
+  # The agent that writes your cover letters.
+  #
+  # slushpile ships `aaddrick-voice` as a working example so the pipeline runs
+  # out of the box. It is the plugin author's voice, not yours. Letters written
+  # with it will sound like a specific stranger — fine for testing, wrong for
+  # actually applying.
+  #
+  # Generate your own from your own writing:
+  #   https://github.com/aaddrick/written-voice-replication
+  #
+  # That pipeline analyzes a corpus of your writing and outputs a voice agent.
+  # Drop it in your agents directory and put its name here.
+  agent: "aaddrick-voice"
+
+  # Set true once `agent` above names an agent generated from YOUR writing.
+  # While false, every skill that drafts prose warns you before it runs.
+  is_mine: false
+
+calibration_priors:
+  # Empirical anchors, written by `/slushpile:status` when the pipeline's
+  # predictions diverge from what actually happened. Hand-editable.
+  #
+  # This block exists because the agents cannot be edited. Their definitions
+  # ship with the plugin and are overwritten on every update, so a prior written
+  # into an agent file survives until the next `git pull` and then silently
+  # reverts to the shipped default — leaving a pipeline that was tuned, and is
+  # no longer, with nothing to show that it changed back.
+  #
+  # These are passed to the pool analyst and the contrarian at dispatch. An
+  # empirical rate from the user's own history outranks any prior shipped in an
+  # agent definition, because it is the only data in the system that is about
+  # this person rather than about candidates in general.
+  #
+  # Leave empty until at least five applications have resolved. A rate computed
+  # from two outcomes is noise presented as calibration, and it will move the
+  # scoring further from reality than no prior at all.
+
+  # When set, the pool analyst is told to treat this as the observed rate rather
+  # than estimating from company-type priors. Format: a decimal, e.g. 0.04.
+  #
+  # `recruiter_inbound` is in application.yaml's channel list and deliberately
+  # not here. It is a channel that happens to you rather than one you choose, so
+  # there is no count of attempts to divide by and no rate your own history can
+  # calibrate. Record those outcomes in the role folder and leave this block to
+  # the four channels you can decide to use.
+  observed_conversion:
+    cold_submission: null
+    warm_referral: null
+    cold_outreach: null
+    public_visibility_inbound: null
+
+  # Sample size behind the rates above. Reported alongside them so a reader can
+  # see how much weight they deserve.
+  sample_size: 0
+
+  # Where the pipeline has been systematically wrong, and in which direction.
+  # Free text, one entry per observed pattern. These are read verbatim by the
+  # pool analyst and the contrarian.
+  #
+  # Useful: "INTERVIEW verdicts on frontier-lab cold submissions converted at
+  # 0 of 7. Grade this pool harder."
+  # Useless: "the pipeline is too optimistic." No agent can act on that.
+  drift_notes: []
+
+  # Conversion at specific companies, where it differs sharply from the tier
+  # prior. Overrides the company-type default for that company only.
+  by_company: []   # e.g. [{name: "Acme", applications: 4, interviews: 0, note: "..."}]
+
+application_policy:
+  # How aggressive to be. Affects the tier at which job-board-search recommends
+  # applying and how the contrarian weighs a low-probability shot.
+  #
+  #   selective   — only apply where the pipeline sees a real conversion path
+  #   balanced    — apply to strong fits, plus stretch roles with a warm channel
+  #   volume      — apply broadly, treat most submissions as record-creation
+  posture: "balanced"
+
+  # Days to wait before applying to the same company again after a rejection.
+  reapplication_cooldown_days: 90
+
+  # Whether to write a cover letter when the posting says it is optional.
+  cover_letter_when_optional: true

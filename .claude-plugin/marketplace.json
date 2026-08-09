@@ -1,0 +1,27 @@
+{
+  "$schema": "https://www.schemastore.org/claude-code-marketplace.json",
+  "name": "slushpile",
+  "description": "An adversarial job search that gets better as it goes: pool-anchored fit scoring, a resume and cover letter built against the job description, seven agents that try to reject you before a recruiter does, and a profile that keeps what they find.",
+  "owner": {
+    "name": "aaddrick",
+    "url": "https://github.com/aaddrick"
+  },
+  "plugins": [
+    {
+      "name": "slushpile",
+      "version": "1.0.0",
+      "description": "Nine skills and eight agents that run a job application and feed what the review finds back into your profile. The skills: onboard, search and score roles, interview for undocumented experience, build the resume and letter, adversarially review them, de-slop the prose, restyle the templates, report the queue and its calibration, and answer what to run next.",
+      "source": "./",
+      "category": "productivity",
+      "keywords": [
+        "job-search",
+        "resume",
+        "cover-letter",
+        "ats",
+        "hiring",
+        "multi-agent",
+        "career"
+      ]
+    }
+  ]
+}

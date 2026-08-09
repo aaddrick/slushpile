@@ -1,0 +1,40 @@
+{
+  "name": "slushpile",
+  "version": "1.0.0",
+  "description": "An adversarial job search for Codex that gets better as it goes. Score fit against the realistic applicant pool, build the resume and cover letter, review them the way a fatigued recruiter would, then keep what the review finds in your profile.",
+  "author": {
+    "name": "aaddrick",
+    "url": "https://github.com/aaddrick"
+  },
+  "homepage": "https://github.com/aaddrick/slushpile",
+  "repository": "https://github.com/aaddrick/slushpile",
+  "license": "MIT",
+  "keywords": [
+    "job-search",
+    "resume",
+    "cover-letter",
+    "ats",
+    "hiring",
+    "career",
+    "codex"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Slushpile",
+    "shortDescription": "Get rejected by seven agents before a recruiter does it",
+    "longDescription": "Onboard once to build a profile and a preferences file. Then search a careers board, score each role against the realistic applicant pool instead of against the keywords, build a resume and cover letter from your own evidence, and run a seven-agent adversarial review that returns a verdict per application channel, not one feel-good yes.",
+    "developerName": "aaddrick",
+    "category": "Productivity",
+    "capabilities": [
+      "Instructions"
+    ],
+    "websiteURL": "https://github.com/aaddrick/slushpile",
+    "defaultPrompt": [
+      "Set up slushpile in this directory.",
+      "Search the Anthropic careers board for roles that fit my profile.",
+      "Build the application for applications/Acme/Engineering/Staff-SRE.",
+      "Run an adversarial review on this resume and cover letter."
+    ],
+    "brandColor": "#B4501C"
+  }
+}
