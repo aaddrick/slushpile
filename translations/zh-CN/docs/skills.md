@@ -7,7 +7,8 @@
   <strong>简体中文</strong> ·
   <a href="../../es/docs/skills.md">Español</a> ·
   <a href="../../pt-BR/docs/skills.md">Português (BR)</a> ·
-  <a href="../../vi/docs/skills.md">Tiếng Việt</a>
+  <a href="../../vi/docs/skills.md">Tiếng Việt</a> ·
+  <a href="../../en-x-aibro/docs/skills.md">AI Bro</a>
 </p>
 
 <!-- END GENERATED language-nav -->

@@ -24,7 +24,8 @@
   <a href="translations/zh-CN/README.md">简体中文</a> ·
   <a href="translations/es/README.md">Español</a> ·
   <a href="translations/pt-BR/README.md">Português (BR)</a> ·
-  <a href="translations/vi/README.md">Tiếng Việt</a>
+  <a href="translations/vi/README.md">Tiếng Việt</a> ·
+  <a href="translations/en-x-aibro/README.md">AI Bro</a>
 </p>
 
 <!-- END GENERATED language-nav -->

@@ -7,7 +7,8 @@
   <a href="../translations/zh-CN/docs/index.md">简体中文</a> ·
   <a href="../translations/es/docs/index.md">Español</a> ·
   <a href="../translations/pt-BR/docs/index.md">Português (BR)</a> ·
-  <a href="../translations/vi/docs/index.md">Tiếng Việt</a>
+  <a href="../translations/vi/docs/index.md">Tiếng Việt</a> ·
+  <a href="../translations/en-x-aibro/docs/index.md">AI Bro</a>
 </p>
 
 <!-- END GENERATED language-nav -->

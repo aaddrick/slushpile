@@ -7,7 +7,8 @@
   <strong>简体中文</strong> ·
   <a href="../../../es/docs/architecture/pipeline.md">Español</a> ·
   <a href="../../../pt-BR/docs/architecture/pipeline.md">Português (BR)</a> ·
-  <a href="../../../vi/docs/architecture/pipeline.md">Tiếng Việt</a>
+  <a href="../../../vi/docs/architecture/pipeline.md">Tiếng Việt</a> ·
+  <a href="../../../en-x-aibro/docs/architecture/pipeline.md">AI Bro</a>
 </p>
 
 <!-- END GENERATED language-nav -->

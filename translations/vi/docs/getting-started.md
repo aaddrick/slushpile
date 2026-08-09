@@ -7,7 +7,8 @@
   <a href="../../zh-CN/docs/getting-started.md">简体中文</a> ·
   <a href="../../es/docs/getting-started.md">Español</a> ·
   <a href="../../pt-BR/docs/getting-started.md">Português (BR)</a> ·
-  <strong>Tiếng Việt</strong>
+  <strong>Tiếng Việt</strong> ·
+  <a href="../../en-x-aibro/docs/getting-started.md">AI Bro</a>
 </p>
 
 <!-- END GENERATED language-nav -->

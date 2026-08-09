@@ -372,26 +372,39 @@ COUNT_EXEMPT = {
     ("translations/pt-BR/docs/workspace.md", "3 agentes"),
     ("translations/vi/docs/architecture/pipeline.md", "3 tác nhân"),
     ("translations/vi/docs/workspace.md", "3 tác nhân"),
+    ("translations/en-x-aibro/docs/architecture/pipeline.md", "3 agents"),
+    ("translations/en-x-aibro/docs/workspace.md", "3 agents"),
 }
 
 # --- translations ------------------------------------------------------------
 
-# The reader-facing tree ships in English and four translations, mirrored under
+# The reader-facing tree ships in English and five mirrors, mirrored under
 # `translations/<tag>/` at the same paths the English tree uses. The mirror
 # preserves path shape on purpose: a link between two translated pages is then
 # byte-identical to the English link, so a translator never recomputes a path and
 # the existing relative-link gate in tests/test_docs.py covers the mirror without
 # knowing it exists.
 #
-# The set is four rather than five, and it is chosen for market fit rather than
-# speaker count. This pipeline models anglophone hiring: `templates/resume.tex`
-# prints a work-authorization block, `skills/application-builder/SKILL.md`
-# enforces one page, and `agents/slushpile-ats-simulator.md` treats a photo as a
-# parse failure. A manual in someone's language is an implicit promise the tool
-# fits their market, and these four reach readers applying into the market it
-# models. Japanese and Korean were dropped for the opposite reason rather than
-# for lack of readers: those markets use a standardized form this pipeline would
-# score as broken. Adding them needs the `market:` field, not a translator.
+# Four of the five are real languages, and they are chosen for market fit rather
+# than speaker count. This pipeline models anglophone hiring:
+# `templates/resume.tex` prints a work-authorization block,
+# `skills/application-builder/SKILL.md` enforces one page, and
+# `agents/slushpile-ats-simulator.md` treats a photo as a parse failure. A manual
+# in someone's language is an implicit promise the tool fits their market, and
+# these four reach readers applying into the market it models. Japanese and
+# Korean were dropped for the opposite reason rather than for lack of readers:
+# those markets use a standardized form this pipeline would score as broken.
+# Adding them needs the `market:` field, not a translator.
+#
+# The fifth is a joke, and it is a joke that has to be true. `en-x-aibro` is the
+# same manual in the register this category is sold in: substrate, primitives,
+# orchestration layer, everything else is a wrapper. It goes through every gate
+# the real languages go through, which is the whole point of shipping it here
+# rather than in a gist. Its commands have to work, its counts have to be right,
+# and its pages have to say what the English pages say, so the parody cannot
+# quietly become a page that lies to somebody who read it for the instructions.
+# The tag is BCP-47's private-use form rather than an invented one, because it
+# is English and pretending otherwise would break the one thing the tag is for.
 
 
 class Language(NamedTuple):
@@ -404,6 +417,7 @@ LANGUAGES = (
     Language("es", "Español"),
     Language("pt-BR", "Português (BR)"),
     Language("vi", "Tiếng Việt"),
+    Language("en-x-aibro", "AI Bro"),
 )
 
 ENGLISH_LABEL = "English"
@@ -545,6 +559,16 @@ MARKET_NOTE = {
         "apontar como defeito o que lá é normal. Acompanhe no "
         "[issue #2](https://github.com/aaddrick/slushpile/issues/2)."
     ),
+    "en-x-aibro": (
+        "> **Market fit**: this pipeline is built against anglophone hiring "
+        "conventions, primarily US: one page, no photo, no date of birth, "
+        "reverse chronological, one work-authorization line. If your target "
+        "market runs a standardized CV form, the formatting layer is misaligned "
+        "for your use case and the review will score local convention as a "
+        "defect. Expansion is a roadmap conversation, not a translation "
+        "conversation, and it is tracked in "
+        "[issue #2](https://github.com/aaddrick/slushpile/issues/2)."
+    ),
     "vi": (
         "> **Phạm vi**: quy trình này mô phỏng quy ước tuyển dụng của các thị "
         "trường nói tiếng Anh, chủ yếu là Mỹ: một trang, không ảnh, không ngày "
@@ -557,7 +581,7 @@ MARKET_NOTE = {
 }
 
 # The counted nouns each language uses, and which derived total each one allows.
-# Mirrors COUNTED_NOUNS above, in four more languages.
+# Mirrors COUNTED_NOUNS above, once per mirror language.
 #
 # Translated prose writes a derived count as a digit followed by one of these
 # nouns. That is a real editorial constraint rather than a preference: the sweep
@@ -590,6 +614,19 @@ TRANSLATED_COUNTED_NOUNS = {
         "definições de agente": ("shipped",),
         "revisores": ("dispatch",),
         "revisores em paralelo": ("blind",),
+    },
+    # English, so the sweep's own patterns already check any number this mirror
+    # spells out. The table is still required and still load-bearing: the second
+    # half of the gate counts digit-plus-noun phrases per page, and a register
+    # that writes "seven agents" would satisfy the sweep while looking, to that
+    # counter, like a page that dropped the sentence. It writes digits anyway.
+    "en-x-aibro": {
+        "skills": ("skills",),
+        "agents": ("dispatch", "shipped"),
+        "agent definitions": ("shipped",),
+        "reviewers": ("dispatch",),
+        "in parallel": ("blind",),
+        "blind": ("blind",),
     },
     "vi": {
         "kỹ năng": ("skills",),
@@ -1191,9 +1228,9 @@ def page_path(relative: str, lang: str | None) -> str:
 def language_nav(relative: str, lang: str | None) -> str:
     """The language switcher for one page, rendered for one language.
 
-    Generated rather than hand-written because there are seventy-five of these —
-    fifteen pages across the English tree and four mirrors — and each carries
-    four links whose relative depth differs by directory. A wrong path here is
+    Generated rather than hand-written because there are ninety of these —
+    fifteen pages across the English tree and five mirrors — and each carries
+    five links whose relative depth differs by directory. A wrong path here is
     invisible until a reader clicks it, and a missing nav is invisible entirely.
     """
     here = posixpath.dirname(page_path(relative, lang)) or "."
@@ -1238,7 +1275,7 @@ def region_plan(facts: Facts) -> dict[str, dict[str, str]]:
     """Every file with generated regions -> {region: rendered text}.
 
     Built rather than declared because the translated copies are the same
-    regions at seventy-five addresses. Declaring them would mean a table that
+    regions at ninety addresses. Declaring them would mean a table that
     has to be edited every time a page or a language is added, which is the
     table this one exists to avoid.
     """
@@ -1257,7 +1294,7 @@ def region_plan(facts: Facts) -> dict[str, dict[str, str]]:
             # A translated copy carries the English block verbatim. Skill names
             # and slash commands are literal strings a user types, so there is
             # nothing in these tables to translate, and a per-language rendering
-            # would make every new skill block on four translations before the
+            # would make every new skill block on five translations before the
             # generator could run.
             for region, builder in english.items():
                 entry[region] = builder(facts)

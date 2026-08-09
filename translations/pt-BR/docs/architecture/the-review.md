@@ -7,7 +7,8 @@
   <a href="../../../zh-CN/docs/architecture/the-review.md">简体中文</a> ·
   <a href="../../../es/docs/architecture/the-review.md">Español</a> ·
   <strong>Português (BR)</strong> ·
-  <a href="../../../vi/docs/architecture/the-review.md">Tiếng Việt</a>
+  <a href="../../../vi/docs/architecture/the-review.md">Tiếng Việt</a> ·
+  <a href="../../../en-x-aibro/docs/architecture/the-review.md">AI Bro</a>
 </p>
 
 <!-- END GENERATED language-nav -->

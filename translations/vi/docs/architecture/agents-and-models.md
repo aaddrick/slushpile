@@ -7,7 +7,8 @@
   <a href="../../../zh-CN/docs/architecture/agents-and-models.md">简体中文</a> ·
   <a href="../../../es/docs/architecture/agents-and-models.md">Español</a> ·
   <a href="../../../pt-BR/docs/architecture/agents-and-models.md">Português (BR)</a> ·
-  <strong>Tiếng Việt</strong>
+  <strong>Tiếng Việt</strong> ·
+  <a href="../../../en-x-aibro/docs/architecture/agents-and-models.md">AI Bro</a>
 </p>
 
 <!-- END GENERATED language-nav -->

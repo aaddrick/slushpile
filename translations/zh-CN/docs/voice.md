@@ -7,7 +7,8 @@
   <strong>简体中文</strong> ·
   <a href="../../es/docs/voice.md">Español</a> ·
   <a href="../../pt-BR/docs/voice.md">Português (BR)</a> ·
-  <a href="../../vi/docs/voice.md">Tiếng Việt</a>
+  <a href="../../vi/docs/voice.md">Tiếng Việt</a> ·
+  <a href="../../en-x-aibro/docs/voice.md">AI Bro</a>
 </p>
 
 <!-- END GENERATED language-nav -->
