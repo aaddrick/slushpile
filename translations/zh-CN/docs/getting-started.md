@@ -30,8 +30,8 @@ claude plugin install slushpile@slushpile
 /slushpile:onboard
 ```
 
-**在插件签出目录以外的地方跑它。** 插件是公开代码。工作区是你的从业经历、你的薪酬数字、
-你的各项限制条件。见 [工作区](workspace.md)。
+**在插件签出目录以外的地方跑它。** 插件是公开代码。工作区是你的工作履历、你的薪酬数字、
+你的约束条件。见 [工作区](workspace.md)。
 
 ## 初始化引导会问你什么
 

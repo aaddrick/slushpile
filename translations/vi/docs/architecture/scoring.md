@@ -12,11 +12,11 @@
 
 <!-- END GENERATED language-nav -->
 
-Mọi con số mà pipeline này sinh ra đều là câu trả lời cho một trong hai câu hỏi:
-ứng viên đứng ở đâu trong hàng đợi cho đúng vị trí này, và một hồ sơ đi qua một
-kênh nhất định thực sự đáng giá bao nhiêu. Không có gì ở đây chấm một tài liệu
-với một tin tuyển dụng một cách biệt lập, vì đó là một con số thật cho câu hỏi
-sai.
+Mọi con số mà quy trình này sinh ra đều là câu trả lời cho một trong hai câu
+hỏi: ứng viên đứng ở đâu trong hàng đợi cho đúng vị trí này, và một hồ sơ đi qua
+một kênh nhất định thực sự đáng giá bao nhiêu. Không có gì ở đây chấm một tài
+liệu với một tin tuyển dụng một cách biệt lập, vì đó là một con số thật cho câu
+hỏi sai.
 
 ## Neo theo nhóm ứng viên
 
@@ -36,14 +36,14 @@ này tồn tại để ngăn.
 | p75+ | Hạng 1 | Trên vạch ứng viên mạnh cho đúng vị trí này |
 | p55–p74 | Hạng 2 | Cạnh tranh được, nhưng không có gì khác biệt. Cần một lợi thế về kênh. |
 | p35–p54 | Hạng 3 | Dưới trung vị. Chỉ theo đuổi qua một kênh mạnh. |
-| dưới p35 | Bỏ qua | Nhóm ứng viên vượt trội hơn hẳn. Một lần nộp lạnh là một suất bị phí. |
+| dưới p35 | Bỏ qua | Nhóm ứng viên vượt trội hơn hẳn. Một lần nộp nguội là một suất bị phí. |
 
 Các đầu vào được xếp theo thứ tự. Từ hai điều kiện tối thiểu thiết yếu không đạt
 trở lên sẽ kéo vị trí xuống một đến hai hạng bất kể mọi thứ khác. Rồi tới phép
 so với nhóm ứng viên: tuyên bố mạnh nhất có thực sự xếp cao ở đây không, hay chỉ
 là trung vị? Rồi tới độ lệch so với nhịp vận hành thật của vị trí, rồi tới các
 yếu tố rủi ro, mỗi yếu tố khoảng năm đến mười điểm phân vị, rồi tới tiên nghiệm
-hiệu chuẩn cho công ty đó.
+hiệu chỉnh cho công ty đó.
 
 Đầu ra hữu ích nhất của giai đoạn này là một điểm khác biệt mà ứng viên tự nhận
 lại quay về với nhãn ngang trung vị của nhóm. Đó là thông tin ứng viên không thể
@@ -60,7 +60,7 @@ Nên mọi vị trí Hạng 1 đến 3 đều nhận một ma trận thay vì m�
 
 | Kênh | Điều kiện chặn | Khoảng qua vòng sơ loại, ước chừng |
 | --- | --- | --- |
-| Nộp lạnh | không có | 5–15%, thay đổi theo vị trí trong nhóm |
+| Nộp nguội | không có | 5–15%, thay đổi theo vị trí trong nhóm |
 | Giới thiệu nội bộ | phải có người giới thiệu | 25–50%, tùy nhóm ứng viên |
 | Chủ động liên hệ một nhân viên cụ thể | có một người nhận diện được | 5–15% |
 | Thu hút tự nhiên từ công việc công khai | có sẵn một sản phẩm, đã gieo ra | 20–40% nếu nó trúng |
@@ -80,15 +80,15 @@ con số chung. Xem [memory-and-calibration.md](memory-and-calibration.md).
 
 ## Chất lượng tài liệu không phải là giá trị kỳ vọng
 
-Phần đánh giá báo cáo hai thứ này thành hai con số tách biệt vì chúng thường
+Vòng đánh giá báo cáo hai thứ này thành hai con số tách biệt vì chúng thường
 xuyên không khớp nhau. Tài liệu xuất sắc gửi tới một vị trí không hợp thì vẫn có
 giá trị kỳ vọng thấp; tài liệu vừa đủ gửi qua một lời giới thiệu tới một vị trí
 hợp thì có giá trị kỳ vọng cao.
 
 Gộp chúng lại là bảo bạn bỏ thêm một tiếng nữa để sửa chữ, trong khi khuyến nghị
 trung thực là bỏ tiếng đó đi tìm một người giới thiệu. Điểm tài liệu 8/10 nằm
-cạnh tỷ lệ chuyển đổi khi nộp lạnh 1–3% không phải là một mâu thuẫn, nó chính là
-toàn bộ phát hiện.
+cạnh tỷ lệ chuyển đổi khi nộp nguội 1–3% không phải là một mâu thuẫn, nó chính
+là toàn bộ phát hiện.
 
 ## Tiêu chí loại
 
@@ -110,7 +110,7 @@ bạn đọc lại một tuần sau.
 
 Lương được đánh giá trên **dải lương đã đăng**, theo phương pháp đã ghi trong
 `preferences.yaml`. Các điều khoản ở giai đoạn nhận offer được nói rõ là nằm
-ngoài phạm vi ở đây, vì đúng cái lý do chúng bị gạch bỏ trong phần đánh giá:
+ngoài phạm vi ở đây, vì đúng cái lý do chúng bị gạch bỏ trong vòng đánh giá:
 xem [the-review.md](the-review.md#the-gatekeeper).
 
 ## Khoảng xác suất, không phải chữ phán quyết
@@ -119,7 +119,7 @@ xem [the-review.md](the-review.md#the-gatekeeper).
 bất định của chính nó và có thể đem đối chiếu với chuyện đã thực sự xảy ra; một
 chữ phán quyết chẳng mang theo thứ nào và không đối chiếu được.
 
-Đây cũng là thứ làm cho vòng lặp hiệu chuẩn trở nên khả thi. “MAYBE” không thể
+Đây cũng là thứ làm cho vòng lặp hiệu chỉnh trở nên khả thi. “MAYBE” không thể
 đem hồi quy với kết quả. Một tỷ lệ phần trăm thì có thể, và
 [memory-and-calibration.md](memory-and-calibration.md) là nơi phép hồi quy đó
 diễn ra.

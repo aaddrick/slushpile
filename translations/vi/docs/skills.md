@@ -14,7 +14,7 @@
 
 Slushpile cài đặt vào máy dưới dạng 9 kỹ năng. Claude Code hiện mỗi kỹ năng ra
 thành `/slushpile:<name>`; Codex dùng `$slushpile:<name>`; Gemini CLI và các
-khung chạy khác đọc chính những tệp đó, và bạn gọi tên giai đoạn bằng lời.
+harness khác đọc chính những tệp đó, và bạn gọi tên giai đoạn bằng lời.
 
 Ba trong số đó là xương sống. Ba kỹ năng nữa được điều phối sẵn cho bạn trong lúc
 dựng một bộ hồ sơ, và bạn chỉ chạy tay chúng trên tài liệu mà quy trình này không
@@ -26,7 +26,7 @@ dựng ra. Ba kỹ năng cuối mang tính tư vấn và có thể chạy bất 
 
 Dựng không gian làm việc. Nạp một CV sẵn có hoặc bản xuất dữ liệu LinkedIn, phỏng
 vấn bạn để lấp những chỗ còn trống, rồi ghi ra `profile.md`, `preferences.yaml`
-và `stories.md`. Kiểm tra bộ công cụ dựng tài liệu, dựng khung cho sổ theo dõi,
+và `stories.md`. Kiểm tra bộ công cụ dựng tài liệu, dựng khung cho tệp theo dõi,
 rồi bàn giao.
 
 Chạy một lần cho mỗi không gian làm việc, trước mọi thứ khác. Xem

@@ -89,12 +89,12 @@ thứ khác, và nó rỗng một cách có chủ ý. Mỗi mục trong đó s�
 một cái lỗ trên cổng chặn này là vô hình cho tới khi hồ sơ của người khác nói
 rằng họ sẵn sàng chuyển tới sống ở một thành phố họ chưa từng nhìn thấy.
 
-## Pipeline không bao giờ nộp bất cứ thứ gì
+## Quy trình không bao giờ nộp bất cứ thứ gì
 
 Không kỹ năng nào chạm vào một cổng nộp hồ sơ, một email, hay một biểu mẫu. Mọi
 giai đoạn đều ghi ra tệp. Bạn đọc chúng và bạn gửi chúng đi.
 
 Đây là một tính chất về quyền riêng tư trước khi là một tính chất về an toàn:
-một pipeline có nộp hồ sơ là một pipeline phải giữ thông tin đăng nhập, và trong
-thiết kế này không có chỗ nào để đặt chúng mà lại không phải là máy của chính
-bạn đang làm một việc bạn không tận mắt nhìn.
+một quy trình có nộp hồ sơ là một quy trình phải giữ thông tin đăng nhập, và
+trong thiết kế này không có chỗ nào để đặt chúng mà lại không phải là máy của
+chính bạn đang làm một việc bạn không tận mắt nhìn.

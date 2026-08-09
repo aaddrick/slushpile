@@ -24,9 +24,9 @@ Slushpile 不是一个程序。它是一组 Markdown 文件，由编码智能体
 | --- | --- |
 | [pipeline.md](pipeline.md) | 五张图、图例，以及每个阶段做什么。 |
 | [the-review.md](the-review.md) | 审阅为什么是现在这个形状：盲审阶段、调度顺序、守门人，以及三轮上限。 |
-| [scoring.md](scoring.md) | 候选池锚定、按渠道条件化的裁定、档位，以及淘汰标准。 |
+| [scoring.md](scoring.md) | 申请者池锚定、按渠道条件化的判定、档位，以及淘汰条件。 |
 | [memory-and-calibration.md](memory-and-calibration.md) | 作为持久记忆的工作区、回写路径，以及预测如何被真实结果校正。 |
-| [agents-and-models.md](agents-and-models.md) | 技能与智能体的边界、每个角色对应的模型档次，以及嗓音智能体。 |
+| [agents-and-models.md](agents-and-models.md) | 技能与智能体的边界、每个角色对应的模型档次，以及文风智能体。 |
 | [personal-data.md](personal-data.md) | 为什么插件里不得存放任何个人事实，以及强制执行这一点的关卡。 |
 | [generated-surfaces.md](../../../../docs/architecture/generated-surfaces.md) | 为什么有六个界面描述这条流水线，而没有一个界面拥有某个事实。 |
 | [AGENTS.md](../../../../docs/architecture/AGENTS.md) | 本目录 `CLAUDE.md` 的逐字节孪生副本，用这些约定来约束编辑行为。 |

@@ -74,21 +74,21 @@ ngoài thực nghiệm.
 
 ### `stories.md`
 
-Bốn đến tám câu chuyện bạn thực sự kể được, kèm theo các con số. Bộ dựng hồ sơ
-chọn một câu cho mỗi bộ hồ sơ; buổi phỏng vấn mà rốt cuộc bạn có được sẽ chạy
+Bốn đến tám câu chuyện bạn thực sự kể được, kèm theo các con số. Trình dựng hồ
+sơ chọn một câu cho mỗi bộ hồ sơ; buổi phỏng vấn mà rốt cuộc bạn có được sẽ chạy
 trên chính những câu chuyện này.
 
 ### `job_search.md`
 
-Sổ theo dõi, và cũng là trí nhớ dài hạn của quy trình. Các bộ hồ sơ, kết quả của
-chúng, những lần nộp trước ở từng công ty, và một mục `Calibration` mà
+Tệp theo dõi, và cũng là trí nhớ dài hạn của quy trình. Các bộ hồ sơ, kết quả
+của chúng, những lần nộp trước ở từng công ty, và một mục `Calibration` mà
 `/slushpile:status` viết lại từ chính kết quả của bạn.
 
-Lịch sử nộp hồ sơ trước đó ở một công ty được nhà phân tích nhóm ứng viên và
-người phản biện đọc trong lúc đánh giá. Một lần bị từ chối trước đó ở cấp **cao
-hơn** có ảnh hưởng thực sự: nhà tuyển dụng nhìn thấy toàn bộ lịch sử trong hệ
-thống theo dõi ứng viên, và một lần nộp sau đó ở cấp thấp hơn bị đọc thành một cú
-tụt nhiều cấp.
+Lịch sử nộp hồ sơ trước đó ở một công ty được chuyên viên phân tích nhóm ứng
+viên và người phản biện đọc trong lúc đánh giá. Một lần bị từ chối trước đó ở
+cấp **cao hơn** có ảnh hưởng thực sự: nhà tuyển dụng nhìn thấy toàn bộ lịch sử
+trong hệ thống theo dõi ứng viên, và một lần nộp sau đó ở cấp thấp hơn bị đọc
+thành một cú tụt nhiều cấp.
 
 ### `companies.md`
 

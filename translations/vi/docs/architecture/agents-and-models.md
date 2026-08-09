@@ -17,27 +17,27 @@
 Hai thứ đó là hai loại tệp khác nhau và ranh giới giữa chúng là ranh giới chịu
 lực.
 
-Một kỹ năng biết về pipeline: nó đang ở giai đoạn nào, cái gì đã chạy trước nó,
+Một kỹ năng biết về quy trình: nó đang ở giai đoạn nào, cái gì đã chạy trước nó,
 nó bàn giao cho ai. Một tác nhân chỉ biết việc của chính nó. **Một tác nhân biết
 mình đang ở giai đoạn nào sẽ tối ưu cho giai đoạn đó thay vì làm việc của mình**:
 một người sàng lọc được cho biết nó là người đầu tiên trong năm sẽ bắt đầu nói
 nước đôi, vì nó đoán được rằng sẽ có người khác kiểm tra lại việc của nó.
 
-Hệ quả kéo theo là quy tắc giữ cho đầu ra của phần đánh giá so sánh được với
+Hệ quả kéo theo là quy tắc giữ cho đầu ra của vòng đánh giá so sánh được với
 nhau:
 
 **Các ràng buộc mang tính bắt buộc nằm trong định nghĩa tác nhân, không nằm
-trong lời nhắc phái đi.** Một bộ điều phối tự ứng biến thêm ràng buộc ở mỗi lần
-chạy sẽ sinh ra những phát hiện không đem so được giữa các hồ sơ, và điều đó phá
-hủy chính dữ liệu hiệu chuẩn mà cả hệ thống dựa vào. Giới hạn phạm vi của người
-phản biện nằm trong `agents/slushpile-contrarian.md` vì lý do này, và kỹ năng
-đánh giá được dặn rõ là không được nhắc lại hay nới rộng chúng.
+trong lời nhắc lúc điều phối.** Một bộ điều phối tự ứng biến thêm ràng buộc ở
+mỗi lần chạy sẽ sinh ra những phát hiện không đem so được giữa các hồ sơ, và
+điều đó phá hủy chính dữ liệu hiệu chỉnh mà cả hệ thống dựa vào. Giới hạn phạm
+vi của người phản biện nằm trong `agents/slushpile-contrarian.md` vì lý do này,
+và kỹ năng đánh giá được dặn rõ là không được nhắc lại hay nới rộng chúng.
 
 Dữ liệu là ngoại lệ, và cần nói cho chính xác chỗ phân biệt.
-`calibration_priors` đi vào lời nhắc phái đi vì nó thay đổi *những gì tác nhân
-biết*. Giới hạn phạm vi ở lại trong định nghĩa vì chúng thay đổi *những gì tác
-nhân được phép nói*. Thứ nhất thay đổi theo từng lần chạy là chủ ý; thứ hai thì
-không được phép.
+`calibration_priors` đi vào lời nhắc lúc điều phối vì nó thay đổi *những gì tác
+nhân biết*. Giới hạn phạm vi ở lại trong định nghĩa vì chúng thay đổi *những gì
+tác nhân được phép nói*. Thứ nhất thay đổi theo từng lần chạy là chủ ý; thứ hai
+thì không được phép.
 
 ## Mỗi tác nhân đều khai báo một mô hình
 
@@ -59,14 +59,14 @@ parallel and are blind to each other; the last two run in order.
 
 <!-- END GENERATED agent-table -->
 
-Mô hình nằm trong frontmatter của mỗi tác nhân, và bảng phái đi trong
+Mô hình nằm trong frontmatter của mỗi tác nhân, và bảng điều phối trong
 `skills/adversarial-review/SKILL.md` cũng nêu tên một mô hình cho mỗi tác nhân.
 Hai chỗ đó được `tests/test_structure.py` đối chiếu với nhau: frontmatter là thứ
-mà một khung chạy thực sự dựa vào để phái đi, còn cột trong bảng là tài liệu ghi
+mà một harness thực sự dựa vào để điều phối, còn cột trong bảng là tài liệu ghi
 lại điều đó.
 
 Một tác nhân không khai báo mô hình sẽ lấy bất cứ mô hình nào phiên làm việc
-đang chạy. Điều đó âm thầm san phẳng một phần đánh giá vốn cố ý trộn nhiều mức
+đang chạy. Điều đó âm thầm san phẳng một vòng đánh giá vốn cố ý trộn nhiều mức
 mô hình, và đó là lý do trường này là bắt buộc chứ không phải tùy chọn.
 
 Cách chia không tùy tiện. Các vai rẻ tiền hơn đều mô phỏng một lượt đọc **có
@@ -83,10 +83,10 @@ là ba vai mà bạn thực sự hành động theo đầu ra.
 
 ## Đặt tiền tố không gian tên
 
-Mọi tác nhân của pipeline đều mang tiền tố `slushpile-` để nó không thể va vào
+Mọi tác nhân của quy trình đều mang tiền tố `slushpile-` để nó không thể va vào
 một tác nhân bạn đã có sẵn. Một người dùng đã có `contrarian` của riêng mình thì
-vẫn giữ nó; tác nhân của pipeline này là `slushpile-contrarian` và hai bên không
-bao giờ gặp nhau.
+vẫn giữ nó; tác nhân của quy trình này là `slushpile-contrarian` và hai bên
+không bao giờ gặp nhau.
 
 ## Tác nhân giọng văn là ngoại lệ có chủ ý
 
@@ -106,7 +106,7 @@ voice:
 ```
 
 `agents/aaddrick-voice.md` được phát hành như ví dụ công khai đã chạy được của
-pipeline đó, để slushpile chạy được ngay từ đầu trước khi bạn kịp sinh ra tác
+quy trình đó, để slushpile chạy được ngay từ đầu trước khi bạn kịp sinh ra tác
 nhân của mình. Đó là giọng của tác giả plugin, không phải giọng của bạn, và
 chừng nào `is_mine` còn là false thì mọi kỹ năng có soạn văn xuôi đều cảnh báo
 trước khi chạy. Cảnh báo đó là thứ duy nhất đứng giữa bạn và mười hai hồ sơ được
