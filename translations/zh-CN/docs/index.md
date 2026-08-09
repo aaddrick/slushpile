@@ -23,7 +23,7 @@
 ## 参考
 
 - [你的文风智能体](voice.md)：求职信为什么需要一个，怎么生成你自己的，以及在你生成之前会发生什么。
-- [排障](troubleshooting.md)。
+- [疑难排查](troubleshooting.md)。
 
 ## 架构
 
@@ -34,7 +34,7 @@
 
 ## 参与贡献
 
-仓库规范、那几道门禁，以及修改一个技能的规则，都在
+仓库规范、那几道关卡，以及修改一个技能的规则，都在
 [CLAUDE.md](../../../CLAUDE.md) 和 [CONTRIBUTING.md](../../../CONTRIBUTING.md) 里。动任何列出技能的东西之前，先读
 [生成的表面](../../../docs/architecture/generated-surfaces.md) —— 那些清单里有好几份是生成的，
 而改副本不改源头，是唯一一种必然会消失的改动。
