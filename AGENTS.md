@@ -276,7 +276,7 @@ scales it into a 1012px column.
 ## The translations
 
 `README.md`, `INSTALL.md`, and the reader-facing half of `docs/` ship in English
-and in four more languages, mirrored under `translations/<tag>/` at the same
+and in five more, mirrored under `translations/<tag>/` at the same
 paths the English tree uses. `TRANSLATED` and `LANGUAGES` in `scripts/sync_docs.py`
 are the declarations; `tests/test_translations.py` is the gate.
 
@@ -315,8 +315,8 @@ as awkward prose.
 
 Two mechanisms are worth knowing before you write in one of these files.
 
-**The language nav is generated.** There are seventy-five of them, each with
-four links whose relative depth differs by directory. Keep the marker pair,
+**The language nav is generated.** There are ninety of them, each with five
+links whose relative depth differs by directory. Keep the marker pair,
 leave it empty, run the generator.
 
 **Counts are digits plus a registered noun.** The count sweep matches English
@@ -339,9 +339,9 @@ rather than in the mirror. A pass that normalizes a language's vocabulary sweeps
 every page and silently leaves that paragraph behind, so check it by hand when
 the terminology moves.
 
-The set is four languages, chosen for market fit rather than speaker count. This
-pipeline models anglophone hiring — `templates/resume.tex` prints a work
-authorization block, `application-builder` enforces one page,
+Four of the five are real languages, chosen for market fit rather than speaker
+count. This pipeline models anglophone hiring — `templates/resume.tex` prints a
+work authorization block, `application-builder` enforces one page,
 `slushpile-ats-simulator` treats a photo as a parse failure. A manual in
 someone's language is an implicit promise the tool fits their market. Every
 translated `README.md` therefore carries a generated `market-note` region saying
@@ -349,6 +349,19 @@ what market that is, and languages whose domestic hiring uses a standardized
 form this pipeline would score as broken were left out rather than shipped with
 a disclaimer. Widening the set is gated on issue #2, not on finding a
 translator.
+
+The fifth, `en-x-aibro`, is the same manual in the register this category is
+sold in, and it is a joke that has to be true. It goes through every gate the
+real languages go through: its commands are byte-identical, its counts are
+checked, its inline identifiers are compared as a multiset against the English
+page. That is the whole reason it lives here rather than in a gist — a parody
+manual that drifted into being wrong is just a wrong manual, and somebody will
+read it for the instructions. The tag is BCP-47's private-use form because it is
+English, and pretending otherwise would break the one thing a tag is for.
+
+Two consequences for editing. A doc change is now a six-file change rather than
+a five-file one. And the register is the only thing that varies: if a fact
+changes, it changes there too, in the same commit.
 
 ## Testing
 
@@ -560,7 +573,7 @@ A commit subject states what changed. The body states why, with the evidence.
 | `agents/` | the eight agent definitions. The product. |
 | `templates/` | what a user's workspace gets scaffolded from |
 | `docs/` | the manual, its architecture pages, and the D2 diagram sources |
-| `translations/` | the manual again, in four more languages, mirroring the English paths |
+| `translations/` | the manual again, in five more languages, mirroring the English paths |
 | `scripts/check_configs.py` | parses every shipped manifest |
 | `scripts/check_no_pii.py` | the personal-data gate |
 | `scripts/sync_docs.py` | the generator and its `--check` gate |

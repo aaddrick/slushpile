@@ -7,7 +7,8 @@
   <strong>简体中文</strong> ·
   <a href="../../../es/docs/architecture/memory-and-calibration.md">Español</a> ·
   <a href="../../../pt-BR/docs/architecture/memory-and-calibration.md">Português (BR)</a> ·
-  <a href="../../../vi/docs/architecture/memory-and-calibration.md">Tiếng Việt</a>
+  <a href="../../../vi/docs/architecture/memory-and-calibration.md">Tiếng Việt</a> ·
+  <a href="../../../en-x-aibro/docs/architecture/memory-and-calibration.md">AI Bro</a>
 </p>
 
 <!-- END GENERATED language-nav -->

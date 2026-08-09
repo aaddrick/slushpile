@@ -7,7 +7,8 @@
   <strong>简体中文</strong> ·
   <a href="../es/INSTALL.md">Español</a> ·
   <a href="../pt-BR/INSTALL.md">Português (BR)</a> ·
-  <a href="../vi/INSTALL.md">Tiếng Việt</a>
+  <a href="../vi/INSTALL.md">Tiếng Việt</a> ·
+  <a href="../en-x-aibro/INSTALL.md">AI Bro</a>
 </p>
 
 <!-- END GENERATED language-nav -->

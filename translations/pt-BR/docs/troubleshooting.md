@@ -7,7 +7,8 @@
   <a href="../../zh-CN/docs/troubleshooting.md">简体中文</a> ·
   <a href="../../es/docs/troubleshooting.md">Español</a> ·
   <strong>Português (BR)</strong> ·
-  <a href="../../vi/docs/troubleshooting.md">Tiếng Việt</a>
+  <a href="../../vi/docs/troubleshooting.md">Tiếng Việt</a> ·
+  <a href="../../en-x-aibro/docs/troubleshooting.md">AI Bro</a>
 </p>
 
 <!-- END GENERATED language-nav -->

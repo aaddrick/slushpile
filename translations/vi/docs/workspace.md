@@ -7,7 +7,8 @@
   <a href="../../zh-CN/docs/workspace.md">简体中文</a> ·
   <a href="../../es/docs/workspace.md">Español</a> ·
   <a href="../../pt-BR/docs/workspace.md">Português (BR)</a> ·
-  <strong>Tiếng Việt</strong>
+  <strong>Tiếng Việt</strong> ·
+  <a href="../../en-x-aibro/docs/workspace.md">AI Bro</a>
 </p>
 
 <!-- END GENERATED language-nav -->

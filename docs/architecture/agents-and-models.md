@@ -7,7 +7,8 @@
   <a href="../../translations/zh-CN/docs/architecture/agents-and-models.md">简体中文</a> ·
   <a href="../../translations/es/docs/architecture/agents-and-models.md">Español</a> ·
   <a href="../../translations/pt-BR/docs/architecture/agents-and-models.md">Português (BR)</a> ·
-  <a href="../../translations/vi/docs/architecture/agents-and-models.md">Tiếng Việt</a>
+  <a href="../../translations/vi/docs/architecture/agents-and-models.md">Tiếng Việt</a> ·
+  <a href="../../translations/en-x-aibro/docs/architecture/agents-and-models.md">AI Bro</a>
 </p>
 
 <!-- END GENERATED language-nav -->

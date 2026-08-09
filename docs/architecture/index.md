@@ -7,7 +7,8 @@
   <a href="../../translations/zh-CN/docs/architecture/index.md">简体中文</a> ·
   <a href="../../translations/es/docs/architecture/index.md">Español</a> ·
   <a href="../../translations/pt-BR/docs/architecture/index.md">Português (BR)</a> ·
-  <a href="../../translations/vi/docs/architecture/index.md">Tiếng Việt</a>
+  <a href="../../translations/vi/docs/architecture/index.md">Tiếng Việt</a> ·
+  <a href="../../translations/en-x-aibro/docs/architecture/index.md">AI Bro</a>
 </p>
 
 <!-- END GENERATED language-nav -->
