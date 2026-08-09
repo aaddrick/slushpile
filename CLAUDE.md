@@ -29,6 +29,9 @@ inside `skills/adversarial-review/SKILL.md`.
 | the `agent-table` region of `docs/architecture/agents-and-models.md` | `agents/`, the dispatch table |
 | all of `docs/architecture/AGENTS.md` | `docs/architecture/CLAUDE.md` |
 | all of `docs/diagrams/AGENTS.md` | `docs/diagrams/CLAUDE.md` |
+| the `language-nav` region of every translated page and the English page it mirrors | `TRANSLATED` and `LANGUAGES` |
+| the `market-note` region of every translated `README.md` | `MARKET_NOTE` |
+| the generated regions of every translated page | copied from the English page |
 
 After any edit to `CLAUDE.md`, after adding, renaming, or removing a skill or an
 agent, and after any change to the review's dispatch table, run:
@@ -268,6 +271,80 @@ embedded in a `<picture>` with both sources, alt text on every embedded diagram,
 and a natural width under 1280px so the text is still legible after GitHub
 scales it into a 1012px column.
 
+## The translations
+
+`README.md`, `INSTALL.md`, and the reader-facing half of `docs/` ship in English
+and in four more languages, mirrored under `translations/<tag>/` at the same
+paths the English tree uses. `TRANSLATED` and `LANGUAGES` in `scripts/sync_docs.py`
+are the declarations; `tests/test_translations.py` is the gate.
+
+**An edit to a fence in `README.md` is an edit to five files.** That is the rule
+worth internalising before you touch a translated page or the English page it
+mirrors. A translation drifts in silence, because it is the one class of file
+where nobody who can read the diff also reads the language, and the ordinary
+review that catches a stale command everywhere else does not happen here.
+
+The mirror keeps the English path shape on purpose. A link between two
+translated pages is then byte-identical to the English link, so a translator
+never recomputes a path, and the relative-link gate in `tests/test_docs.py`
+covers the mirror without knowing it exists. Links *leaving* the translated set
+point back at the English original.
+
+Four things are checked per page pair, and the reasoning for each is the same:
+these are the parts of a page that reach a reader as a wrong command rather than
+as awkward prose.
+
+1. Every command fence, character for character. Commands are copied, never
+   translated.
+2. Every inline code span, as a multiset. Word order belongs to the translator;
+   a dropped or renamed identifier does not. This is also what keeps
+   `docs/skills.md` naming every skill in every language, so that roster needs
+   no separate check.
+3. The diagrams a page embeds, and `alt` text at least a quarter the length of
+   the English. Translated pages embed the English renders; only the alt text
+   moves. The fraction is there because a fixed character floor tuned for Latin
+   script fails a correct Chinese translation for being dense.
+4. Reachability from that language's own `docs/index.md`, because a reader who
+   cannot reach a page from their index has no way to know it exists — the
+   language nav only ever points at the same page in another language.
+
+Two mechanisms are worth knowing before you write in one of these files.
+
+**The language nav is generated.** There are seventy-five of them, each with
+four links whose relative depth differs by directory. Keep the marker pair,
+leave it empty, run the generator.
+
+**Counts are digits plus a registered noun.** The count sweep matches English
+number words, so a spelled-out number in another language is a count nothing
+checks — and a sweep that matches nothing reports success, which is the failure
+this repository already shipped three times in English where a check existed. So
+`TRANSLATED_COUNTED_NOUNS` carries the nouns per language, translated prose
+writes `9 habilidades` rather than `nueve habilidades`, and every translated page
+must carry at least as many counted phrases as the English page it mirrors. That
+last rule is the one that matters: it is what fails a translation that dropped
+the sentence instead of getting the number wrong.
+
+Generated regions are copied into the mirror in English. Skill names and slash
+commands are literals a user types, so there is nothing in those tables to
+translate, and a per-language rendering would make every new skill block on four
+translations before the generator could run.
+
+`MARKET_NOTE` is the one piece of translated prose that lives in the generator
+rather than in the mirror. A pass that normalizes a language's vocabulary sweeps
+every page and silently leaves that paragraph behind, so check it by hand when
+the terminology moves.
+
+The set is four languages, chosen for market fit rather than speaker count. This
+pipeline models anglophone hiring — `templates/resume.tex` prints a work
+authorization block, `application-builder` enforces one page,
+`slushpile-ats-simulator` treats a photo as a parse failure. A manual in
+someone's language is an implicit promise the tool fits their market. Every
+translated `README.md` therefore carries a generated `market-note` region saying
+what market that is, and languages whose domestic hiring uses a standardized
+form this pipeline would score as broken were left out rather than shipped with
+a disclaimer. Widening the set is gated on issue #2, not on finding a
+translator.
+
 ## Testing
 
 ```bash
@@ -278,9 +355,15 @@ python3 -m unittest discover -s tests -v
 ```
 
 `tests/test_docs.py` is discovered by that last command; it is where the
-link, reachability, freeze-pair, census, and diagram gates live. Nothing runs
+link, reachability, freeze-pair, census, and diagram gates live, and
+`tests/test_translations.py` beside it holds the mirror's. Nothing runs
 `docs/diagrams/render.sh` for you, so re-render and commit both SVGs in the same
 commit as a `.d2` edit.
+
+Run the gates against committed work. Every one of these reads the working tree,
+so a probe that mutates a file and then restores it with `git checkout` or
+`git clean` destroys anything uncommitted — including a translation mirror that
+is not yet in a commit.
 
 CI runs all four on every pull request and on every push to `main`, plus a
 plugin-load check that installs this checkout into a scratch config and fails if
@@ -430,6 +513,7 @@ A commit subject states what changed. The body states why, with the evidence.
 | `agents/` | the eight agent definitions. The product. |
 | `templates/` | what a user's workspace gets scaffolded from |
 | `docs/` | the manual, its architecture pages, and the D2 diagram sources |
+| `translations/` | the manual again, in four more languages, mirroring the English paths |
 | `scripts/check_configs.py` | parses every shipped manifest |
 | `scripts/check_no_pii.py` | the personal-data gate |
 | `scripts/sync_docs.py` | the generator and its `--check` gate |

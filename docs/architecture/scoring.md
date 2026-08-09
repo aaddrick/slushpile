@@ -1,5 +1,17 @@
 # Scoring
 
+<!-- BEGIN GENERATED language-nav: scripts/sync_docs.py -->
+
+<p align="center">
+  <strong>English</strong> ·
+  <a href="../../translations/zh-CN/docs/architecture/scoring.md">简体中文</a> ·
+  <a href="../../translations/es/docs/architecture/scoring.md">Español</a> ·
+  <a href="../../translations/pt-BR/docs/architecture/scoring.md">Português (BR)</a> ·
+  <a href="../../translations/vi/docs/architecture/scoring.md">Tiếng Việt</a>
+</p>
+
+<!-- END GENERATED language-nav -->
+
 Every number this pipeline produces is an answer to one of two questions: where
 does the candidate sit in the queue for this specific role, and what is an
 application through a given channel actually worth. Nothing here scores a

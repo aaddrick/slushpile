@@ -1,5 +1,17 @@
 # Slushpile docs
 
+<!-- BEGIN GENERATED language-nav: scripts/sync_docs.py -->
+
+<p align="center">
+  <strong>English</strong> ·
+  <a href="../translations/zh-CN/docs/index.md">简体中文</a> ·
+  <a href="../translations/es/docs/index.md">Español</a> ·
+  <a href="../translations/pt-BR/docs/index.md">Português (BR)</a> ·
+  <a href="../translations/vi/docs/index.md">Tiếng Việt</a>
+</p>
+
+<!-- END GENERATED language-nav -->
+
 The front door is the repo [README](../README.md). Everything past the install
 and the pitch lives here, grouped by what you are trying to do.
 

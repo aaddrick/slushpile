@@ -51,6 +51,7 @@ than shipping files that disagree.
 from __future__ import annotations
 
 import argparse
+import posixpath
 import re
 import sys
 import textwrap
@@ -360,7 +361,271 @@ COUNT_EXEMPT = {
     # why the posting is captured verbatim instead of summarized.
     ("docs/architecture/pipeline.md", "Three agents"),
     ("docs/workspace.md", "Three agents"),
+    # The same two sentences in each language. The mirror needs its own rows
+    # because the exemption is keyed by the phrase the sweep sees, and that
+    # phrase is written in the language of the file.
+    ("translations/zh-CN/docs/architecture/pipeline.md", "3个智能体"),
+    ("translations/zh-CN/docs/workspace.md", "3个智能体"),
+    ("translations/es/docs/architecture/pipeline.md", "3 agentes"),
+    ("translations/es/docs/workspace.md", "3 agentes"),
+    ("translations/pt-BR/docs/architecture/pipeline.md", "3 agentes"),
+    ("translations/pt-BR/docs/workspace.md", "3 agentes"),
+    ("translations/vi/docs/architecture/pipeline.md", "3 tác nhân"),
+    ("translations/vi/docs/workspace.md", "3 tác nhân"),
 }
+
+# --- translations ------------------------------------------------------------
+
+# The reader-facing tree ships in English and four translations, mirrored under
+# `translations/<tag>/` at the same paths the English tree uses. The mirror
+# preserves path shape on purpose: a link between two translated pages is then
+# byte-identical to the English link, so a translator never recomputes a path and
+# the existing relative-link gate in tests/test_docs.py covers the mirror without
+# knowing it exists.
+#
+# The set is four rather than five, and it is chosen for market fit rather than
+# speaker count. This pipeline models anglophone hiring: `templates/resume.tex`
+# prints a work-authorization block, `skills/application-builder/SKILL.md`
+# enforces one page, and `agents/slushpile-ats-simulator.md` treats a photo as a
+# parse failure. A manual in someone's language is an implicit promise the tool
+# fits their market, and these four reach readers applying into the market it
+# models. Japanese and Korean were dropped for the opposite reason rather than
+# for lack of readers: those markets use a standardized form this pipeline would
+# score as broken. Adding them needs the `market:` field, not a translator.
+
+
+class Language(NamedTuple):
+    tag: str  # the directory under translations/, and the BCP-47 tag
+    label: str  # what the language nav prints, in that language
+
+
+LANGUAGES = (
+    Language("zh-CN", "简体中文"),
+    Language("es", "Español"),
+    Language("pt-BR", "Português (BR)"),
+    Language("vi", "Tiếng Việt"),
+)
+
+ENGLISH_LABEL = "English"
+MIRROR = "translations"
+
+# Every page mirrored into every language. A page here without a file in every
+# language directory is a generator error rather than a silent omission, on the
+# same rule as a skill missing from SKILLS: a half-translated tree drops a reader
+# into English mid-sentence and looks, in a diff, exactly like a finished one.
+TRANSLATED = (
+    "README.md",
+    "INSTALL.md",
+    "docs/index.md",
+    "docs/getting-started.md",
+    "docs/skills.md",
+    "docs/workspace.md",
+    "docs/voice.md",
+    "docs/troubleshooting.md",
+    "docs/architecture/index.md",
+    "docs/architecture/pipeline.md",
+    "docs/architecture/the-review.md",
+    "docs/architecture/scoring.md",
+    "docs/architecture/memory-and-calibration.md",
+    "docs/architecture/agents-and-models.md",
+    "docs/architecture/personal-data.md",
+)
+
+# Why every other tracked Markdown file is not translated, as ordered prefix
+# rules. First match wins. tests/test_translations.py requires the rules to
+# cover the tree exactly and requires every rule to match something, so a rule
+# that stops applying is an error rather than dead weight — which is what keeps
+# this from becoming a way to silently drop a page out of scope.
+NOT_TRANSLATED = (
+    (
+        "skills/",
+        "The product. These are prompts a model executes, not prose a person "
+        "reads. Translating one changes what the model does, and there is no "
+        "gate that could tell a good translation from a behaviour change.",
+    ),
+    (
+        "agents/",
+        "Same reason as skills/. An agent definition is executed, not read.",
+    ),
+    (
+        "templates/",
+        "Scaffolded into the user's own workspace and then edited by them. A "
+        "translated copy would have to be chosen at onboarding time, which is "
+        "the `market:` field's job, not a translation's.",
+    ),
+    (
+        "docs/diagrams/",
+        "D2 sources, their committed SVG renders, and the authoring guide. "
+        "Translating a diagram means a per-language render pipeline and four "
+        "more copies for the staleness gate to hold. Translated pages embed the "
+        "English renders and translate the alt text instead.",
+    ),
+    (
+        "docs/architecture/generated-surfaces.md",
+        "Instructions for editing this repository. Every path it names points "
+        "at CLAUDE.md and scripts/, which are not translated, so a translated "
+        "copy would be a page whose every link leaves its own language.",
+    ),
+    (
+        "docs/architecture/AGENTS.md",
+        "Contributor guidance, and half of a byte-identical freeze pair. A "
+        "translated twin would have to be frozen against a translated CLAUDE.md "
+        "that does not exist.",
+    ),
+    (
+        "docs/architecture/CLAUDE.md",
+        "The other half of that pair, frozen byte-for-byte against it by "
+        "tests/test_docs.py.",
+    ),
+    (
+        "CLAUDE.md",
+        "Repository standards, read by an agent working on this repository. "
+        "Translating it would make a second source of truth for rules whose "
+        "whole point is having one.",
+    ),
+    (
+        "AGENTS.md",
+        "Generated from CLAUDE.md and frozen against it, so translating it "
+        "would fork a source of truth that exists to be single.",
+    ),
+    (
+        "GEMINI.md",
+        "The Gemini extension's context file: read by a model, not a person.",
+    ),
+    (
+        "CONTRIBUTING.md",
+        "Contributor-facing, and it sends the reader to CLAUDE.md and the gates, "
+        "which are English.",
+    ),
+    (
+        "NOTICE.md",
+        "Licence attribution. The OFL text it points at is English, and a "
+        "translated attribution is a legal claim nobody here can check.",
+    ),
+    (
+        ".cursor/",
+        "Generated router files a harness reads to find a skill. Machine "
+        "surfaces, rebuilt from skills/ on every generator run.",
+    ),
+)
+
+# Stated in every translated README and in none of the English pages, because the
+# note exists for the reader the English pages do not have: someone who found
+# this in their own language and has no reason to assume it models a hiring
+# market other than their own. Generated rather than checked, so it cannot be
+# dropped by a translator who did not know it was load bearing.
+#
+# The wording has to match the terminology each mirror settled on, and nothing
+# checks that: this string lives in a script, so a pass that normalizes a
+# language's vocabulary sweeps every page and leaves the one paragraph the
+# generator writes.
+MARKET_NOTE = {
+    "zh-CN": (
+        "> **适用范围**：本流水线针对英语国家（尤其是美国）的招聘惯例设计：简历一页、"
+        "不放照片、不写出生日期、按时间倒序、并附上工作许可说明。若你投递的是使用"
+        "标准化简历表格的本地岗位，其中的版式建议并不适用，审阅也会把本地惯例判为"
+        "缺陷。相关讨论见 "
+        "[issue #2](https://github.com/aaddrick/slushpile/issues/2)。"
+    ),
+    "es": (
+        "> **Alcance**: este pipeline modela convenciones de contratación "
+        "anglófonas, sobre todo estadounidenses: una página, sin foto, sin fecha "
+        "de nacimiento, orden cronológico inverso y una línea de autorización de "
+        "trabajo. Si postulas en un mercado local con otras convenciones, los "
+        "consejos de formato no aplican y la revisión marcará como defectos "
+        "cosas que allí son normales. Seguimiento en el "
+        "[issue #2](https://github.com/aaddrick/slushpile/issues/2)."
+    ),
+    "pt-BR": (
+        "> **Escopo**: este pipeline modela convenções de contratação "
+        "anglófonas, principalmente dos EUA: uma página, sem foto, sem data de "
+        "nascimento, ordem cronológica inversa e uma linha de autorização de "
+        "trabalho. Se você se candidata em um mercado local com outras "
+        "convenções, os conselhos de formatação não valem e a revisão vai "
+        "apontar como defeito o que lá é normal. Acompanhe no "
+        "[issue #2](https://github.com/aaddrick/slushpile/issues/2)."
+    ),
+    "vi": (
+        "> **Phạm vi**: quy trình này mô phỏng quy ước tuyển dụng của các thị "
+        "trường nói tiếng Anh, chủ yếu là Mỹ: một trang, không ảnh, không ngày "
+        "sinh, sắp xếp ngược theo thời gian, và một dòng về tình trạng được phép "
+        "làm việc. Nếu bạn ứng tuyển ở thị trường trong nước với quy ước khác, "
+        "lời khuyên về định dạng không áp dụng và vòng đánh giá sẽ coi những gì "
+        "bình thường ở đó là lỗi. Theo dõi tại "
+        "[issue #2](https://github.com/aaddrick/slushpile/issues/2)."
+    ),
+}
+
+# The counted nouns each language uses, and which derived total each one allows.
+# Mirrors COUNTED_NOUNS above, in four more languages.
+#
+# Translated prose writes a derived count as a digit followed by one of these
+# nouns. That is a real editorial constraint rather than a preference: the sweep
+# above matches English number words, so 「九个技能」 would sail past it, and a
+# count nobody checks is exactly the failure this repository already shipped
+# three times in English. Digits plus a fixed noun make the count matchable
+# without a number-word list per language.
+#
+# "personas" is deliberately not carried into Spanish or Portuguese, where the
+# word means "people" and would match ordinary prose.
+TRANSLATED_COUNTED_NOUNS = {
+    "zh-CN": {
+        "个技能": ("skills",),
+        "个智能体": ("dispatch", "shipped"),
+        "个智能体定义": ("shipped",),
+        "个审阅者": ("dispatch",),
+        "个角色": ("dispatch",),
+        "个并行审阅者": ("blind",),
+    },
+    "es": {
+        "habilidades": ("skills",),
+        "agentes": ("dispatch", "shipped"),
+        "definiciones de agente": ("shipped",),
+        "revisores": ("dispatch",),
+        "revisores en paralelo": ("blind",),
+    },
+    "pt-BR": {
+        "habilidades": ("skills",),
+        "agentes": ("dispatch", "shipped"),
+        "definições de agente": ("shipped",),
+        "revisores": ("dispatch",),
+        "revisores em paralelo": ("blind",),
+    },
+    "vi": {
+        "kỹ năng": ("skills",),
+        "tác nhân": ("dispatch", "shipped"),
+        "định nghĩa tác nhân": ("shipped",),
+        "người đánh giá": ("dispatch",),
+        "người đánh giá song song": ("blind",),
+    },
+}
+
+
+def translated_phrase(nouns: dict[str, tuple[str, ...]]) -> re.Pattern[str]:
+    r"""A digit-plus-noun pattern for one language's counted nouns.
+
+    Longest noun first, so "revisores en paralelo" is not matched as "revisores"
+    and then checked against the wrong total — which is not a missed match but a
+    wrong one, failing against a number the sentence never claimed.
+
+    A multi-word noun is escaped word by word and rejoined on `\s+`, for the
+    same reason COUNTED_PHRASE does it: these files are hard-wrapped, so
+    "5 revisores en\nparalelo" is ordinary prose. Escaping per word rather than
+    substituting afterwards is not a style choice: `re.escape` escapes a space to
+    `\ `, so replacing `" "` in its output lands inside that pair and leaves a
+    literal backslash in the pattern, which matches nothing and reports a
+    shortfall whose cause the translator cannot see.
+    """
+    ordered = sorted(nouns, key=len, reverse=True)
+    return re.compile(
+        r"(\d{1,2})\s*("
+        + "|".join(
+            r"\s+".join(re.escape(word) for word in noun.split())
+            for noun in ordered
+        )
+        + r")",
+    )
+
 
 CURSOR_SKILL_FRONTMATTER = """---
 name: slushpile
@@ -915,6 +1180,35 @@ def install_snippet(facts: Facts) -> str:
     return f"```markdown\n{body}\n```"
 
 
+# --- the language nav --------------------------------------------------------
+
+
+def page_path(relative: str, lang: str | None) -> str:
+    """Where one page lives: the English tree, or a language's mirror of it."""
+    return relative if lang is None else f"{MIRROR}/{lang}/{relative}"
+
+
+def language_nav(relative: str, lang: str | None) -> str:
+    """The language switcher for one page, rendered for one language.
+
+    Generated rather than hand-written because there are seventy-five of these —
+    fifteen pages across the English tree and four mirrors — and each carries
+    four links whose relative depth differs by directory. A wrong path here is
+    invisible until a reader clicks it, and a missing nav is invisible entirely.
+    """
+    here = posixpath.dirname(page_path(relative, lang)) or "."
+    entries = []
+    for tag, label in ((None, ENGLISH_LABEL), *((l.tag, l.label) for l in LANGUAGES)):
+        if tag == lang:
+            entries.append(f"  <strong>{label}</strong>")
+        else:
+            entries.append(
+                f'  <a href="{posixpath.relpath(page_path(relative, tag), here)}">'
+                f"{label}</a>"
+            )
+    return '<p align="center">\n' + " ·\n".join(entries) + "\n</p>"
+
+
 # Hand-written file -> {region name: builder}. Everything between a region's
 # markers is owned by this script.
 REGIONS: dict[str, dict[str, Callable[[Facts], str]]] = {
@@ -938,6 +1232,38 @@ TWINS: dict[str, str] = {
     "docs/architecture/AGENTS.md": "docs/architecture/CLAUDE.md",
     "docs/diagrams/AGENTS.md": "docs/diagrams/CLAUDE.md",
 }
+
+
+def region_plan(facts: Facts) -> dict[str, dict[str, str]]:
+    """Every file with generated regions -> {region: rendered text}.
+
+    Built rather than declared because the translated copies are the same
+    regions at seventy-five addresses. Declaring them would mean a table that
+    has to be edited every time a page or a language is added, which is the
+    table this one exists to avoid.
+    """
+    plan: dict[str, dict[str, str]] = {}
+    for target, regions in REGIONS.items():
+        plan.setdefault(target, {}).update(
+            {region: builder(facts) for region, builder in regions.items()}
+        )
+
+    for relative in TRANSLATED:
+        plan.setdefault(relative, {})["language-nav"] = language_nav(relative, None)
+        english = REGIONS.get(relative, {})
+        for language in LANGUAGES:
+            entry = plan.setdefault(page_path(relative, language.tag), {})
+            entry["language-nav"] = language_nav(relative, language.tag)
+            # A translated copy carries the English block verbatim. Skill names
+            # and slash commands are literal strings a user types, so there is
+            # nothing in these tables to translate, and a per-language rendering
+            # would make every new skill block on four translations before the
+            # generator could run.
+            for region, builder in english.items():
+                entry[region] = builder(facts)
+            if relative == "README.md":
+                entry["market-note"] = MARKET_NOTE[language.tag]
+    return plan
 
 
 def replace_region(text: str, region: str, rendered: str, target: str) -> str:
@@ -1038,6 +1364,12 @@ def check_stray_counts(facts: Facts) -> list[str]:
     problems = []
     for path in swept_files():
         target = path.relative_to(ROOT).as_posix()
+        # The mirror is swept by check_translated_counts, which knows which
+        # language each file is in. Sweeping it here as well would apply English
+        # number words to prose that does not use them: a silent pass, which is
+        # worse than no check because it looks like one.
+        if target.startswith(f"{MIRROR}/"):
+            continue
         text = path.read_text(encoding="utf-8")
         for pattern, nouns in SWEEP_PATTERNS:
             for match in pattern.finditer(text):
@@ -1062,6 +1394,96 @@ def check_stray_counts(facts: Facts) -> list[str]:
     return problems
 
 
+GENERATED_REGION = re.compile(
+    r"<!-- BEGIN GENERATED \S+: scripts/sync_docs\.py -->.*?<!-- END GENERATED \S+ -->",
+    re.DOTALL,
+)
+
+
+def without_generated_regions(text: str) -> str:
+    """Drop every marked region, preserving line count.
+
+    Used when comparing an English page against its translations. A translated
+    copy carries these blocks in English verbatim, so counting the English
+    numbers inside them would demand translated equivalents that must not exist.
+    """
+    return GENERATED_REGION.sub(
+        lambda match: "\n" * match.group(0).count("\n"), text
+    )
+
+
+def check_translated_counts(facts: Facts) -> list[str]:
+    """The count sweep again, per language, plus a parity rule.
+
+    Two failures, and the second is the one worth the extra pass. The first is a
+    translated count that is simply wrong. The second is a translated count that
+    vanished: a translator who renders "nine skills" as prose without a number,
+    or drops the sentence, leaves nothing for any pattern to match, and a sweep
+    that matches nothing reports success. So every translated page must carry at
+    least as many counted phrases as the English page it mirrors. That is the
+    rule that makes the per-language noun tables honest instead of decorative.
+    """
+    truths = {
+        "skills": len(SKILLS),
+        "dispatch": len(facts.dispatch),
+        "shipped": len(facts.agents),
+        "blind": len(facts.blind),
+    }
+    problems = []
+
+    for relative in TRANSLATED:
+        english = without_generated_regions(
+            (ROOT / relative).read_text(encoding="utf-8")
+        )
+        expected = sum(
+            len(pattern.findall(english)) for pattern, _ in SWEEP_PATTERNS
+        )
+
+        for language in LANGUAGES:
+            nouns = TRANSLATED_COUNTED_NOUNS[language.tag]
+            target = page_path(relative, language.tag)
+            path = ROOT / target
+            if not path.exists():
+                continue  # generate() already fails on this, and says more.
+            text = path.read_text(encoding="utf-8")
+
+            found = 0
+            for match in translated_phrase(nouns).finditer(text):
+                found += 1
+                # Both groups are whitespace-normalized before use. A hard wrap
+                # can land inside a multi-word noun, and looking the raw capture
+                # up would raise rather than fail: the sweep would abort on the
+                # first wrapped noun and report nothing about any file, which
+                # reads as a clean run right up until someone notices it never
+                # printed a count.
+                phrase = " ".join(match.group(0).split())
+                noun = " ".join(match.group(2).split())
+                if (target, phrase) in COUNT_EXEMPT:
+                    continue
+                allowed = {truths[kind] for kind in nouns[noun]}
+                if int(match.group(1)) in allowed:
+                    continue
+                line = text.count("\n", 0, match.start()) + 1
+                problems.append(
+                    f"::error file={target},line={line}::says {phrase!r}, but "
+                    f"there are {' or '.join(str(n) for n in sorted(allowed))}. "
+                    f"Fix the sentence, or if it counts a subset on purpose, add "
+                    f"it to COUNT_EXEMPT in scripts/sync_docs.py."
+                )
+
+            if found < expected:
+                problems.append(
+                    f"::error file={target}::carries {found} counted phrase(s) "
+                    f"where {relative} carries {expected}. A count that survives "
+                    f"translation as prose without a digit is a count nothing "
+                    f"checks. Write every derived number as a digit followed by "
+                    f"one of the nouns registered for {language.tag} in "
+                    f"TRANSLATED_COUNTED_NOUNS."
+                )
+
+    return problems
+
+
 # --- targets -----------------------------------------------------------------
 
 # Derived file -> the builder that produces its whole content. This table exists
@@ -1080,10 +1502,18 @@ def generate() -> dict[str, str]:
 
     # Regions first. A whole-file builder may mirror a file that has regions in
     # it, and mirroring the pre-generation text would ship a stale copy.
-    for target, regions in REGIONS.items():
-        text = (ROOT / target).read_text(encoding="utf-8")
-        for region, builder in regions.items():
-            text = replace_region(text, region, builder(facts), target)
+    for target, regions in region_plan(facts).items():
+        path = ROOT / target
+        if not path.exists():
+            raise ValueError(
+                f"{target}: does not exist. Every page in TRANSLATED needs a "
+                f"file under {MIRROR}/<tag>/ for every language in LANGUAGES. A "
+                f"half-translated tree drops a reader into English mid-sentence "
+                f"and looks, in a diff, exactly like a finished one."
+            )
+        text = path.read_text(encoding="utf-8")
+        for region, rendered in regions.items():
+            text = replace_region(text, region, rendered, target)
         wanted[target] = text
 
     for twin, source in TWINS.items():
@@ -1106,6 +1536,7 @@ def check() -> int:
         problems = (
             check_count_claims(facts)
             + check_stray_counts(facts)
+            + check_translated_counts(facts)
             + check_command_rosters(facts)
         )
     except ValueError as error:
@@ -1135,8 +1566,9 @@ def check() -> int:
     print(
         f"All {len(wanted)} generated documentation files and "
         f"{len(COUNT_CLAIMS)} counted claims match their sources. "
-        f"Swept {len(swept_files())} files for a stale count and "
-        f"{len(COMMAND_ROSTERS)} for a missing skill."
+        f"Swept {len(swept_files())} files for a stale count, "
+        f"{len(TRANSLATED) * len(LANGUAGES)} translated pages for a dropped one, "
+        f"and {len(COMMAND_ROSTERS)} for a missing skill."
     )
     return 0
 
@@ -1164,6 +1596,7 @@ def write() -> int:
     if problems := (
         check_count_claims(facts)
         + check_stray_counts(facts)
+        + check_translated_counts(facts)
         + check_command_rosters(facts)
     ):
         for problem in problems:

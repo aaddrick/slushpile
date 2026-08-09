@@ -1,5 +1,17 @@
 # Getting started
 
+<!-- BEGIN GENERATED language-nav: scripts/sync_docs.py -->
+
+<p align="center">
+  <strong>English</strong> ·
+  <a href="../translations/zh-CN/docs/getting-started.md">简体中文</a> ·
+  <a href="../translations/es/docs/getting-started.md">Español</a> ·
+  <a href="../translations/pt-BR/docs/getting-started.md">Português (BR)</a> ·
+  <a href="../translations/vi/docs/getting-started.md">Tiếng Việt</a>
+</p>
+
+<!-- END GENERATED language-nav -->
+
 Everything you need before your first run: what to install, what to gather, and
 where to run it.
 

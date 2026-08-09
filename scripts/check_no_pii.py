@@ -30,6 +30,33 @@ ROOT = Path(__file__).resolve().parents[1]
 # because it was the one at hand.
 SCANNED = ("skills", "agents", "templates", "docs")
 
+# The translated mirror, scanned at exactly the scope its English original is.
+#
+# `docs/` is scanned and the repository root is not, so the mirror's `docs/` is
+# scanned and its `README.md` and `INSTALL.md` are not. Scanning the whole
+# mirror instead looks stricter and is not: it pulls in translated READMEs,
+# which carry the author-credit line the English README also carries, and the
+# gate then reports four leaks that are the same deliberate credit the English
+# page is trusted with. A gate that fires on a fact the original states is one
+# somebody switches off.
+#
+# What the mirror is genuinely covered against is the contact patterns, which
+# survive a language change: an address, a phone number, a profile URL look the
+# same in every script. The identity patterns are English-shaped and will not
+# fire on translated prose, so a paraphrased biography would get through. That
+# is a real gap, and it is written down rather than implied by a directory
+# appearing in a list.
+MIRROR_SCANNED = "translations/*/docs"
+
+
+def scan_roots() -> list[str]:
+    """Every directory the patterns are run over, as repo-relative paths."""
+    return list(SCANNED) + sorted(
+        path.relative_to(ROOT).as_posix()
+        for path in ROOT.glob(MIRROR_SCANNED)
+        if path.is_dir()
+    )
+
 # (name, pattern, why it is a leak)
 #
 # Patterns are deliberately narrow. A broad pattern that fires on legitimate
@@ -147,7 +174,7 @@ def exemptions_for(relative: str) -> set[str]:
 def scan() -> list[str]:
     problems = []
 
-    for directory in SCANNED:
+    for directory in scan_roots():
         base = ROOT / directory
         if not base.exists():
             problems.append(f"{directory}/: directory not found")
@@ -196,7 +223,7 @@ def main() -> int:
 
     scanned = sum(
         1
-        for directory in SCANNED
+        for directory in scan_roots()
         for path in (ROOT / directory).rglob("*")
         if path.is_file() and path.suffix in {".md", ".yaml", ".yml", ".tex", ".txt"}
     )

@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "slushpile",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "description": "Nine skills and eight agents that run a job application and feed what the review finds back into your profile. The skills: onboard, search and score roles, interview for undocumented experience, build the resume and letter, adversarially review them, de-slop the prose, restyle the templates, report the queue and its calibration, and answer what to run next.",
       "source": "./",
       "category": "productivity",

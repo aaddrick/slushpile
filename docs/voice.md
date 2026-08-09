@@ -1,5 +1,17 @@
 # Your voice agent
 
+<!-- BEGIN GENERATED language-nav: scripts/sync_docs.py -->
+
+<p align="center">
+  <strong>English</strong> ·
+  <a href="../translations/zh-CN/docs/voice.md">简体中文</a> ·
+  <a href="../translations/es/docs/voice.md">Español</a> ·
+  <a href="../translations/pt-BR/docs/voice.md">Português (BR)</a> ·
+  <a href="../translations/vi/docs/voice.md">Tiếng Việt</a>
+</p>
+
+<!-- END GENERATED language-nav -->
+
 An eighth agent writes the cover letter, and it writes in one specific person's
 style, built from a corpus of that person's own writing.
 
