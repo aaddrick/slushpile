@@ -58,7 +58,14 @@ def strip_fences(text: str) -> str:
 
 
 LINK = re.compile(r"\]\(([^)\s]+)(?:\s+\"[^\"]*\")?\)")
-ATTR = re.compile(r"\b(?:src|srcset)=\"([^\"]+)\"")
+# `href` is here for the badge links in the README header and for the generated
+# language nav, both of which are raw HTML rather than Markdown. It was added
+# after the translated READMEs shipped a header whose licence and workflow
+# badges pointed at repository-root paths from two directories down: correct in
+# English, broken in every mirror, and invisible to a gate that only read
+# Markdown link syntax. Absolute URLs are dropped by SCHEME below, so this only
+# ever sees relative targets.
+ATTR = re.compile(r"\b(?:src|srcset|href)=\"([^\"]+)\"")
 SCHEME = re.compile(r"^[a-zA-Z][a-zA-Z0-9+.-]*:")
 
 

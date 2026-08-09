@@ -1,5 +1,17 @@
 # The pipeline, stage by stage
 
+<!-- BEGIN GENERATED language-nav: scripts/sync_docs.py -->
+
+<p align="center">
+  <strong>English</strong> ·
+  <a href="../../translations/zh-CN/docs/architecture/pipeline.md">简体中文</a> ·
+  <a href="../../translations/es/docs/architecture/pipeline.md">Español</a> ·
+  <a href="../../translations/pt-BR/docs/architecture/pipeline.md">Português (BR)</a> ·
+  <a href="../../translations/vi/docs/architecture/pipeline.md">Tiếng Việt</a>
+</p>
+
+<!-- END GENERATED language-nav -->
+
 ## The whole loop
 
 <picture>

@@ -1,5 +1,17 @@
 # Slushpile architecture
 
+<!-- BEGIN GENERATED language-nav: scripts/sync_docs.py -->
+
+<p align="center">
+  <strong>English</strong> ·
+  <a href="../../translations/zh-CN/docs/architecture/index.md">简体中文</a> ·
+  <a href="../../translations/es/docs/architecture/index.md">Español</a> ·
+  <a href="../../translations/pt-BR/docs/architecture/index.md">Português (BR)</a> ·
+  <a href="../../translations/vi/docs/architecture/index.md">Tiếng Việt</a>
+</p>
+
+<!-- END GENERATED language-nav -->
+
 Slushpile is not a program. It is a set of Markdown files that a coding agent
 reads and acts on: nine skills that orchestrate, eight agent definitions that
 each do one job, and a handful of templates. There is no engine, no runtime, and

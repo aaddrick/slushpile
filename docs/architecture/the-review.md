@@ -1,5 +1,17 @@
 # The review
 
+<!-- BEGIN GENERATED language-nav: scripts/sync_docs.py -->
+
+<p align="center">
+  <strong>English</strong> ·
+  <a href="../../translations/zh-CN/docs/architecture/the-review.md">简体中文</a> ·
+  <a href="../../translations/es/docs/architecture/the-review.md">Español</a> ·
+  <a href="../../translations/pt-BR/docs/architecture/the-review.md">Português (BR)</a> ·
+  <a href="../../translations/vi/docs/architecture/the-review.md">Tiếng Việt</a>
+</p>
+
+<!-- END GENERATED language-nav -->
+
 `/slushpile:adversarial-review` dispatches seven personas against a resume and a
 cover letter. This page is why it is shaped that way. The picture is in
 [pipeline.md](pipeline.md); the per-agent definitions are in `agents/`.

@@ -1,5 +1,17 @@
 # Skills
 
+<!-- BEGIN GENERATED language-nav: scripts/sync_docs.py -->
+
+<p align="center">
+  <strong>English</strong> ·
+  <a href="../translations/zh-CN/docs/skills.md">简体中文</a> ·
+  <a href="../translations/es/docs/skills.md">Español</a> ·
+  <a href="../translations/pt-BR/docs/skills.md">Português (BR)</a> ·
+  <a href="../translations/vi/docs/skills.md">Tiếng Việt</a>
+</p>
+
+<!-- END GENERATED language-nav -->
+
 Slushpile installs as nine skills. Claude Code exposes each as
 `/slushpile:<name>`; Codex uses `$slushpile:<name>`; Gemini CLI and other
 harnesses read the same files and you ask for the stage in words.

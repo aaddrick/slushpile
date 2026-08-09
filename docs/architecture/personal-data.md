@@ -1,5 +1,17 @@
 # Personal data
 
+<!-- BEGIN GENERATED language-nav: scripts/sync_docs.py -->
+
+<p align="center">
+  <strong>English</strong> ·
+  <a href="../../translations/zh-CN/docs/architecture/personal-data.md">简体中文</a> ·
+  <a href="../../translations/es/docs/architecture/personal-data.md">Español</a> ·
+  <a href="../../translations/pt-BR/docs/architecture/personal-data.md">Português (BR)</a> ·
+  <a href="../../translations/vi/docs/architecture/personal-data.md">Tiếng Việt</a>
+</p>
+
+<!-- END GENERATED language-nav -->
+
 ## The boundary
 
 The plugin is public code. The workspace is one person's employment history,

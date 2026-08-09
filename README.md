@@ -17,6 +17,18 @@
   <a href="https://www.linkedin.com/in/aaddrick/">Connect on LinkedIn!</a>
 </p>
 
+<!-- BEGIN GENERATED language-nav: scripts/sync_docs.py -->
+
+<p align="center">
+  <strong>English</strong> ·
+  <a href="translations/zh-CN/README.md">简体中文</a> ·
+  <a href="translations/es/README.md">Español</a> ·
+  <a href="translations/pt-BR/README.md">Português (BR)</a> ·
+  <a href="translations/vi/README.md">Tiếng Việt</a>
+</p>
+
+<!-- END GENERATED language-nav -->
+
 ## Install
 
 <details open>

@@ -1,5 +1,17 @@
 # Memory and calibration
 
+<!-- BEGIN GENERATED language-nav: scripts/sync_docs.py -->
+
+<p align="center">
+  <strong>English</strong> ·
+  <a href="../../translations/zh-CN/docs/architecture/memory-and-calibration.md">简体中文</a> ·
+  <a href="../../translations/es/docs/architecture/memory-and-calibration.md">Español</a> ·
+  <a href="../../translations/pt-BR/docs/architecture/memory-and-calibration.md">Português (BR)</a> ·
+  <a href="../../translations/vi/docs/architecture/memory-and-calibration.md">Tiếng Việt</a>
+</p>
+
+<!-- END GENERATED language-nav -->
+
 A job search is forty applications over three months. A tool with no memory
 charges full price for every one of them: you paste a resume in, get a number
 back, close the tab, and the tool ends the session knowing exactly what it knew

@@ -1,5 +1,17 @@
 # Troubleshooting
 
+<!-- BEGIN GENERATED language-nav: scripts/sync_docs.py -->
+
+<p align="center">
+  <strong>English</strong> ·
+  <a href="../translations/zh-CN/docs/troubleshooting.md">简体中文</a> ·
+  <a href="../translations/es/docs/troubleshooting.md">Español</a> ·
+  <a href="../translations/pt-BR/docs/troubleshooting.md">Português (BR)</a> ·
+  <a href="../translations/vi/docs/troubleshooting.md">Tiếng Việt</a>
+</p>
+
+<!-- END GENERATED language-nav -->
+
 **`plugin install` succeeds but the skills do not appear.** Run `claude plugin
 list` and check for `enabled`. Skills load at session start, so start a new
 session or run `/clear`.

@@ -1,5 +1,17 @@
 # The workspace
 
+<!-- BEGIN GENERATED language-nav: scripts/sync_docs.py -->
+
+<p align="center">
+  <strong>English</strong> ·
+  <a href="../translations/zh-CN/docs/workspace.md">简体中文</a> ·
+  <a href="../translations/es/docs/workspace.md">Español</a> ·
+  <a href="../translations/pt-BR/docs/workspace.md">Português (BR)</a> ·
+  <a href="../translations/vi/docs/workspace.md">Tiếng Việt</a>
+</p>
+
+<!-- END GENERATED language-nav -->
+
 `/slushpile:onboard` runs in **your** directory, not in the plugin checkout, and
 everything the pipeline knows about you lives there.
 
