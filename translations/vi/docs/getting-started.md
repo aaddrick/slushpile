@@ -117,9 +117,9 @@ nhật kế tiếp sẽ ghi đè lên đó.
 ## Giờ đầu tiên của bạn
 
 ```
-/slushpile:onboard                    # once, in your workspace directory
-/slushpile:job-board-search <company> # search, score, and create role folders
-/slushpile:application-builder <path> # build and review one application
+/slushpile:onboard                          # once, in your workspace directory
+/slushpile:job-board-search <company|query> # search, score, and create role folders
+/slushpile:application-builder <path>       # build and review one application
 ```
 
 `onboard` là một cuộc phỏng vấn chứ không phải một biểu mẫu, và nó là chặng duy
@@ -130,5 +130,12 @@ Hãy bắt đầu bằng `job-board-search` trên một công ty bạn thật s�
 không phải trên vị trí đầu tiên bạn bắt gặp. Chặng tìm kiếm là chặng duy nhất
 còn có thể can bạn khỏi một lần ứng tuyển mà không tốn gì, và đó là nơi quy
 trình trả lại nhiều nhất trên mỗi phút bạn bỏ ra.
+
+Nếu bạn chưa nhắm sẵn công ty nào, hãy mô tả thứ bạn đang tìm và chính lệnh đó
+sẽ phân giải nó thành một danh sách: `applied AI roles within 50 miles of
+Martinsville, VA that fit my profile` dùng làm tham số được. Nó cho bạn xem
+những công ty nó đã chọn trước khi tìm bất kỳ công ty nào trong số đó, nên một
+danh sách dựng trên cách đọc sai truy vấn của bạn chỉ tốn của bạn một lần đính
+chính chứ không phải một tiếng đồng hồ.
 
 [Kỹ năng](skills.md) là tài liệu tra cứu đầy đủ về các lệnh.

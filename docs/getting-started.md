@@ -115,9 +115,9 @@ the next update replaces.
 ## Your first hour
 
 ```
-/slushpile:onboard                    # once, in your workspace directory
-/slushpile:job-board-search <company> # search, score, and create role folders
-/slushpile:application-builder <path> # build and review one application
+/slushpile:onboard                          # once, in your workspace directory
+/slushpile:job-board-search <company|query> # search, score, and create role folders
+/slushpile:application-builder <path>       # build and review one application
 ```
 
 `onboard` is an interview, not a form, and it is the only stage that asks you
@@ -127,5 +127,11 @@ Start with `job-board-search` on a company you are genuinely interested in
 rather than on the first role you find. The search stage is the only one that
 can still talk you out of an application for free, and it is where the pipeline
 returns the most per minute spent.
+
+If you do not have a company in mind, describe what you are looking for instead
+and the same command resolves it into a list — `applied AI roles within 50 miles
+of Martinsville, VA that fit my profile` works as an argument. It shows you the
+companies it picked before it searches any of them, so a list built on a
+misread of your query costs you one correction rather than an hour.
 
 [Skills](skills.md) is the full command reference.

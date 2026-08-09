@@ -119,9 +119,9 @@ editar o checkout do plugin, que a próxima atualização substitui.
 ## Sua primeira hora
 
 ```
-/slushpile:onboard                    # once, in your workspace directory
-/slushpile:job-board-search <company> # search, score, and create role folders
-/slushpile:application-builder <path> # build and review one application
+/slushpile:onboard                          # once, in your workspace directory
+/slushpile:job-board-search <company|query> # search, score, and create role folders
+/slushpile:application-builder <path>       # build and review one application
 ```
 
 `onboard` é uma entrevista, não um formulário, e é a única etapa que faz
@@ -131,5 +131,12 @@ Comece com `job-board-search` em uma empresa que realmente te interessa, e não
 na primeira vaga que você encontrar. A etapa de busca é a única que ainda
 consegue te convencer a desistir de uma candidatura de graça, e é onde o
 pipeline devolve mais por minuto gasto.
+
+Se você não tem uma empresa em mente, descreva o que está procurando e o mesmo
+comando resolve isso em uma lista — `applied AI roles within 50 miles of
+Martinsville, VA that fit my profile` funciona como argumento. Ele mostra a você
+as empresas que escolheu antes de vasculhar qualquer uma delas, então uma lista
+montada sobre uma leitura errada da sua consulta te custa uma correção, e não
+uma hora.
 
 [Habilidades](skills.md) é a referência completa dos comandos.

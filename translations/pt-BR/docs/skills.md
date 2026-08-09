@@ -37,12 +37,18 @@ Rode uma vez por workspace, antes de qualquer outra coisa. Veja
 
 ### `/slushpile:job-board-search`
 
-Vasculha a página de vagas de uma empresa, extrai cada anúncio na íntegra,
-estima o pool realista de candidatos, pontua o encaixe ancorado no pool e
-condicionado ao canal, roda os critérios de descarte, põe um contrarian na
-frente da lista de níveis e cria uma pasta de vaga para cada vaga que sobrevive.
+Vasculha uma página de vagas, extrai cada anúncio na íntegra, estima o pool
+realista de candidatos, pontua o encaixe ancorado no pool e condicionado ao
+canal, roda os critérios de descarte, põe um contrarian na frente da lista de
+níveis e cria uma pasta de vaga para cada vaga que sobrevive.
 
-**Argumento:** o nome de uma empresa.
+**Argumento:** o nome de uma empresa, ou uma consulta descrevendo o trabalho e
+onde você o quer. Dada uma consulta, a Fase 0 a resolve em uma lista de empresas
+— lendo suas restrições em `preferences.yaml` e seu histórico em `companies.md`
+— mostra essa lista a você e a vasculha assim que você confirmar. Tudo depois da
+Fase 0 é igual nos dois casos, então uma avaliação vinda de uma execução por
+consulta é comparável a uma vinda de uma execução por empresa nomeada, e a
+tabela de calibração pode juntar as duas.
 
 Esta é a etapa de maior retorno do pipeline e a que a maioria das ferramentas
 não tem. Tudo o que vem depois dela custa uma tarde por candidatura; esta custa

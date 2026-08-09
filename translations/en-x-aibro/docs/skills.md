@@ -46,7 +46,18 @@ realistic applicant pool. Scores pool-anchored and channel-conditional fit. Runs
 the kill criteria. Puts a contrarian in front of the tier list. Creates a role
 folder per surviving role.
 
-**Argument:** a company name.
+**Argument:** a company name, or a query describing the work and where you want
+it.
+
+Given a query, Phase 0 resolves it into a company list before anything gets
+searched. It reads your constraints out of `preferences.yaml` and your history
+out of `companies.md`, shows you the list, and searches it only once you confirm.
+One human checkpoint, at the cheapest possible moment.
+
+Everything after Phase 0 is identical in both modes, which is the part that
+matters. An assessment from a query run is comparable against one from a
+named-company run, so the calibration table pools them instead of accumulating
+two incompatible histories of the same search.
 
 Highest return in the system. Nothing else in this category has this stage at
 all, and that is not an oversight on their part, it is the business model:

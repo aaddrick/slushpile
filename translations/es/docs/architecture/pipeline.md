@@ -93,6 +93,17 @@ herramientas no tienen. Todo lo que viene después te cuesta una tarde por
 postulación. Esta etapa cuesta minutos y puede terminar con "no te postules a
 ninguno de estos".
 
+El diagrama de arriba empieza en el descubrimiento porque ahí es donde entra una
+empresa nombrada. Quien no tiene una empresa en mente pasa una consulta en su
+lugar, y la Fase 0 la resuelve en una lista de empresas antes de que corra el
+descubrimiento, leyendo las mismas restricciones de `preferences.yaml` que lee
+el resto del pipeline y el mismo historial de `companies.md`, para que una
+consulta de mercado no vuelva a buscar lo que ya cubrió la consulta del mes
+pasado. La Fase 0 produce una lista y nada más. Todo desde el descubrimiento en
+adelante es idéntico en los dos modos, y eso es lo que mantiene las evaluaciones
+de una corrida por consulta comparables con las de una corrida por empresa
+nombrada en la tabla de calibración.
+
 La publicación se captura **textualmente**. 3 agentes leen después ese texto
 directamente (el analista de requisitos, el simulador de ATS y el analista del
 pool), y una publicación resumida elimina en silencio la redacción exacta de

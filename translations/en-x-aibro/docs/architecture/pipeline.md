@@ -98,6 +98,17 @@ Highest return in the system. Everything downstream costs the user an afternoon
 per application. This costs minutes and is allowed to terminate with "do not
 apply to any of these".
 
+The diagram starts at discovery because that is where a named company enters. No
+company in mind? You pass a query instead, and Phase 0 resolves it into a company
+list before discovery ever runs. It reads the same `preferences.yaml` constraints
+every other stage reads and the same `companies.md` history, so a market query
+does not re-search what last month's query already covered.
+
+Phase 0 produces a list and nothing else. Everything from discovery onward is
+identical in both modes, and that is a design decision rather than a convenience.
+It is what keeps a query run's assessments comparable against a named-company
+run's in the same calibration table.
+
 The posting is captured **verbatim**. 3 agents parse that text directly later on:
 the requirements analyst, the ATS simulator, the pool analyst. Summarize it and
 you silently delete the exact qualification wording those three exist to check.

@@ -91,6 +91,15 @@ This is the stage with the highest return, and it is the one most tools do not
 have. Everything downstream costs the user an afternoon per application. This
 stage costs minutes and can end with "do not apply to any of these".
 
+The diagram above starts at discovery because that is where a named company
+enters. A user who has no company in mind passes a query instead, and Phase 0
+resolves it into a company list before discovery runs — reading the same
+`preferences.yaml` constraints the rest of the pipeline reads, and the same
+`companies.md` history, so a market query does not re-search what last month's
+query already covered. Phase 0 produces a list and nothing else. Everything from
+discovery onward is identical in both modes, which is what keeps a query run's
+assessments comparable against a named-company run's in the calibration table.
+
 The posting is captured **verbatim**. Three agents later parse that text
 directly — the requirements analyst, the ATS simulator, and the pool analyst —
 and a summarized posting silently removes the exact qualification wording those

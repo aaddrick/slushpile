@@ -36,12 +36,18 @@ Chạy một lần cho mỗi không gian làm việc, trước mọi thứ khác
 
 ### `/slushpile:job-board-search`
 
-Tìm trên trang tuyển dụng của một công ty, trích nguyên văn từng tin tuyển dụng,
-ước lượng nhóm ứng viên thực tế, chấm độ phù hợp neo theo nhóm ứng viên và theo
-từng kênh, chạy các tiêu chí loại thẳng, đặt một người phản biện chắn trước danh
-sách phân hạng, rồi tạo một thư mục vai trò cho mỗi vai trò còn sống sót.
+Tìm trên một trang tuyển dụng, trích nguyên văn từng tin tuyển dụng, ước lượng
+nhóm ứng viên thực tế, chấm độ phù hợp neo theo nhóm ứng viên và theo từng kênh,
+chạy các tiêu chí loại thẳng, đặt một người phản biện chắn trước danh sách phân
+hạng, rồi tạo một thư mục vai trò cho mỗi vai trò còn sống sót.
 
-**Tham số:** tên một công ty.
+**Tham số:** tên một công ty, hoặc một truy vấn mô tả công việc bạn muốn làm và
+nơi bạn muốn làm nó. Khi nhận một truy vấn, Giai đoạn 0 phân giải nó thành một
+danh sách công ty, đọc các ràng buộc của bạn từ `preferences.yaml` và lịch sử
+của bạn từ `companies.md`, đưa danh sách đó cho bạn xem, rồi mới tìm sau khi bạn
+xác nhận. Mọi thứ sau Giai đoạn 0 đều như nhau ở cả hai đường, nên một bản đánh
+giá từ lần chạy bằng truy vấn vẫn so sánh được với một bản từ lần chạy nêu đích
+danh công ty, và bảng hiệu chỉnh có thể gộp chung chúng lại.
 
 Đây là giai đoạn cho lợi ích cao nhất trong quy trình, và là giai đoạn hầu hết
 công cụ khác không có. Mọi thứ đứng sau nó tốn một buổi chiều cho mỗi bộ hồ sơ;

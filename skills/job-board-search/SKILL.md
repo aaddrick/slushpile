@@ -1,27 +1,46 @@
 ---
 name: job-board-search
-description: Search a company's careers board, extract job descriptions, score pool-anchored and channel-conditional fit against the user's profile, run a contrarian gate before tiers are finalized, and create role folders with assessments. Updates the job search tracker.
-argument-hint: "<company> [role keywords]"
+description: Search a named company's careers board, or resolve a natural-language query into a company list and search each. Extract job descriptions, score pool-anchored and channel-conditional fit against the user's profile, run a contrarian gate before tiers are finalized, and create role folders with assessments. Updates the job search tracker.
+argument-hint: "<company> [role keywords] | <query describing the work and where>"
 license: MIT
 ---
 
 # Job Board Search
 
-Search a company's careers board, extract the postings, and score each one against the **realistic applicant pool** rather than against the posting's own keywords.
+Search a careers board, extract the postings, and score each one against the
+**realistic applicant pool** rather than against the posting's own keywords.
 
-**Announce at start:** "Searching $COMPANY for roles matching the profile. Focus: $KEYWORDS. Scoring: pool-anchored, channel-conditional, contrarian-gated."
+Two ways in. Name a company and this skill searches that company. Describe the
+work instead — a function, a place, a market — and Phase 0 resolves the
+description into a list of companies and searches each one. Everything after
+Phase 0 is identical either way, because the second mode's only job is producing
+the company list the first mode is handed directly.
+
+**Announce at start.** Company mode: "Searching $COMPANY for roles matching the
+profile. Focus: $KEYWORDS. Scoring: pool-anchored, channel-conditional,
+contrarian-gated." Query mode: the same sentence with the resolved company count
+in place of `$COMPANY`, announced only after Phase 0e, so the user is never told
+a number that a confirmation step might still change.
 
 **Every `templates/...` path in this file is relative to the plugin, not to the workspace.** The working directory is the user's job-search directory and does not contain them, so a bare `templates/role_analysis.md` resolves to nothing. Resolve them against the directory this skill file was itself loaded from — that works on every harness, where a harness-specific plugin-root variable does not.
 
-**Arguments:**
-- `$1` — company name, required
-- `$2+` — role keywords. Defaults to `targeting.functions` in `preferences.yaml`.
+**Arguments:** one required argument, read as either a company or a query. See
+Phase 0a for how to tell them apart and what to do when it is genuinely unclear.
+
+- **Company mode** — `$1` is a company name, `$2+` are role keywords. Keywords
+  default to `targeting.functions` in `preferences.yaml`.
+- **Query mode** — the whole argument describes the work, the place, or the
+  market. Constraints in the query are read on top of `preferences.yaml`, never
+  instead of it.
 
 **Examples:**
 ```
 /slushpile:job-board-search Anthropic applied AI
 /slushpile:job-board-search Rivian manufacturing NPI
 /slushpile:job-board-search Stripe
+/slushpile:job-board-search applied AI roles within 50 miles of Martinsville, VA that fit my profile
+/slushpile:job-board-search remote staff platform engineering at Series B infra companies
+/slushpile:job-board-search who is hiring manufacturing engineers near me
 ```
 
 ## Scoring Philosophy
@@ -43,9 +62,117 @@ Read in full before assessing anything. Skipping these produces assessments that
 - **`profile.md`** — complete background. The primary reference for every fit judgment.
 - **`preferences.yaml`** — constraints, compensation method, targeting, claimed differentiators. **Every hard kill in Phase 3j comes from this file.** Nothing here is hardcoded.
 - **`job_search.md`** — the tracker. Referrals, cooldowns, and the calibration table.
-- **`companies.md`** — whether this company has already been searched, and whether it is excluded.
+- **`companies.md`** — whether this company has already been searched, and whether it is excluded. In query mode this file is load-bearing rather than advisory: it is the only thing standing between a market query and a list that re-searches everything the user already looked at last month.
 
 If `preferences.yaml` does not exist, stop and run `/slushpile:onboard`.
+
+## Phase 0: Resolve the Target Set
+
+Skip this phase in company mode. It exists for a query that describes the work
+rather than the employer, and its only output is a list of companies to hand to
+Phase 1. Nothing downstream of here knows which mode it was reached from, which
+is deliberate: a query mode that changed how roles get scored would produce
+assessments that are not comparable against the ones a company-mode run
+produced, and the calibration table cannot tell the two apart.
+
+### 0a. Decide which mode you are in
+
+A bare company name, with or without trailing role keywords, is company mode.
+An argument that describes roles, a place, a market, or a hiring situation is
+query mode.
+
+When the argument reads both ways, ask. Some words are both a company and a
+category, and the two readings send the run somewhere completely different.
+Guessing wrong here does not fail loudly — it produces a complete, expensive,
+internally consistent search of the wrong target set, and the user finds out
+when they read a report about companies they never asked about.
+
+**State the mode you chose and the reason, in one line, before anything else.**
+A mode decision that is never stated is one the user cannot correct until the
+run is over.
+
+### 0b. Extract the constraints
+
+Read out of the query:
+
+- **Function and seniority.** Falls back to `targeting.functions` and
+  `targeting.levels` when the query does not say.
+- **Geography.** A named place with or without a radius, a region, or remote.
+  Resolve anything relative — "near me", "within driving distance" — against
+  `identity.location`.
+- **Anything else stated:** industry, company stage, size, ownership.
+
+**Query constraints are additional to `preferences.yaml`, never a replacement
+for it.** A user asking for roles near one city has not withdrawn their
+compensation floor, their excluded regions, or their excluded companies. Reading
+the query as an override is the failure mode of this phase, and what it produces
+looks responsive: a tidy list, on topic, containing roles the user already ruled
+out and will now have to rule out again by hand.
+
+The one exception is geography, and only when the query names a place that
+`relocation` would otherwise exclude. Asking about a specific city is evidence
+about that city that postdates the preferences file. Surface the conflict and
+ask; do not silently apply either one.
+
+**Write the resolved constraint set out before searching.** A radius the user
+meant loosely and you applied strictly is the difference between thirty
+candidates and three, and nothing in the output shows which happened.
+
+### 0c. Generate candidate companies
+
+Search for employers matching the constraint set. Vary the search the way 1b
+does — one query returns one query's blind spot, and here the blind spot costs a
+whole company rather than one posting.
+
+- Employers by industry and place: `{industry} companies in {metro}`
+- Aggregator boards, read for **employer names** rather than for postings
+- `targeting.target_companies` in `preferences.yaml`, filtered to the query
+- The Watchlist table in `companies.md`, filtered the same way
+
+Prefer employers over postings at this stage. A posting on an aggregator is
+often stale, duplicated, or a staffing agency reposting someone else's
+requisition, and Phase 1 is going to read the company's own board regardless.
+The aggregator is worth reading for the name it reveals, not the listing it
+shows.
+
+Aim for fifteen to thirty candidates before filtering. Below that the filter has
+nothing to work with, and a thin candidate list is indistinguishable in the
+output from a thorough search of a thin market.
+
+### 0d. Filter, and count what each step removed
+
+In this order:
+
+1. In `targeting.excluded_companies`, or in the Excluded table of `companies.md`.
+2. Searched inside its recheck window per `companies.md`, unless the user asked
+   to refresh.
+3. Ruled out by `relocation` — check `willing` and `target_regions` before
+   dropping anything on location, and honor `remote_preference` before dropping
+   a company for being in the wrong place at all.
+4. No plausible opening for the target functions. Weak filter, applied last.
+   This is a guess from outside the company's board; Phase 1 is what finds out.
+
+**Report the count each step removed, not only the total that survived.**
+"Twenty-two candidates: four searched recently, two excluded, three out of
+region, thirteen to search" is checkable by the person reading it. "Searching
+thirteen companies" is not, and it hides the case where one bad filter ate the
+list.
+
+### 0e. Confirm before spending the budget
+
+Show the user the final list and the counts, and get a yes before Phase 1.
+
+Phases 1 through 5 run per company, and they are where this skill spends nearly
+everything: browser navigation, full posting capture, a per-role assessment, and
+a share of the contrarian batch. A target list that is wrong in a way only the
+user can see is worth exactly one question. Ask it before the spend, not after.
+
+Cap the run at ten companies unless the user says otherwise, and **name the ones
+you cut** rather than reporting a truncated list as the result. A silent cap
+reads as "this is the market" when it is "this is the first ten."
+
+Then run Phases 1 through 4 per company, and Phase 5 once across all of them,
+per 5c.
 
 ## Phase 1: Discovery
 
@@ -457,3 +584,6 @@ Show the user: how many roles were scanned, assessed, and foldered; the Tier 1 l
 13. **Do not skip the calibration ingest.** Scoring without it is scoring blind to the user's own conversion history, which is the only data in the system that is actually about them.
 14. **Do not skip the compensation check, and do not shortcut it to nominal base.** Both directions fail: a role scored Tier 2 on fit that barely beats the candidate's current life, and a good role killed on a nominal number in a cheap metro. Do the arithmetic the method calls for and write it down.
 15. **Do not overclaim domain overlap.** Say "delivery pattern overlap", not "domain nativeness".
+16. **Do not let a query silently override `preferences.yaml`.** A query adds constraints. It does not withdraw the ones already on file, and a list built as though it did looks correct while containing roles the user ruled out months ago.
+17. **Do not start Phase 1 in query mode without the user confirming the company list.** Everything expensive is downstream of that list, and it is the one artifact only the user can check.
+18. **Do not report a capped or filtered company list as the market.** Name what was cut and why. "Thirteen companies" and "thirteen companies, nine cut for cooldown" describe very different searches and read identically.

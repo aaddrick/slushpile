@@ -35,12 +35,17 @@ Run once per workspace, before anything else. See
 
 ### `/slushpile:job-board-search`
 
-Searches a company's careers board, extracts each posting verbatim, estimates
-the realistic applicant pool, scores pool-anchored and channel-conditional fit,
-runs the kill criteria, puts a contrarian in front of the tier list, and creates
-a role folder per surviving role.
+Searches a careers board, extracts each posting verbatim, estimates the
+realistic applicant pool, scores pool-anchored and channel-conditional fit, runs
+the kill criteria, puts a contrarian in front of the tier list, and creates a
+role folder per surviving role.
 
-**Argument:** a company name.
+**Argument:** a company name, or a query describing the work and where you want
+it. Given a query, Phase 0 resolves it into a company list — reading your
+constraints from `preferences.yaml` and your history from `companies.md` — shows
+you that list, and searches it once you confirm. Everything after Phase 0 is the
+same either way, so an assessment from a query run is comparable against one
+from a named-company run and the calibration table can pool them.
 
 This is the highest-return stage in the pipeline and the one most tools do not
 have. Everything after it costs an afternoon per application; this costs minutes

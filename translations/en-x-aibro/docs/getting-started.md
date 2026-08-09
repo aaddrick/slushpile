@@ -123,9 +123,9 @@ plugin checkout. The next update overwrites it and takes your work with it.
 ## Your first hour
 
 ```
-/slushpile:onboard                    # once, in your workspace directory
-/slushpile:job-board-search <company> # search, score, and create role folders
-/slushpile:application-builder <path> # build and review one application
+/slushpile:onboard                          # once, in your workspace directory
+/slushpile:job-board-search <company|query> # search, score, and create role folders
+/slushpile:application-builder <path>       # build and review one application
 ```
 
 `onboard` is an interview, not a form. It is the only stage that asks you
@@ -135,5 +135,11 @@ Then start with `job-board-search` on a company you actually want, not the first
 posting you find. That stage is the only one that can still talk you out of an
 application for free. Highest return per minute in the pipeline, and the one
 everybody is tempted to skip because it does not produce a document.
+
+No company in mind? Describe the work instead. The same command takes
+`applied AI roles within 50 miles of Martinsville, VA that fit my profile` as an
+argument and resolves it into a list of companies, then puts that list in front
+of you before it searches a single one of them. A list built on a misread of your
+query costs you one correction instead of an hour.
 
 [Skills](skills.md) is the full command reference.
