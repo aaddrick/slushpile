@@ -105,11 +105,11 @@ data policy — the pipeline will be handing it your full employment history.
 
 ## Typefaces
 
-`assets/fonts/` holds eleven font files serving two unrelated purposes.
-`scripts/make_card.py` draws `.github/assets/hero.png` with some of them, and
-`templates/resume.tex` and `templates/cover_letter.tex` are set in the others.
-All three families are licensed under the SIL Open Font License 1.1, and all
-three license texts sit beside the fonts.
+`assets/fonts/` holds thirteen font files serving two unrelated purposes.
+`scripts/make_card.py` draws the cards under `.github/assets/` with some of
+them, and `templates/resume.tex` and `templates/cover_letter.tex` are set in the
+others. All four families are licensed under the SIL Open Font License 1.1, and
+all four license texts sit beside the fonts.
 
 **[Saira Condensed](https://github.com/google/fonts/tree/main/ofl/sairacondensed)**,
 version 0.072, copyright 2016 The Saira Project Authors. Three weights: Bold,
@@ -121,6 +121,15 @@ version 2.3, copyright 2017 IBM Corp. Three weights: Regular, Medium, SemiBold.
 Regular and SemiBold set the eyebrows and datelines in both document templates;
 Medium is card only. License in
 [`assets/fonts/OFL-IBMPlexMono.txt`](./assets/fonts/OFL-IBMPlexMono.txt).
+
+**[Noto Sans CJK SC](https://github.com/notofonts/noto-cjk)**, version 2.004,
+copyright 2014-2021 Adobe. Two weights, Medium and Bold, and both are subsets:
+the files here carry only the characters the Chinese card draws, cut from the
+full face by `scripts/subset_cjk_font.py`. A complete CJK face is twenty
+thousand glyphs and tens of megabytes, which is not a thing to vendor so that
+one picture can be drawn. Card only, and never installed onto a system by
+`scripts/install_fonts.py`. License in
+[`assets/fonts/OFL-NotoSansCJK.txt`](./assets/fonts/OFL-NotoSansCJK.txt).
 
 **[Public Sans](https://github.com/uswds/public-sans)**, version 2.001,
 copyright 2015 The Public Sans Project Authors. Five faces: Regular, Bold,
