@@ -1,0 +1,29 @@
+# /slushpile:onboard, phase by phase. Run once per workspace.
+#
+# GRID SNAKE, boustrophedon: row 1 left-to-right, drop down the last column,
+# row 2 back right-to-left. See docs/diagrams/AGENTS.md for the diagonal rule
+# that constrains where a cell may go.
+
+grid-rows: 2
+grid-columns: 4
+horizontal-gap: 80
+vertical-gap: 70
+
+# row 1, left to right
+ing: "1. INGEST\n\na resume in any format, or\na LinkedIn export" { class: stage }
+int: "2. INTERVIEW\n\nthe gaps a document cannot\nfill · numbers with baselines" { class: stage }
+prof: "3. profile.md\n\nthe pool a resume is cut\nfrom, not a resume" { class: memory }
+pref: "4. preferences.yaml\n\ncomp method · constraints\ncalibration_priors left empty" { class: memory }
+# row 2, right to left
+hand: "8. VERIFY AND HAND OFF\n\nevery check reported,\nthe passes included" { class: terminal }
+scaf: "7. SCAFFOLD\n\njob_search.md · companies.md\ntoolchain check · git advice" { class: stage }
+voice: "6. VOICE AGENT\n\npoint the user at their own\nis_mine stays false until then" { class: gate }
+stor: "5. stories.md\n\nfour to eight tellable,\nwith the numbers attached" { class: memory }
+
+ing -> int: { class: flow }
+int -> prof: { class: flow }
+prof -> pref: { class: flow }
+pref -> stor: { class: flow }
+stor -> voice: { class: flow }
+voice -> scaf: { class: flow }
+scaf -> hand: { class: flow }

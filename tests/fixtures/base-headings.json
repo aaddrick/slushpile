@@ -1,0 +1,37 @@
+{
+  "_comment": [
+    "Every level-1 and level-2 heading in README.md and INSTALL.md at commit 5009a33,",
+    "the state before the docs/ tree was extracted out of them, with how many times",
+    "each appeared across the two files. tests/test_docs.py asserts every one of these",
+    "still appears exactly this often across README.md, INSTALL.md, and docs/**.md.",
+    "That is what proves the extraction moved prose rather than losing it.",
+    "Read from a committed fixture rather than from git at test time: a shallow CI",
+    "checkout does not have that commit's blob, and a later squash rewrites the sha."
+  ],
+  "base_commit": "5009a33",
+  "files": [
+    "README.md",
+    "INSTALL.md"
+  ],
+  "headings": {
+    "Any other harness": 1,
+    "Claude Code": 1,
+    "Codex": 1,
+    "Cursor": 1,
+    "Gemini CLI": 1,
+    "Honesty is the feature": 1,
+    "Install": 2,
+    "License": 1,
+    "Requirements": 1,
+    "The pipeline": 1,
+    "The problem": 1,
+    "Troubleshooting": 1,
+    "Tune it": 1,
+    "What changes": 1,
+    "What onboarding will ask you for": 1,
+    "What this does instead": 1,
+    "Your cover letters need your voice": 1,
+    "Your data stays yours": 1,
+    "slushpile": 1
+  }
+}

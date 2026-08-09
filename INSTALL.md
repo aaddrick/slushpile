@@ -197,109 +197,18 @@ Workspace templates are in `~/.slushpile/templates/`.
 
 ---
 
-## What onboarding will ask you for
+## The rest of the manual
 
-Worth gathering before you start, because two of these take you longer to find
-than the interview takes to run.
+Everything past installing lives in [docs/](docs/index.md):
 
-**A resume**, in any format. PDF, `.tex`, `.docx`, Markdown. Replaces about ten
-minutes of interview with thirty seconds of reading. A LinkedIn data export
-works too — `Positions.csv` and `Education.csv` carry most of it.
-
-**A writing corpus**, for your voice agent. Several thousand words of your own
-unedited prose. Onboarding does not analyze this itself — it points you at
-[written-voice-replication](https://github.com/aaddrick/written-voice-replication),
-which is a separate pipeline you run once. Gathering the corpus is the slow
-part, so start early.
-
-Good sources: forum and Reddit posts, blog posts, long Slack messages, emails
-to colleagues, pull request descriptions, documentation you wrote alone. A
-Reddit or Twitter data export works directly.
-
-Bad sources: anything co-written, anything edited by someone else, anything
-already run through an LLM, anything in an institutional voice. Marketing copy
-and performance reviews are the two worst.
-
-**Your numbers.** Budgets, headcounts, percentages, and the *before* state for
-each. "Cut latency 40%" is unusable until you know 40% of what, and onboarding
-will ask.
-
-**Your compensation situation**, if you want the compensation gate to work. For
-the recommended method it needs your current gross, your tax, and your housing
-cost. It does the arithmetic; you do not have to arrive with a number.
-
----
-
-## Requirements
-
-**Required:** an agent that can read local files and browse the web.
-
-**Recommended:** `pdftotext` (from `poppler-utils`), so the review agents see
-what an ATS sees rather than what your PDF viewer shows.
-
-```bash
-sudo dnf install poppler-utils     # Fedora
-sudo apt install poppler-utils     # Debian, Ubuntu
-brew install poppler               # macOS
-```
-
-**Optional:** a LaTeX toolchain, if you use `templates/resume.tex` and
-`templates/cover_letter.tex`. Every skill works on extracted text and none of
-them require LaTeX — only those two templates do.
-
-```bash
-sudo dnf install -y texlive-xetex texlive-fontspec texlive-microtype latexmk dejavu-fonts-all
-sudo apt install texlive-xetex texlive-fonts-extra fonts-dejavu latexmk
-brew install --cask mactex-no-gui
-```
-
-Build with `latexmk -xelatex resume.tex && latexmk -c`. Two commands: the first
-builds, the second cleans. Neither does both.
-
-The templates are set in Public Sans and IBM Plex Mono. Neither ships with TeX
-Live, so both are vendored in this repository and one command installs them:
-
-```bash
-python3 scripts/install_fonts.py            # install
-python3 scripts/install_fonts.py --check    # report, change nothing
-python3 scripts/install_fonts.py --uninstall
-```
-
-It copies seven font files into your user font directory and refreshes the
-cache. Nothing else runs it, and skipping it is fine: both templates fall back
-to DejaVu when a family is absent, so a missing font changes how the documents
-look and never whether they build.
-
-To restyle them into something of your own, run
-`/slushpile:redesign-templates` rather than editing the plugin checkout, which
-the next update replaces.
-
----
-
-## Troubleshooting
-
-**`plugin install` succeeds but the skills do not appear.** Run `claude plugin
-list` and check for `enabled`. Skills load at session start, so start a new
-session or run `/clear`.
-
-**A skill says it cannot find `preferences.yaml`.** You are in a different
-directory than the one you onboarded. Every skill reads the workspace from the
-current working directory.
-
-**The review agents report a nearly empty resume.** They are reading extracted
-text, not your PDF as rendered. Run `pdftotext yourresume.pdf -` and look at the
-output. If it is empty or scrambled, the resume has a layout problem — a
-multi-column grid, a text box, contact details in a header — and that is a real
-finding, not a tooling failure. An ATS sees what `pdftotext` sees.
-
-**The cover letter reads generic, or sounds like someone else.** Check
-`voice.is_mine` in `preferences.yaml`. If it is false you are using the shipped
-example voice, which belongs to the plugin author. Generate your own with
-[written-voice-replication](https://github.com/aaddrick/written-voice-replication)
-and point `voice.agent` at it. If it is already true, the corpus was probably
-too thin — a few thousand words is the floor.
-
-**Every role comes back killed on compensation.** Open `preferences.yaml` and
-check `compensation`. With `net_qol`, the most common cause is a
-`current_baseline` entered as gross rather than after-tax-after-housing, which
-makes every offer look worse than it is.
+- [Getting started](docs/getting-started.md): what to gather before onboarding,
+  and what the pipeline needs installed — `pdftotext`, and optionally a LaTeX
+  toolchain and the vendored document fonts.
+- [Skills](docs/skills.md): every `/slushpile:*` command and when to run it.
+- [The workspace](docs/workspace.md): the files onboarding writes into your
+  directory, and what reads each one.
+- [Your voice agent](docs/voice.md): why cover letters need one and how to
+  generate yours.
+- [Troubleshooting](docs/troubleshooting.md).
+- [Architecture](docs/architecture/index.md): why the pipeline is shaped the way
+  it is.

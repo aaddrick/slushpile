@@ -1,0 +1,55 @@
+# /slushpile:adversarial-review, the seven personas and what each is shown.
+#
+# GRID SNAKE, boustrophedon, 3 columns. The blind stage is one container
+# holding a nested 2x3 grid, for two reasons.
+#
+# It keeps the fan-out to a single edge. Grid connections are center-to-center
+# with no path-finding, so five sibling cells fed from one source would draw
+# four diagonals through whatever sits between them.
+#
+# And it sources the edge into the hiring manager from the whole set. The
+# hiring manager is gated on all five reports arriving, not on any one of
+# them, and an edge leaving a single specialist box would say otherwise.
+#
+# The container is by far the widest cell, and a grid column takes the width
+# of its widest cell, so the gatekeeper below it is stretched to match. That
+# is why its label carries three lines: the space exists either way, and an
+# empty stretched box reads as a rendering fault.
+#
+# The re-run edge is stated in the gatekeeper's label rather than drawn. It
+# would have to reach from the middle of row 2 back to the top left, which is
+# a diagonal straight through the blind stage.
+
+grid-rows: 2
+grid-columns: 3
+horizontal-gap: 70
+vertical-gap: 60
+
+# row 1, left to right
+mat: "1. GATHER MATERIALS\n\npdftotext the compiled PDF\njob description · role analysis\npreferences.yaml · job_search.md" { class: stage }
+
+blind: "2. FIVE BLIND SPECIALISTS · none sees another's report" {
+  class: phase
+  grid-rows: 3
+  grid-columns: 2
+  horizontal-gap: 36
+  vertical-gap: 26
+
+  tri: "Triage screener\n11 seconds, resume only" { class: agent }
+  req: "Requirements analyst\n30 seconds, every qualification" { class: agent }
+  ats: "ATS simulator\na parser, not a reader" { class: agent }
+  fat: "Fatigued reader\napplication #61 of 80" { class: agent }
+  poo: "Pool analyst\nwho else is in the queue" { class: agent }
+}
+
+hm: "3. HIRING MANAGER\n\nsees all five reports\none verdict per channel\nquality scored apart from EV" { class: agent }
+# row 2, right to left
+rec: "6. PRESENT AND RECORD\n\nprioritized by impact on the\nhighest-EV channel, not by\nwhich agent shouted loudest" { class: terminal }
+gk: "5. GATEKEEPER\n\nthe orchestrator, not an agent · strikes false\npositives and out-of-scope kills, then re-derives\nmaterials changed: re-run with fresh instances" { class: gate }
+con: "4. CONTRARIAN\n\nsees everything, including\nthe hiring manager, and may\noverturn it · never optional" { class: agent }
+
+mat -> blind: { class: flow }
+blind -> hm: "all five\nreturn" { class: flow }
+hm -> con: { class: flow }
+con -> gk: { class: flow }
+gk -> rec: { class: flow }

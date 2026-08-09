@@ -240,6 +240,18 @@ manager, and can overrule it.
 
 <!-- END GENERATED reviewers -->
 
+## The manual
+
+The rest of it lives in [docs/](docs/index.md):
+
+- [Getting started](docs/getting-started.md): what to gather before onboarding,
+  and what to install.
+- [Skills](docs/skills.md): every command, and when to run it.
+- [The workspace](docs/workspace.md): the files this writes into your directory.
+- [Your voice agent](docs/voice.md), [Troubleshooting](docs/troubleshooting.md).
+- [Architecture](docs/architecture/index.md): the diagrams, why the review is
+  shaped this way, and how scoring and calibration work.
+
 ## Your cover letters need your voice
 
 An eighth agent writes the cover letter. It writes in one specific person's

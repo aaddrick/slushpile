@@ -15,8 +15,8 @@ never edit inside a `BEGIN GENERATED` / `END GENERATED` marker pair. An edit
 inside a generated block survives until the next run of the generator, and then
 disappears.
 
-Six surfaces describe this pipeline, every one of them lists the skills, and
-most of them state the review's shape. None of those facts belongs to the file
+Several surfaces describe this pipeline, every one of them lists the skills,
+and most of them state the review's shape. None of those facts belongs to the file
 that prints it. They live in `skills/`, in `agents/`, and in the dispatch table
 inside `skills/adversarial-review/SKILL.md`.
 
@@ -28,6 +28,9 @@ inside `skills/adversarial-review/SKILL.md`.
 | the `skills` and `agents` regions of `GEMINI.md` | `skills/`, `agents/`, the dispatch table |
 | the `pipeline` and `reviewers` regions of `README.md` | `skills/`, the dispatch table |
 | the `harness-snippet` region of `INSTALL.md` | `skills/`, `agents/` |
+| the `agent-table` region of `docs/architecture/agents-and-models.md` | `agents/`, the dispatch table |
+| all of `docs/architecture/AGENTS.md` | `docs/architecture/CLAUDE.md` |
+| all of `docs/diagrams/AGENTS.md` | `docs/diagrams/CLAUDE.md` |
 
 After any edit to `CLAUDE.md`, after adding, renaming, or removing a skill or an
 agent, and after any change to the review's dispatch table, run:
@@ -80,7 +83,7 @@ to green was to edit the literal and ship the prose it contradicted.
 
 A second gate covers rosters rather than counts. `COMMAND_ROSTERS` in the
 generator lists the hand-written files that must name every skill as
-`/slushpile:<name>`, and the help skill is in it. Generation already covers the
+`/slushpile:<name>`, and the help skill and `docs/skills.md` are both in it. Generation already covers the
 Cursor router, the README's command list, and the `INSTALL.md` snippet; the
 omissions happened on the surfaces a person types out. The help skill named one
 short for as long as there have been nine, and it is the file whose whole job is
@@ -204,6 +207,69 @@ Two rules about the boundary between them:
    findings that are not comparable across applications, which destroys the
    calibration data the whole system depends on.
 
+## The docs tree
+
+`README.md` argues, `INSTALL.md` gets the plugin onto a machine, and `docs/` is
+everything else. It was extracted out of those two files rather than written
+beside them, which is why `tests/test_docs.py` carries a census: every level-1
+and level-2 heading those files had before the extraction, recorded in
+`tests/fixtures/base-headings.json`, must still appear exactly as often across
+`README.md`, `INSTALL.md`, and `docs/`. A section dropped mid-move fails there.
+
+The census cuts the other way too, and that is the half worth knowing before
+you add a page. A new `docs/` heading that collides with one the fixture tracks
+raises that heading's count and fails, because from then on the gate could not
+tell the original going missing from the duplicate covering for it. Two
+headings had to be renamed while this tree was written for exactly that reason.
+
+Three more gates live in the same file:
+
+- **Relative links.** Every markdown link, `src`, and `srcset` in every tracked
+  `.md` resolves on disk. Fenced code blocks are stripped first, so the
+  illustrative `<picture>` snippet in the diagram guide is not read as a real
+  link.
+- **Reachability.** Every file under `docs/` is within two hops of
+  `docs/index.md`. A page nothing links to is a page nobody reads, and it looks
+  exactly like a linked one in a diff. Three files are exempt by name, each
+  with its reason in the test.
+- **Freeze pairs.** Any `<dir>/AGENTS.md` with a sibling `CLAUDE.md` must be
+  byte-identical to it. The scan is general rather than a list of paths, so a
+  future pair anywhere is covered without editing the test. The repository root
+  is the one exemption, because its `AGENTS.md` carries a provenance header and
+  `sync_docs.py --check` already covers it.
+
+`docs/` is scanned by `check_no_pii.py` alongside `skills/`, `agents/`, and
+`templates/`. Documentation is where a real employer or a real salary gets used
+as an example because it was the one at hand. This is not hypothetical either:
+the leak example on `docs/architecture/personal-data.md` had to be paraphrased
+to survive the gate that page documents.
+
+### The diagrams
+
+`docs/diagrams/` holds D2 sources and the light and dark SVG pair rendered from
+each. The rendering is manual — `docs/diagrams/render.sh`, needing d2 v0.7.x on
+`PATH` — and the SVGs are committed so nobody needs d2 installed to read the
+docs, only to change them.
+
+`docs/diagrams/CLAUDE.md` is the authoring guide, and it is long because d2
+grids have sharp edges: connections are center-to-center with no path-finding,
+so an edge between non-neighbouring cells cuts through whatever sits between
+them. Read it before editing a `.d2`.
+
+The gate that matters most here is the staleness one. Every `\n`-separated
+label segment in a `.d2` body must appear in both of its committed SVGs, so a
+source edited without a re-render fails the suite instead of shipping a picture
+of a pipeline that no longer exists. `.d2` files are also read by the count
+sweep, which is what keeps a label reading "five blind" honest.
+
+The rest are cheaper and still worth having: no `foreignObject` in any SVG (a
+`|md|` label produces one, and it disappears when GitHub loads the SVG through
+an `<img>`), both themes defining the same class names, the legend in
+`docs/architecture/pipeline.md` naming exactly those classes, every diagram
+embedded in a `<picture>` with both sources, alt text on every embedded diagram,
+and a natural width under 1280px so the text is still legible after GitHub
+scales it into a 1012px column.
+
 ## Testing
 
 ```bash
@@ -212,6 +278,11 @@ python3 scripts/check_no_pii.py        # no personal data leaked into the plugin
 python3 scripts/sync_docs.py --check   # generated copies match their source
 python3 -m unittest discover -s tests -v
 ```
+
+`tests/test_docs.py` is discovered by that last command; it is where the
+link, reachability, freeze-pair, census, and diagram gates live. Nothing runs
+`docs/diagrams/render.sh` for you, so re-render and commit both SVGs in the same
+commit as a `.d2` edit.
 
 CI runs all four on every pull request and on every push to `main`, plus a
 plugin-load check that installs this checkout into a scratch config and fails if
@@ -360,10 +431,12 @@ A commit subject states what changed. The body states why, with the evidence.
 | `skills/` | the nine skills. The product. |
 | `agents/` | the eight agent definitions. The product. |
 | `templates/` | what a user's workspace gets scaffolded from |
+| `docs/` | the manual, its architecture pages, and the D2 diagram sources |
 | `scripts/check_configs.py` | parses every shipped manifest |
 | `scripts/check_no_pii.py` | the personal-data gate |
 | `scripts/sync_docs.py` | the generator and its `--check` gate |
 | `scripts/make_card.py` | draws `.github/assets/hero.png` and `social.png` |
+| `docs/diagrams/render.sh` | renders every diagram's light and dark SVG from its `.d2` |
 | `scripts/install_fonts.py` | installs the document fonts into the user's font directory |
 | `assets/fonts/` | the vendored fonts the card and the templates are drawn with, and all three OFL licenses |
 | `.claude-plugin/`, `.codex-plugin/`, `gemini-extension.json` | plugin manifests |

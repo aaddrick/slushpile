@@ -24,7 +24,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
-SCANNED = ("skills", "agents", "templates")
+# `docs` is scanned for the same reason the skills are: it is shipped prose
+# about a job search, written by someone who has one, and the examples that
+# teach a rule are exactly where a real employer or a real number gets used
+# because it was the one at hand.
+SCANNED = ("skills", "agents", "templates", "docs")
 
 # (name, pattern, why it is a leak)
 #
@@ -41,13 +45,15 @@ PATTERNS: tuple[tuple[str, re.Pattern[str], str], ...] = (
         # name `slushpile-pool-analyst`.
         #
         # `github.com/aaddrick/...` is a URL to a tool the pipeline points users
-        # at. A repository address is not a claim about the user.
+        # at, and `aaddrick/slushpile` is the marketplace slug an install
+        # command has to name. A repository address is not a claim about the
+        # user, and neither is the plugin's own coordinates.
         #
         # Bare `aaddrick` anywhere else is still a leak, which is the case that
         # actually matters: a skill asserting something about the author as if
         # it were true of whoever installed this.
         re.compile(
-            r"(?<!github\.com/)\baaddrick\b(?!-voice)"
+            r"(?<!github\.com/)\baaddrick\b(?!-voice)(?!/slushpile\b)"
             r"|Non-?Convex Labs"
             r"|nonconvexlabs",
             re.I,
