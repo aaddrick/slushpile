@@ -128,19 +128,27 @@ git clone https://github.com/VonTerraProject501c3/slushpile ~/.gemini/extensions
 
 ## Cursor
 
-Cursor 从它当前打开的那个工作区里读 `.cursor/skills/` 和 `.cursor/rules/`。克隆仓库，把它们复制进你的工作区：
+Cursor 从它当前打开的那个工作区里读 `.cursor/skills/` 和 `.cursor/rules/`。有三样东西要放进去：技能路由器、规则文件，以及流水线本身。把 `WORKSPACE` 设成 Cursor 打开的那个目录，然后把整块当成一个整体执行：
 
 ```bash
+WORKSPACE="/path/to/your/workspace"
+rm -rf /tmp/slushpile
 git clone https://github.com/VonTerraProject501c3/slushpile /tmp/slushpile
+mkdir -p "$WORKSPACE/.cursor/skills" "$WORKSPACE/.cursor/rules" "$WORKSPACE/.slushpile"
+cp -r /tmp/slushpile/.cursor/skills/slushpile "$WORKSPACE/.cursor/skills/"
+cp /tmp/slushpile/.cursor/rules/slushpile.mdc "$WORKSPACE/.cursor/rules/"
+cp -r /tmp/slushpile/skills /tmp/slushpile/agents /tmp/slushpile/templates "$WORKSPACE/.slushpile/"
 ```
 
-```bash
-cp -r /tmp/slushpile/.cursor/skills/slushpile <your-workspace>/.cursor/skills/
-```
+确认这三样都到位了：
 
 ```bash
-cp -r /tmp/slushpile/skills /tmp/slushpile/agents /tmp/slushpile/templates <your-workspace>/.slushpile/
+ls "$WORKSPACE/.cursor/skills/slushpile/SKILL.md" "$WORKSPACE/.cursor/rules/slushpile.mdc" "$WORKSPACE/.slushpile/skills"
 ```
+
+规则文件是值得去确认的那个。它带着两条常驻规则 —— 在对用户下任何断言之前先读 `preferences.yaml`，以及绝不替用户发送任何东西 —— 而 Cursor 是唯一一个靠手动复制、而不是随插件一起送达的 harness。一个缺了它的工作区，看上去和正常的一模一样。
+
+`rm -rf /tmp/slushpile` 放在那里是为了让这块能重跑；`git clone` 会拒绝一个已经存在的目标。
 
 Cursor 那个技能是个路由器：它指向 `.slushpile/` 下面真正的技能文件。这样流水线只留一份副本，而不是四份。
 

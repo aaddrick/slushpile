@@ -145,19 +145,34 @@ git clone https://github.com/VonTerraProject501c3/slushpile ~/.gemini/extensions
 ## Cursor
 
 Cursor đọc `.cursor/skills/` và `.cursor/rules/` từ không gian làm việc mà nó
-đang mở. Hãy clone kho lưu trữ rồi chép chúng vào không gian làm việc của bạn:
+đang mở. Có ba thứ đi vào: bộ định tuyến kỹ năng, tệp quy tắc, và chính quy
+trình. Hãy đặt `WORKSPACE` thành thư mục mà Cursor đang mở, rồi chạy cả khối như
+một khối duy nhất:
 
 ```bash
+WORKSPACE="/path/to/your/workspace"
+rm -rf /tmp/slushpile
 git clone https://github.com/VonTerraProject501c3/slushpile /tmp/slushpile
+mkdir -p "$WORKSPACE/.cursor/skills" "$WORKSPACE/.cursor/rules" "$WORKSPACE/.slushpile"
+cp -r /tmp/slushpile/.cursor/skills/slushpile "$WORKSPACE/.cursor/skills/"
+cp /tmp/slushpile/.cursor/rules/slushpile.mdc "$WORKSPACE/.cursor/rules/"
+cp -r /tmp/slushpile/skills /tmp/slushpile/agents /tmp/slushpile/templates "$WORKSPACE/.slushpile/"
 ```
 
-```bash
-cp -r /tmp/slushpile/.cursor/skills/slushpile <your-workspace>/.cursor/skills/
-```
+Kiểm tra xem cả ba đã tới nơi chưa:
 
 ```bash
-cp -r /tmp/slushpile/skills /tmp/slushpile/agents /tmp/slushpile/templates <your-workspace>/.slushpile/
+ls "$WORKSPACE/.cursor/skills/slushpile/SKILL.md" "$WORKSPACE/.cursor/rules/slushpile.mdc" "$WORKSPACE/.slushpile/skills"
 ```
+
+Tệp quy tắc là thứ đáng kiểm chứng. Nó mang hai quy tắc thường trực — đọc
+`preferences.yaml` trước khi khẳng định bất cứ điều gì về người dùng, và không
+bao giờ gửi đi bất cứ thứ gì — và Cursor là harness duy nhất nơi nó tới bằng
+cách chép tay thay vì đi kèm plugin. Một không gian làm việc thiếu nó trông y
+hệt một cái chạy tốt.
+
+`rm -rf /tmp/slushpile` có ở đó để khối này chạy lại được; `git clone` từ chối
+một đích đã tồn tại.
 
 Kỹ năng Cursor chỉ là một bộ định tuyến: nó trỏ tới các tệp kỹ năng thật nằm
 dưới `.slushpile/`. Nhờ vậy chỉ có một bản sao của quy trình thay vì bốn.
