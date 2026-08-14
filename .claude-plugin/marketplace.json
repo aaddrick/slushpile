@@ -3,8 +3,8 @@
   "name": "slushpile",
   "description": "An adversarial job search that gets better as it goes: pool-anchored fit scoring, a resume and cover letter built against the job description, seven agents that try to reject you before a recruiter does, and a profile that keeps what they find.",
   "owner": {
-    "name": "aaddrick",
-    "url": "https://github.com/aaddrick"
+    "name": "The Von Terra Project 501(c)(3)",
+    "url": "https://github.com/VonTerraProject501c3"
   },
   "plugins": [
     {
