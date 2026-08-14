@@ -143,15 +143,19 @@ push to `main`. Pull request creation stays collaborators only, so this is the
 route for people with commit access; everyone else arrives through an issue.
 
 Open the issue first, including for your own work. Keep it short: what is wrong,
-and what should be true instead. A few sentences is a whole issue. The file
-inventory, the grep output, and the design of the fix belong to the pull request
-that does the work, where a reviewer reads them beside the diff they justify. An
-issue written as a report gets skimmed past the sentence that says what broke.
+and what should be true instead. A few sentences is a whole issue, and one
+front-loaded with the investigation gets skimmed past the sentence that says
+what broke.
 
-Reference the issue from the pull request with `Closes #12`, so it closes on
-merge and the search that finds one finds the other. CI runs all five jobs on the
-pull request, which is the point of the route: a gate fails before the commit is
-public rather than after. Run the four locally first anyway.
+The pull request is short for the same reason. What changed, and why this way,
+in enough detail for a reviewer to decide where to look. The evidence goes in
+the commit bodies, where someone deep-diving is already reading, and the diff is
+the authority over both.
+
+Reference the issue with `Closes #12`, so it closes on merge and the search that
+finds one finds the other. CI runs all five jobs on the pull request, which is
+the point of the route: a gate fails before the commit is public rather than
+after. Run the four locally first anyway.
 
 Merge by rebase or squash, never a merge commit. Squash a branch that is one
 change told in several commits; rebase one whose commits each stand alone.
