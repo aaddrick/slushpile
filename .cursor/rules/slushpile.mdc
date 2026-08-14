@@ -18,6 +18,7 @@ skill file and follow it in full:
 |---|---|
 | Set up the workspace, once | `.slushpile/skills/onboard/SKILL.md` |
 | Search and score roles | `.slushpile/skills/job-board-search/SKILL.md` |
+| Open the warm channel for a role | `.slushpile/skills/outreach/SKILL.md` |
 | Interview for undocumented experience | `.slushpile/skills/explore-experience/SKILL.md` |
 | Build a resume and cover letter | `.slushpile/skills/application-builder/SKILL.md` |
 | Seven-agent adversarial review | `.slushpile/skills/adversarial-review/SKILL.md` |

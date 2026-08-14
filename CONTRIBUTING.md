@@ -98,7 +98,7 @@ the README documents and the Cursor router never mentions.
 
 ## Want different rules? Fork
 
-MIT. The nine skills and eight agents are Markdown with no build step. Fork,
+MIT. The ten skills and eight agents are Markdown with no build step. Fork,
 edit, and install your copy — the four commands are in the README's
 [Tune it](./README.md#tune-it) section.
 

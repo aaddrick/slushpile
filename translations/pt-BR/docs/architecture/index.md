@@ -14,7 +14,7 @@
 <!-- END GENERATED language-nav -->
 
 Slushpile não é um programa. É um conjunto de arquivos Markdown que um agente de
-codificação lê e sobre os quais age: 9 habilidades que orquestram, 8 definições
+codificação lê e sobre os quais age: 10 habilidades que orquestram, 8 definições
 de agente que fazem cada uma um único trabalho, e um punhado de templates. Não há
 motor, não há runtime e não há estado fora do diretório de trabalho do próprio
 usuário.

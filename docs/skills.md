@@ -13,13 +13,13 @@
 
 <!-- END GENERATED language-nav -->
 
-Slushpile installs as nine skills. Claude Code exposes each as
+Slushpile installs as ten skills. Claude Code exposes each as
 `/slushpile:<name>`; Codex uses `$slushpile:<name>`; Gemini CLI and other
 harnesses read the same files and you ask for the stage in words.
 
 Three of them are the spine. Three more are dispatched for you in the course of
 building an application, and you only run them by hand on materials this
-pipeline did not build. The last three are advisory and can be run at any time.
+pipeline did not build. The last four you run when they apply, in any order.
 
 ## The spine
 
@@ -63,7 +63,7 @@ It dispatches `explore-experience`, `adversarial-review`, and
 `removing-ai-tells` itself. It never submits anything; it hands you finished
 files.
 
-## The three it runs for you
+## The three dispatched for you
 
 Run one of these directly only to work on materials this pipeline did not build
 — a resume written elsewhere, a letter drafted by hand.
@@ -100,6 +100,25 @@ Use on a cover letter before submission, or on any prose that has to read as
 human-written.
 
 ## Any time
+
+### `/slushpile:outreach`
+
+Opens the warm channel for one role. Reads the Referrals table and your profile
+for people you already know at the company, asks you the question no file can
+answer, researches named targets from public professional presence only when you
+know nobody, grades each path by what that person could actually say about your
+work, and drafts the referral ask or the cold note through your voice agent.
+
+**Argument:** a role folder path.
+
+Run it where the assessment says the referral converts several times better than
+cold submission and you have no referrer. Without it the pipeline computes that
+your best channel is a referral, tells you so, and then builds cold-portal
+materials anyway. It writes the contacts into `job_search.md`, which is where
+the review reads them from — until a row exists there, every review of every
+role at that company prices the warm channel as unavailable, correctly.
+
+It never sends anything. The messages are yours to send, from your own account.
 
 ### `/slushpile:redesign-templates`
 

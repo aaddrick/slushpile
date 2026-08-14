@@ -13,13 +13,14 @@
 
 <!-- END GENERATED language-nav -->
 
-Slushpile cài đặt vào máy dưới dạng 9 kỹ năng. Claude Code hiện mỗi kỹ năng ra
+Slushpile cài đặt vào máy dưới dạng 10 kỹ năng. Claude Code hiện mỗi kỹ năng ra
 thành `/slushpile:<name>`; Codex dùng `$slushpile:<name>`; Gemini CLI và các
 harness khác đọc chính những tệp đó, và bạn gọi tên giai đoạn bằng lời.
 
 Ba trong số đó là xương sống. Ba kỹ năng nữa được điều phối sẵn cho bạn trong lúc
 dựng một bộ hồ sơ, và bạn chỉ chạy tay chúng trên tài liệu mà quy trình này không
-dựng ra. Ba kỹ năng cuối mang tính tư vấn và có thể chạy bất cứ lúc nào.
+dựng ra. Bốn kỹ năng cuối bạn chạy khi chúng dùng được, theo thứ tự nào cũng
+được.
 
 ## Xương sống
 
@@ -66,7 +67,7 @@ Nó tự điều phối `explore-experience`, `adversarial-review` và
 `removing-ai-tells`. Nó không bao giờ nộp bất cứ thứ gì; nó giao cho bạn những
 tệp đã hoàn chỉnh.
 
-## Ba kỹ năng nó tự chạy cho bạn
+## Ba kỹ năng được điều phối sẵn cho bạn
 
 Chỉ chạy trực tiếp một trong số này khi bạn cần xử lý tài liệu mà quy trình này
 không dựng ra: một CV viết ở nơi khác, một lá thư soạn tay.
@@ -103,6 +104,26 @@ Dùng cho một thư xin việc trước khi nộp, hoặc cho bất kỳ đoạ
 đọc lên như do người viết.
 
 ## Bất cứ lúc nào
+
+### `/slushpile:outreach`
+
+Mở kênh ấm cho một vị trí. Nó đọc bảng giới thiệu và hồ sơ của bạn để tìm những
+người bạn đã quen ở công ty đó, hỏi bạn câu hỏi mà không tệp nào trả lời được,
+chỉ tra cứu người cụ thể từ hiện diện nghề nghiệp công khai khi bạn không quen
+ai, chấm điểm từng con đường theo điều mà người đó thực sự có thể nói về công
+việc của bạn, rồi soạn lời nhờ giới thiệu hoặc thư lạnh bằng tác nhân giọng văn
+của bạn.
+
+**Tham số:** đường dẫn tới một thư mục vị trí.
+
+Chạy nó khi bản đánh giá nói rằng giới thiệu chuyển đổi cao gấp nhiều lần nộp
+lạnh mà bạn lại chưa có ai giới thiệu. Không có bước này, quy trình tính ra kênh
+tốt nhất của bạn là giới thiệu, nói cho bạn biết điều đó, rồi vẫn dựng tài liệu
+cho cổng nộp lạnh. Nó ghi các đầu mối vào `job_search.md`, đúng chỗ vòng đánh
+giá đọc chúng: chừng nào dòng đó chưa tồn tại, mọi lượt đánh giá của mọi vị trí ở
+công ty đó đều coi kênh ấm là không có sẵn, và coi vậy là đúng.
+
+Nó không bao giờ gửi gì cả. Tin nhắn là của bạn, gửi từ tài khoản của bạn.
 
 ### `/slushpile:redesign-templates`
 

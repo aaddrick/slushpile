@@ -148,6 +148,15 @@ tier list. Every other tool activates *after* you decided to apply. The expensiv
 decision is upstream of that. This is the only stage positioned to catch it while
 it is still free.
 
+**Execute on the channel you scored highest.** A matrix that prices a referral
+several times above cold submission is dead weight if nothing acts on it.
+`/slushpile:outreach` reads your own history for someone you already know there,
+asks you the one question no file holds, researches named targets from public
+professional presence only when you know nobody, and drafts the ask in your
+voice. It grades each path on what that contact could actually say about your
+work, then writes it to `job_search.md`, the read path every later review uses
+to decide whether that channel is open. It never sends.
+
 **Adversarial evals on your own output.** A model asked to grade its own draft
 returns yes, at length, with structure. So the builder never asks. It dispatches
 to 7 reviewers, 5 in parallel, blind, each context-isolated to exactly what its
@@ -234,12 +243,11 @@ Three commands, in order. A search runs on these alone.
                                 stabilize
 ```
 
-### The three it runs for you
+### The three dispatched for you
 
-`/slushpile:application-builder` dispatches all three of these itself, in the
-course of building an application. Run one directly only to work on materials
-this pipeline did not build — a resume written elsewhere, a letter drafted by
-hand.
+`/slushpile:application-builder` and `/slushpile:outreach` dispatch these in the
+course of a run. Run one directly only to work on materials this pipeline did
+not build — a resume written elsewhere, a letter drafted by hand.
 
 ```
 /slushpile:explore-experience   interview to surface experience you have
@@ -255,6 +263,9 @@ hand.
 ### Any time
 
 ```
+/slushpile:outreach             find who they already know at the company,
+                                grade the path, and draft the ask
+
 /slushpile:redesign-templates   restyle the resume and letter templates,
                                 holding the ATS constraints fixed
 
@@ -395,7 +406,7 @@ progress bar.
 
 ## Fork the substrate
 
-The 9 skills and 8 agents are Markdown. No build step. No runtime. Fork, edit,
+The 10 skills and 8 agents are Markdown. No build step. No runtime. Fork, edit,
 install your copy:
 
 ```bash

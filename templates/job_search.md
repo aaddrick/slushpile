@@ -27,9 +27,20 @@ Anything that changed recently, with the date it changed. -->
 <!-- Who you know where, how strong the relationship actually is, and whether
 you have used it. This is the single highest-leverage section in the file:
 warm referral converts at roughly five to ten times cold submission in most
-pools, and the pipeline can only route to a channel it knows exists. -->
+pools, and the pipeline can only route to a channel it knows exists.
 
-| Company | Contact | Relationship strength | Used? | Notes |
+`/slushpile:outreach` writes rows here and you can add your own at any time.
+Every review of every role at a company reads this section to decide whether
+the warm-referral channel is available, so an empty row is not neutral: it
+prices that channel as closed.
+
+Relationship strength is one of `strong`, `moderate`, `weak`, or `none`, and
+the difference is what the person could actually say about your work rather
+than how much you like them. Only `strong` and `moderate` are referrals.
+Status is one of `not asked`, `asked YYYY-MM-DD`, `agreed`, `declined`, or
+`used YYYY-MM-DD`. -->
+
+| Company | Contact | Relationship strength | Status | Notes |
 |---|---|---|---|---|
 |  |  |  |  |  |
 

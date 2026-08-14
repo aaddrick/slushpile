@@ -119,6 +119,15 @@ contrarian in front of the tier list. Every other tool starts working after you
 have already decided to apply. The expensive mistake happens before that, and
 this is the only stage that can still catch it for free.
 
+**It goes and opens the channel it says is best.** A matrix that prices a
+referral several times above a cold submission is worth nothing if nothing acts
+on it. `/slushpile:outreach` reads your own history for someone you already know
+there, asks you the one question no file can answer, researches named targets
+from public professional presence only when you know nobody, and drafts the ask
+in your voice. It grades each path by what that person could actually say about
+your work, then records it in `job_search.md`, which is where every later review
+reads whether that channel is open at all. It never sends anything.
+
 **It attacks what it just wrote.** A model asked whether its own draft is any
 good will tell you yes, at length. So the builder does not ask. It hands the
 resume and the letter to seven reviewers, five of whom run in parallel and
@@ -201,12 +210,11 @@ Three commands, in order. A search runs on these alone.
                                 stabilize
 ```
 
-### The three it runs for you
+### The three dispatched for you
 
-`/slushpile:application-builder` dispatches all three of these itself, in the
-course of building an application. Run one directly only to work on materials
-this pipeline did not build — a resume written elsewhere, a letter drafted by
-hand.
+`/slushpile:application-builder` and `/slushpile:outreach` dispatch these in the
+course of a run. Run one directly only to work on materials this pipeline did
+not build — a resume written elsewhere, a letter drafted by hand.
 
 ```
 /slushpile:explore-experience   interview to surface experience you have
@@ -222,6 +230,9 @@ hand.
 ### Any time
 
 ```
+/slushpile:outreach             find who they already know at the company,
+                                grade the path, and draft the ask
+
 /slushpile:redesign-templates   restyle the resume and letter templates,
                                 holding the ATS constraints fixed
 
@@ -326,7 +337,7 @@ priors get corrected by your own history rather than by anyone's confidence.
 
 ## Tune it
 
-The nine skills and eight agents are Markdown. Fork, edit, install your copy:
+The ten skills and eight agents are Markdown. Fork, edit, install your copy:
 
 ```bash
 claude plugin uninstall slushpile

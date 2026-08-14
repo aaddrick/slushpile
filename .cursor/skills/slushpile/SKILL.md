@@ -10,7 +10,7 @@ license: MIT
 # Slushpile
 
 A job application pipeline. This skill is a router: the pipeline itself lives in
-nine skill files and eight agent definitions under `.slushpile/`.
+ten skill files and eight agent definitions under `.slushpile/`.
 
 Read the matching file in full and follow it. Do not work from this summary —
 the details are the product, and every rule in those files carries a failure
@@ -20,6 +20,7 @@ mode that this page does not have room for.
 |---|---|
 | Set up a workspace, first time | `.slushpile/skills/onboard/SKILL.md` |
 | Search a company's careers board | `.slushpile/skills/job-board-search/SKILL.md` |
+| Find a warm path into a company | `.slushpile/skills/outreach/SKILL.md` |
 | Surface experience they never wrote down | `.slushpile/skills/explore-experience/SKILL.md` |
 | Build a resume and cover letter for a role | `.slushpile/skills/application-builder/SKILL.md` |
 | Review materials before submitting | `.slushpile/skills/adversarial-review/SKILL.md` |

@@ -13,14 +13,14 @@
 
 <!-- END GENERATED language-nav -->
 
-O slushpile se instala como 9 habilidades. O Claude Code expõe cada uma como
+O slushpile se instala como 10 habilidades. O Claude Code expõe cada uma como
 `/slushpile:<name>`; o Codex usa `$slushpile:<name>`; o Gemini CLI e outros
 harnesses leem os mesmos arquivos, e você pede a etapa em palavras.
 
 Três delas são a espinha dorsal. Outras três são acionadas para você ao longo
 da construção de uma candidatura, e você só as roda à mão em material que este
-pipeline não produziu. As três últimas são consultivas e podem ser rodadas a
-qualquer momento.
+pipeline não produziu. As quatro últimas você roda quando fizerem sentido, em
+qualquer ordem.
 
 ## A espinha dorsal
 
@@ -66,7 +66,7 @@ contra a revisão até que estabilizem ou batam no teto de três rodadas.
 Ela mesma aciona `explore-experience`, `adversarial-review` e
 `removing-ai-tells`. Nunca envia nada; entrega os arquivos prontos na sua mão.
 
-## As três que ela roda por você
+## As três que são acionadas por você
 
 Rode uma destas diretamente só para trabalhar em material que este pipeline não
 produziu: um currículo escrito em outro lugar, uma carta rascunhada à mão.
@@ -104,6 +104,26 @@ Use em uma carta de apresentação antes do envio, ou em qualquer texto que
 precise ser lido como escrito por uma pessoa.
 
 ## A qualquer momento
+
+### `/slushpile:outreach`
+
+Abre o canal quente para uma vaga. Lê a tabela de indicações e o seu perfil
+atrás de gente que você já conhece na empresa, faz a pergunta que nenhum arquivo
+responde, pesquisa contatos com nome a partir de presença profissional pública
+só quando você não conhece ninguém, classifica cada caminho pelo que aquela
+pessoa conseguiria de fato dizer sobre o seu trabalho, e escreve o pedido de
+indicação ou a nota fria com o seu agente de voz.
+
+**Argumento:** o caminho de uma pasta de vaga.
+
+Rode quando a avaliação disser que a indicação converte várias vezes melhor que
+o envio frio e você não tiver quem indique. Sem isso o pipeline calcula que o
+seu melhor canal é uma indicação, te conta isso, e depois monta material de
+portal frio do mesmo jeito. Ele escreve os contatos em `job_search.md`, que é de
+onde a revisão lê: enquanto não existir essa linha, toda revisão de toda vaga
+naquela empresa trata o canal quente como indisponível, corretamente.
+
+Nunca envia nada. As mensagens são suas, mandadas da sua própria conta.
 
 ### `/slushpile:redesign-templates`
 

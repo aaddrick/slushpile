@@ -12,7 +12,7 @@ If they asked a general "what is this" or "what do I run", give them the Pipelin
 
 ## What slushpile is
 
-A job application pipeline. Nine skills and eight agents that take a role from a careers-board listing to a resume and cover letter that have already survived an adversarial review.
+A job application pipeline. Ten skills and eight agents that take a role from a careers-board listing to a resume and cover letter that have already survived an adversarial review.
 
 The idea it rests on: **you are not graded against the job description, you are graded against the other applications in the same queue.** Every scoring step is anchored to that queue rather than to the posting. This is why the output sometimes says a differentiator the user is proud of is median, and why it reports probabilities per submission channel instead of one verdict.
 
@@ -25,6 +25,7 @@ It never submits anything. Every skill writes files. The user reads them and sen
 | Once | `/slushpile:onboard` | Builds the workspace: `profile.md`, `preferences.yaml`, `stories.md` |
 | Per company | `/slushpile:job-board-search <company\|query>` | Searches, extracts postings, scores pool-anchored fit, runs the contrarian gate, creates role folders. Takes a company name, or a query describing the work and where — a query is resolved into a company list and confirmed before anything is searched |
 | As needed | `/slushpile:explore-experience <role folder>` | Interviews to surface experience the user has but never wrote down |
+| Per role | `/slushpile:outreach <role folder>` | Finds who they already know at the company, grades the path honestly, drafts the referral ask or the cold note, and writes the contacts into the Referrals table. Run it wherever the warm channel is the highest-EV one and no referrer exists yet |
 | Per role | `/slushpile:application-builder <role folder>` | Builds resume and cover letter, iterates against review until stable |
 | Per role | `/slushpile:adversarial-review <role folder>` | Seven agents, five in parallel, verdict per channel |
 | As needed | `/slushpile:removing-ai-tells <file>` | Strips AI-authorship signals from prose, with gatekeeper review |
@@ -105,7 +106,7 @@ The three numbers users most often misread:
 
 **Pool position.** A percentile in the realistic applicant pool for that specific role, not a match score. p55 means roughly 45% of that queue looks stronger on paper. It is not a grade on their career.
 
-**Channel verdicts.** Separate probabilities per submission route. The same materials commonly run 1-3% cold and 20-30% through a referral. When those diverge sharply, the finding is *"find a referral"*, not *"the resume needs work"*.
+**Channel verdicts.** Separate probabilities per submission route. The same materials commonly run 1-3% cold and 20-30% through a referral. When those diverge sharply, the finding is *"find a referral"*, not *"the resume needs work"* — and `/slushpile:outreach <role folder>` is the command that acts on it.
 
 **Materials quality vs submission EV.** Two different numbers that routinely disagree. Excellent materials sent to a wrong-fit role still have low expected value. A high materials score with a low EV means stop editing and change the target or the channel.
 
@@ -127,6 +128,7 @@ Check the workspace and answer with one command:
 
 - No `preferences.yaml` → `/slushpile:onboard`
 - Workspace exists, no `applications/` → `/slushpile:job-board-search <company>`
+- A role whose highest-EV channel is a referral they do not have → `/slushpile:outreach <path>`
 - Role folders with no materials → `/slushpile:application-builder <path>`
 - Materials built, not submitted → they review and send. The pipeline is done.
 - Applications sent, outcomes arriving → record them in the role folders' `application.yaml`, then run `/slushpile:status`. That is what makes the next search better.

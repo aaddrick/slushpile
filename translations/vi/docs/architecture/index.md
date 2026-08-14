@@ -14,7 +14,7 @@
 <!-- END GENERATED language-nav -->
 
 Slushpile không phải là một chương trình. Nó là một tập hợp các tệp Markdown mà
-một tác nhân lập trình đọc rồi hành động theo: 9 kỹ năng làm việc điều phối,
+một tác nhân lập trình đọc rồi hành động theo: 10 kỹ năng làm việc điều phối,
 8 định nghĩa tác nhân mà mỗi cái chỉ làm đúng một việc, và một ít mẫu tài liệu.
 Không có engine, không có runtime, và không có trạng thái nào nằm ngoài thư mục
 không gian làm việc của chính bạn.

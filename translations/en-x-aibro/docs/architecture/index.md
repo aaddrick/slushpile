@@ -15,7 +15,7 @@
 
 Slushpile is not a program.
 
-9 skills that orchestrate. 8 agent definitions that each do exactly one job. A
+10 skills that orchestrate. 8 agent definitions that each do exactly one job. A
 handful of templates. All Markdown, read and acted on by a coding agent.
 
 No engine. No runtime. No server. No state outside the user's own directory. The

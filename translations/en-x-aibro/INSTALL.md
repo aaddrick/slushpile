@@ -13,7 +13,7 @@
 
 <!-- END GENERATED language-nav -->
 
-9 skills and 8 agent definitions. All Markdown.
+10 skills and 8 agent definitions. All Markdown.
 
 No runtime. No service. No container. No account. Nothing to spin up and nothing
 to pay for. Every route below puts the same files somewhere your agent will read
@@ -215,6 +215,7 @@ the matching skill and follow it:
 
 - `~/.slushpile/skills/onboard/SKILL.md` — set up the workspace, once
 - `~/.slushpile/skills/job-board-search/SKILL.md` — search and score roles
+- `~/.slushpile/skills/outreach/SKILL.md` — find a referrer and draft the ask
 - `~/.slushpile/skills/explore-experience/SKILL.md` — interview for undocumented experience
 - `~/.slushpile/skills/application-builder/SKILL.md` — build the resume and cover letter
 - `~/.slushpile/skills/adversarial-review/SKILL.md` — run the seven-agent review

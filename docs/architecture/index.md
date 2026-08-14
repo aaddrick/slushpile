@@ -14,7 +14,7 @@
 <!-- END GENERATED language-nav -->
 
 Slushpile is not a program. It is a set of Markdown files that a coding agent
-reads and acts on: nine skills that orchestrate, eight agent definitions that
+reads and acts on: ten skills that orchestrate, eight agent definitions that
 each do one job, and a handful of templates. There is no engine, no runtime, and
 no state outside the user's own workspace directory.
 

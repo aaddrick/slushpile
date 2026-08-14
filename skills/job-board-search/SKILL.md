@@ -303,6 +303,8 @@ Use the user's own history from `job_search.md` where it exists. An empirical wa
 
 If no referrer currently exists, the warm-referral row is **informational only**. It does not unlock Tier 1. Inflating the tier by leaning on an unavailable channel is the most common way this matrix gets gamed, and it is self-inflicted.
 
+**Name the gate as an action, not as a condition.** Where the warm-referral row would raise the tier and the Referrals table in `job_search.md` has nobody at this company, say so and name `/slushpile:outreach {role folder}` as the way to clear it. A matrix that reports an unavailable channel and stops leaves the user with a number and no move, which is how a search ends with every role routed to the channel that converts worst.
+
 ### 3j. Kill criteria — required, auto-pass at scan time
 
 Every one of these comes from `preferences.yaml`. Nothing is hardcoded.
@@ -416,7 +418,8 @@ company prior.}
 
 ## Strategic Notes
 {Referral paths, timing, application limits, cooldowns, anything to remember
-next time.}
+next time. Where a role's tier is gated on a referrer who does not exist yet,
+name the role and the command that goes and finds one.}
 ```
 
 ### 4b. Role folders
@@ -536,6 +539,8 @@ Only now write the tier tables. They reflect post-contrarian decisions.
 ## Phase 6: Report
 
 Show the user: how many roles were scanned, assessed, and foldered; the posture in force and the recommended list with pool positions and unlocking channels; what the posture held back; anything killed and why; the company verdict; and the single next action.
+
+When the recommended list is led by a role whose unlocking channel is a warm referral nobody in `job_search.md` can provide, that next action is `/slushpile:outreach`, not the builder. Building materials first is not wrong, and it answers a question the channel matrix already said was the less valuable one.
 
 ## Anti-Patterns
 

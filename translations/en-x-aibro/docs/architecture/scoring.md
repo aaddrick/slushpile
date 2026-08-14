@@ -84,6 +84,13 @@ warm-referral row is informational and does not unlock Tier 1. Inflating a tier 
 leaning on an unavailable channel is the most common way this gets gamed, and the
 person gaming it is you, against yourself, for free.
 
+Unavailable is a state, not a verdict. `/slushpile:outreach` is the stage that
+mutates it. It finds the path, grades it on what that contact could actually say
+about your work, and writes it to `job_search.md`, which is the read path for the
+next assessment and every review. Skip the stage and the matrix routes to a
+channel with no execution path, which means you get benchmarked on the channel
+that does.
+
 **Your history beats any prior.** Where `job_search.md` records a real
 warm-referral rate at this company, that number replaces the generic one. Your
 data outranks the shipped defaults the moment there is enough of it. See

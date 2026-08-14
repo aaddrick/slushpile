@@ -75,6 +75,13 @@ existe quem indique, a linha da indicação quente é apenas informativa e não
 destrava o Nível 1. Inflar um nível apoiando-se em um canal indisponível é a
 forma mais comum de burlar esta matriz, e ela é autoinfligida.
 
+Indisponível é um estado, não um veredito. `/slushpile:outreach` é a etapa que
+muda isso: acha o caminho, classifica pelo que aquele contato conseguiria de
+fato dizer sobre o seu trabalho, e registra em `job_search.md`, de onde a
+próxima avaliação e cada revisão leem. Sem essa etapa a matriz encaminha sempre
+para um canal que o pipeline não consegue abrir, o que mede você pelo canal que
+ele consegue.
+
 **O histórico do próprio usuário ganha de qualquer prior.** Onde `job_search.md`
 registra uma taxa real de indicação quente nesta empresa, esse número é usado no
 lugar do genérico. Veja
