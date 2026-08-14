@@ -83,8 +83,8 @@ job that installs this checkout into a scratch config and fails if the plugin
 does not reach "enabled". Nothing here is filtered by path, so every commit gets
 every gate on whichever route it arrives by.
 
-Run the four locally first. On a push to `main` the commit is public before CI
-disagrees with it.
+Run the four locally first. CI on the pull request catches the same failures a
+push later, and the local run is the faster of the two.
 
 `AGENTS.md` is generated from `CLAUDE.md`. A patch against `AGENTS.md` cannot
 be merged — edit `CLAUDE.md` and run `python3 scripts/sync_docs.py`.
@@ -111,9 +111,10 @@ change without a negotiation about whose priors are correct.
 If your fork's priors are better for a whole industry, open an issue describing
 the calibration data behind them. That is a change worth merging.
 
-## Why pull requests are off
+## Why outside pull requests are off
 
-Three reasons.
+Maintainers work through pull requests; the block is on patches from outside.
+Three reasons for it.
 
 **Six surfaces are generated.** `scripts/sync_docs.py` writes `AGENTS.md`, both
 `.cursor/` files, and the marked regions of `README.md`, `INSTALL.md`, and
@@ -137,11 +138,23 @@ whose priors are correct.
 
 ## Maintainers
 
-Push to `main`. Pull request creation is set to collaborators only, so there is
-no outside patch waiting on review, and a branch-and-merge cycle with one
-participant costs a round trip without adding a reader. Branch when you want the
-work to sit somewhere before it lands, and rebase rather than merge, because the
-history is linear and worth keeping that way.
+Every change goes issue, branch, pull request, merge. Nothing lands by a direct
+push to `main`. Pull request creation stays collaborators only, so this is the
+route for people with commit access; everyone else arrives through an issue.
+
+Open the issue first, including for your own work. Keep it short: what is wrong,
+and what should be true instead. A few sentences is a whole issue. The file
+inventory, the grep output, and the design of the fix belong to the pull request
+that does the work, where a reviewer reads them beside the diff they justify. An
+issue written as a report gets skimmed past the sentence that says what broke.
+
+Reference the issue from the pull request with `Closes #12`, so it closes on
+merge and the search that finds one finds the other. CI runs all five jobs on the
+pull request, which is the point of the route: a gate fails before the commit is
+public rather than after. Run the four locally first anyway.
+
+Merge by rebase or squash, never a merge commit. Squash a branch that is one
+change told in several commits; rebase one whose commits each stand alone.
 
 Do not force-push `main`. Rewriting published history breaks every clone and
 fork, and orphans any pull request a collaborator has open.

@@ -375,13 +375,33 @@ it does not reach "enabled". No job filters by path.
 
 ## Git
 
-Push to `main`. Pull request creation is set to collaborators only, so a
-branch-and-merge cycle with one participant costs a round trip without adding a
-reader. Branch when you want the work to sit somewhere before it lands, and
-rebase rather than merge.
+Every change goes issue, branch, pull request, merge. Do not push to `main`.
 
-Run the four checks before you push. CI tells you what you shipped; the local
-run tells you what you are about to.
+**Open the issue first**, including for your own work. It is the only record of
+a change that was considered and dropped, and it is what a second person reads
+to see whether the work is worth doing before anyone has spent a day on it.
+
+**Keep the issue short.** State what is wrong and what should be true instead,
+in a few sentences. "The help skill lists eight of the nine skills, so the one
+it drops is unreachable from the file whose job is answering what to run next."
+That is a whole issue. Do not front-load the research: the file inventory, the
+grep output, the design of the fix, and the reasons the obvious approach fails
+all belong to the pull request that does the work, where a reviewer reads them
+next to the diff they justify. An issue written as a report gets skimmed, and
+the sentence that says what is broken is the one that gets skimmed past.
+
+**Branch, and name the issue from the pull request.** `Closes #12` in the body
+links them, so the issue closes on merge and the search that finds one finds the
+other. The evidence goes here, not in the issue.
+
+**CI gates the merge rather than reporting on it.** All four checks plus the
+plugin-load check run on the pull request, so a red gate costs a push instead of
+a public commit. Run the four locally first anyway. A CI round trip is slower
+than the local run that would have caught the same thing.
+
+**Merge by rebase or squash.** Never a merge commit. The history here is linear
+and worth keeping that way. Squash when the branch is one change told in several
+commits; rebase when each commit stands on its own.
 
 Do not force-push `main`. It breaks every clone and fork and orphans any open
 pull request.
