@@ -132,8 +132,8 @@ gì với nó. `/slushpile:outreach` đọc lịch sử của chính bạn để
 quen ở đó, hỏi bạn câu hỏi duy nhất mà không tệp nào giữ, chỉ tra cứu người cụ
 thể từ hiện diện nghề nghiệp công khai khi bạn không quen ai, rồi soạn lời nhờ
 bằng giọng văn của bạn. Nó chấm từng con đường theo điều mà người đó thực sự có
-thể nói về công việc của bạn, rồi ghi vào `job_search.md`, đúng chỗ mọi vòng
-đánh giá về sau đọc để biết kênh ấy có mở hay không. Nó không bao giờ gửi gì cả.
+thể nói về công việc của bạn, rồi ghi vào `job_search.md`, đúng chỗ lần đánh giá
+kế tiếp đọc để biết kênh ấy có mở hay không. Nó không bao giờ gửi gì cả.
 
 **Nó tấn công chính thứ nó vừa viết.** Một mô hình được hỏi bản nháp của chính
 nó có tốt không sẽ trả lời là có, và trả lời rất dài. Nên trình dựng hồ sơ không
@@ -220,9 +220,10 @@ Three commands, in order. A search runs on these alone.
 
 ### The three dispatched for you
 
-`/slushpile:application-builder` and `/slushpile:outreach` dispatch these in the
-course of a run. Run one directly only to work on materials this pipeline did
-not build — a resume written elsewhere, a letter drafted by hand.
+`/slushpile:application-builder` dispatches `adversarial-review`,
+`explore-experience` and `removing-ai-tells`; `/slushpile:outreach` dispatches
+`removing-ai-tells`. Run one directly only to work on materials this pipeline
+did not build — a resume written elsewhere, a letter drafted by hand.
 
 ```
 /slushpile:explore-experience   interview to surface experience you have

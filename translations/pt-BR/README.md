@@ -134,8 +134,8 @@ alguém que você já conhece lá, faz a única pergunta que nenhum arquivo resp
 pesquisa contatos com nome a partir de presença profissional pública só quando
 você não conhece ninguém, e escreve o pedido na sua voz. Ele classifica cada
 caminho pelo que aquela pessoa conseguiria de fato dizer sobre o seu trabalho, e
-registra em `job_search.md`, de onde toda revisão posterior lê se aquele canal
-está aberto. Nunca envia nada.
+registra em `job_search.md`, de onde a próxima avaliação lê se aquele canal está
+aberto. Nunca envia nada.
 
 **Ele ataca o que acabou de escrever.** Um modelo a quem se pergunta se o próprio
 rascunho é bom vai dizer que sim, longamente. Então o construtor não pergunta.
@@ -222,9 +222,10 @@ Three commands, in order. A search runs on these alone.
 
 ### The three dispatched for you
 
-`/slushpile:application-builder` and `/slushpile:outreach` dispatch these in the
-course of a run. Run one directly only to work on materials this pipeline did
-not build — a resume written elsewhere, a letter drafted by hand.
+`/slushpile:application-builder` dispatches `adversarial-review`,
+`explore-experience` and `removing-ai-tells`; `/slushpile:outreach` dispatches
+`removing-ai-tells`. Run one directly only to work on materials this pipeline
+did not build — a resume written elsewhere, a letter drafted by hand.
 
 ```
 /slushpile:explore-experience   interview to surface experience you have

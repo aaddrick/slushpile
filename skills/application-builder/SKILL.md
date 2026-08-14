@@ -53,7 +53,7 @@ Both templates build under XeLaTeX and fall back to DejaVu when the house fonts 
 Pull out:
 
 - **Pool position and tier** — this calibrates how aggressive to be. A p40 candidate and a p85 candidate write different letters.
-- **Highest-EV channel** — a cold submission and a referral want different documents. A referral letter can assume a sympathetic reader. When the highest-EV channel is a warm referral and the Referrals table in `job_search.md` has nobody at this company, say so before drafting and name `/slushpile:outreach $1`. The materials still get built; the user just gets told, once, that the expensive part of this application is aimed at the channel the assessment ranked second.
+- **Highest-EV channel** — a cold submission and a referral want different documents. A referral letter can assume a sympathetic reader. When the highest-EV channel is a warm referral and the Referrals table in `job_search.md` holds no `strong` or `moderate` contact at this company, say so before drafting and name `/slushpile:outreach $1`. The materials still get built; the user just gets told, once, that the expensive part of this application is aimed at the channel the assessment ranked second.
 - **Top strengths** — what to lead with
 - **Top gaps** — what the materials must not draw attention to
 - **Narrative angle**, if the analysis has one

@@ -303,7 +303,7 @@ Use the user's own history from `job_search.md` where it exists. An empirical wa
 
 If no referrer currently exists, the warm-referral row is **informational only**. It does not unlock Tier 1. Inflating the tier by leaning on an unavailable channel is the most common way this matrix gets gamed, and it is self-inflicted.
 
-**Name the gate as an action, not as a condition.** Where the warm-referral row would raise the tier and the Referrals table in `job_search.md` has nobody at this company, say so and name `/slushpile:outreach {role folder}` as the way to clear it. A matrix that reports an unavailable channel and stops leaves the user with a number and no move, which is how a search ends with every role routed to the channel that converts worst.
+**Name the gate as an action, not as a condition.** Where the warm-referral row would raise the tier and the Referrals table in `job_search.md` holds no `strong` or `moderate` contact at this company, say so and name `/slushpile:outreach {role folder}` as the way to clear it. Read the strength column rather than the row count: that table also carries weak ties and cold targets, and neither is a referrer. A matrix that reports an unavailable channel and stops leaves the user with a number and no move, which is how a search ends with every role routed to the channel that converts worst.
 
 ### 3j. Kill criteria — required, auto-pass at scan time
 

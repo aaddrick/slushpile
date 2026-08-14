@@ -19,8 +19,8 @@ harness khác đọc chính những tệp đó, và bạn gọi tên giai đoạ
 
 Ba trong số đó là xương sống. Ba kỹ năng nữa được điều phối sẵn cho bạn trong lúc
 dựng một bộ hồ sơ, và bạn chỉ chạy tay chúng trên tài liệu mà quy trình này không
-dựng ra. Bốn kỹ năng cuối bạn chạy khi chúng dùng được, theo thứ tự nào cũng
-được.
+dựng ra. Bốn kỹ năng cuối bạn chạy khi cần chứ không chạy theo trình tự, và một
+trong số đó cần một thư mục vị trí đã được chấm điểm.
 
 ## Xương sống
 
@@ -119,9 +119,10 @@ của bạn.
 Chạy nó khi bản đánh giá nói rằng giới thiệu chuyển đổi cao gấp nhiều lần nộp
 lạnh mà bạn lại chưa có ai giới thiệu. Không có bước này, quy trình tính ra kênh
 tốt nhất của bạn là giới thiệu, nói cho bạn biết điều đó, rồi vẫn dựng tài liệu
-cho cổng nộp lạnh. Nó ghi các đầu mối vào `job_search.md`, đúng chỗ vòng đánh
-giá đọc chúng: chừng nào dòng đó chưa tồn tại, mọi lượt đánh giá của mọi vị trí ở
-công ty đó đều coi kênh ấm là không có sẵn, và coi vậy là đúng.
+cho cổng nộp lạnh. Nó ghi các đầu mối vào `job_search.md`, đúng chỗ vòng tìm
+kiếm dựng ma trận kênh và chỗ `status` quyết định xếp hạng một vị trí theo con số
+ấm hay con số lạnh. Chừng nào chưa có một đầu mối thật ở đó, cả hai đều coi kênh
+ấy là đóng, và coi vậy là đúng.
 
 Nó không bao giờ gửi gì cả. Tin nhắn là của bạn, gửi từ tài khoản của bạn.
 

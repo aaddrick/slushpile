@@ -19,8 +19,8 @@ harnesses leem os mesmos arquivos, e você pede a etapa em palavras.
 
 Três delas são a espinha dorsal. Outras três são acionadas para você ao longo
 da construção de uma candidatura, e você só as roda à mão em material que este
-pipeline não produziu. As quatro últimas você roda quando fizerem sentido, em
-qualquer ordem.
+pipeline não produziu. As quatro últimas você roda quando fizerem sentido e não
+em sequência, e uma delas precisa de uma pasta de vaga já avaliada.
 
 ## A espinha dorsal
 
@@ -120,8 +120,9 @@ Rode quando a avaliação disser que a indicação converte várias vezes melhor
 o envio frio e você não tiver quem indique. Sem isso o pipeline calcula que o
 seu melhor canal é uma indicação, te conta isso, e depois monta material de
 portal frio do mesmo jeito. Ele escreve os contatos em `job_search.md`, que é de
-onde a revisão lê: enquanto não existir essa linha, toda revisão de toda vaga
-naquela empresa trata o canal quente como indisponível, corretamente.
+onde a busca monta sua matriz de canais e de onde o `status` decide se ordena uma
+vaga pelo número quente ou pelo frio. Enquanto não houver um contato real ali, as
+duas tratam aquele canal como fechado, corretamente.
 
 Nunca envia nada. As mensagens são suas, mandadas da sua própria conta.
 

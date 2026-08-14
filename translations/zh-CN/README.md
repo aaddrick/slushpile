@@ -101,7 +101,7 @@ Codex 没有子智能体调度，所以审阅流水线会在同一个上下文�
 
 **在你动笔之前，它先劝你别投这个岗位。** 搜索阶段把每个职位对着估算出来的申请者池打分，跑淘汰条件，按申请渠道建一张期望值矩阵，并在分级列表前面放一个唱反调者。别的工具都是在你已经决定要投之后才开始干活。而昂贵的错误发生在那之前，这是唯一一个还能免费拦住它的阶段。
 
-**它会真的去把自己说最好的那个渠道打开。** 一张把内推的价值定得比冷投高好几倍的矩阵，如果没人照着它行动，就一文不值。`/slushpile:outreach` 会读你自己的历史，找出你在那家公司已经认识的人；问你那个任何文件都答不上来的问题；只有在你谁都不认识时，才从公开的职业资料里找出具名目标；再用你的声音写出那封请求。它按那个人到底能替你的工作说出什么来给每条路径评级，然后写进 `job_search.md`，后面每一次评审都从那里读这个渠道到底开没开。它从不发送任何东西。
+**它会真的去把自己说最好的那个渠道打开。** 一张把内推的价值定得比冷投高好几倍的矩阵，如果没人照着它行动，就一文不值。`/slushpile:outreach` 会读你自己的历史，找出你在那家公司已经认识的人；问你那个任何文件都答不上来的问题；只有在你谁都不认识时，才从公开的职业资料里找出具名目标；再用你的声音写出那封请求。它按那个人到底能替你的工作说出什么来给每条路径评级，然后写进 `job_search.md`，下一次评估就从那里读这个渠道到底开没开。它从不发送任何东西。
 
 **它攻击自己刚写出来的东西。** 一个模型被问到自己的草稿好不好，会长篇大论地告诉你好。所以构建器不问。它把简历和求职信交给7个审阅者，其中有5个并行审阅者，彼此看不到对方的发现，每个只拿到它这个角色在现实中真正会拿到的东西——那个 11 秒的初筛者永远看不到求职信，因为读了信的筛选者就不是筛选者了。构建器修好返回来的问题，再送一轮。第二轮必须站得住，它才会放你去投；到第三轮就停，因为再往后差距是结构性的，继续改只是空转。
 
@@ -162,9 +162,10 @@ Three commands, in order. A search runs on these alone.
 
 ### The three dispatched for you
 
-`/slushpile:application-builder` and `/slushpile:outreach` dispatch these in the
-course of a run. Run one directly only to work on materials this pipeline did
-not build — a resume written elsewhere, a letter drafted by hand.
+`/slushpile:application-builder` dispatches `adversarial-review`,
+`explore-experience` and `removing-ai-tells`; `/slushpile:outreach` dispatches
+`removing-ai-tells`. Run one directly only to work on materials this pipeline
+did not build — a resume written elsewhere, a letter drafted by hand.
 
 ```
 /slushpile:explore-experience   interview to surface experience you have

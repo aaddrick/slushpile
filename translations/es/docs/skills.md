@@ -19,8 +19,8 @@ leen los mismos archivos y ahí pides la etapa con palabras.
 
 Tres de ellas son la columna vertebral. Otras tres se despachan solas mientras
 se construye una postulación, y solo las ejecutas a mano sobre materiales que
-este pipeline no construyó. Las últimas cuatro las ejecutas cuando aplican, en
-cualquier orden.
+este pipeline no construyó. Las últimas cuatro las ejecutas cuando hacen falta
+y no en secuencia, y una de ellas necesita una carpeta de puesto ya evaluada.
 
 ## La columna vertebral
 
@@ -122,9 +122,10 @@ Ejecútala cuando la evaluación diga que la referencia convierte varias veces
 mejor que el envío en frío y no tengas a nadie que te refiera. Sin esto el
 pipeline calcula que tu mejor canal es una referencia, te lo dice, y después
 construye materiales de portal en frío igual. Escribe los contactos en
-`job_search.md`, que es de donde los lee la revisión: hasta que exista esa fila,
-cada revisión de cada puesto en esa empresa valora el canal cálido como no
-disponible, con razón.
+`job_search.md`, que es de donde la búsqueda arma su matriz de canales y de
+donde `status` decide si ordenar un puesto por su número cálido o por el frío.
+Hasta que ahí haya un contacto real, las dos valoran ese canal como cerrado, con
+razón.
 
 Nunca envía nada. Los mensajes son tuyos, desde tu propia cuenta.
 

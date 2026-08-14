@@ -22,7 +22,8 @@ to adapt.
 
 Three are the spine. Three are dispatched for you mid-build and you only invoke
 them by hand on materials this pipeline did not produce. Four run whenever they
-apply, in any order.
+apply rather than in sequence, and one needs a scored role folder to run
+against.
 
 ## The spine
 
@@ -138,9 +139,10 @@ highest-EV channel is a referral, surfaces that finding, and then ships
 cold-portal materials anyway. Optimizing for the channel you can execute is not
 the same as optimizing for the channel that converts.
 
-Contacts land in `job_search.md`, which is the read path the review uses. Until
-a row exists there, every review of every role at that company prices the warm
-channel as unavailable. Correctly.
+Contacts land in `job_search.md`. That is the read path the search builds its
+channel matrix from, and the one `status` uses to decide whether to rank a role
+on its warm number or its cold one. Until a real contact is recorded there, both
+price that channel as closed. Correctly.
 
 It never sends. The messages are yours, from your own account.
 

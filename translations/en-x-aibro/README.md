@@ -154,7 +154,7 @@ several times above cold submission is dead weight if nothing acts on it.
 asks you the one question no file holds, researches named targets from public
 professional presence only when you know nobody, and drafts the ask in your
 voice. It grades each path on what that contact could actually say about your
-work, then writes it to `job_search.md`, the read path every later review uses
+work, then writes it to `job_search.md`, the read path the next assessment uses
 to decide whether that channel is open. It never sends.
 
 **Adversarial evals on your own output.** A model asked to grade its own draft
@@ -245,9 +245,10 @@ Three commands, in order. A search runs on these alone.
 
 ### The three dispatched for you
 
-`/slushpile:application-builder` and `/slushpile:outreach` dispatch these in the
-course of a run. Run one directly only to work on materials this pipeline did
-not build — a resume written elsewhere, a letter drafted by hand.
+`/slushpile:application-builder` dispatches `adversarial-review`,
+`explore-experience` and `removing-ai-tells`; `/slushpile:outreach` dispatches
+`removing-ai-tells`. Run one directly only to work on materials this pipeline
+did not build — a resume written elsewhere, a letter drafted by hand.
 
 ```
 /slushpile:explore-experience   interview to surface experience you have

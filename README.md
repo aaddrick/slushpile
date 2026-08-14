@@ -125,8 +125,8 @@ on it. `/slushpile:outreach` reads your own history for someone you already know
 there, asks you the one question no file can answer, researches named targets
 from public professional presence only when you know nobody, and drafts the ask
 in your voice. It grades each path by what that person could actually say about
-your work, then records it in `job_search.md`, which is where every later review
-reads whether that channel is open at all. It never sends anything.
+your work, then records it in `job_search.md`, where the next assessment reads
+whether that channel is open at all. It never sends anything.
 
 **It attacks what it just wrote.** A model asked whether its own draft is any
 good will tell you yes, at length. So the builder does not ask. It hands the
@@ -212,9 +212,10 @@ Three commands, in order. A search runs on these alone.
 
 ### The three dispatched for you
 
-`/slushpile:application-builder` and `/slushpile:outreach` dispatch these in the
-course of a run. Run one directly only to work on materials this pipeline did
-not build — a resume written elsewhere, a letter drafted by hand.
+`/slushpile:application-builder` dispatches `adversarial-review`,
+`explore-experience` and `removing-ai-tells`; `/slushpile:outreach` dispatches
+`removing-ai-tells`. Run one directly only to work on materials this pipeline
+did not build — a resume written elsewhere, a letter drafted by hand.
 
 ```
 /slushpile:explore-experience   interview to surface experience you have

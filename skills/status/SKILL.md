@@ -80,7 +80,7 @@ Everything at `status: assessed` that has not been passed, ranked by the probabi
 
 Do not compute a composite score across channels. A single number per role collapses the channel-conditional model back into the thing it was built to replace: the same materials convert at wildly different rates cold and warm, and one scalar cannot say so. Show the channel and its probability, side by side.
 
-Where the highest-EV channel is `warm_referral` and no referrer exists in `job_search.md`, show the cold number as the actionable one and mark the referral row unavailable. The tier was allowed to reflect the best available channel; the queue ranking is about what the user can do this afternoon.
+Where the highest-EV channel is `warm_referral` and the Referrals table in `job_search.md` holds no `strong` or `moderate` contact at that company, show the cold number as the actionable one and mark the referral row unavailable. A weak tie in that table is an introduction to chase, not a referrer. The tier was allowed to reflect the best available channel; the queue ranking is about what the user can do this afternoon.
 
 **Then name `/slushpile:outreach` against those roles.** Unavailable is a state somebody can change, and for the roles at the top of this list it is usually the highest-value hour available. A queue that reports the referral row as unavailable and moves on is telling the user their best channel is closed without mentioning that opening it is a command.
 

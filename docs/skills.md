@@ -19,7 +19,8 @@ harnesses read the same files and you ask for the stage in words.
 
 Three of them are the spine. Three more are dispatched for you in the course of
 building an application, and you only run them by hand on materials this
-pipeline did not build. The last four you run when they apply, in any order.
+pipeline did not build. The last four you run when they apply rather than in
+sequence, and one of them needs a scored role folder to run against.
 
 ## The spine
 
@@ -115,8 +116,9 @@ Run it where the assessment says the referral converts several times better than
 cold submission and you have no referrer. Without it the pipeline computes that
 your best channel is a referral, tells you so, and then builds cold-portal
 materials anyway. It writes the contacts into `job_search.md`, which is where
-the review reads them from — until a row exists there, every review of every
-role at that company prices the warm channel as unavailable, correctly.
+the search builds its channel matrix from and where `status` decides whether to
+rank a role on its warm number or its cold one. Until a real contact is recorded
+there, both of them price that channel as closed, correctly.
 
 It never sends anything. The messages are yours to send, from your own account.
 

@@ -38,8 +38,6 @@ Read these before deciding anything. The first two are what stop this skill from
 - `preferences.yaml` — `identity.links`, `application_policy.posture`, and `voice.agent`
 - `companies.md` — whether this company has been approached before, and how it went
 
-**Every `templates/...` path in this file is relative to the plugin, not to the workspace.** The working directory is the user's job-search directory and does not contain them, so a bare `templates/assessment_history.md` resolves to nothing. Resolve them against the directory this skill file was itself loaded from — that works on every harness, where a harness-specific plugin-root variable does not.
-
 If `role_analysis.md` does not exist, stop and run `/slushpile:job-board-search` for this company first. An ask sent for a role nobody scored is an ask spent at random, and the relationship does not come back.
 
 **Check `voice.is_mine` in `preferences.yaml` before drafting.** If it is false, the messages are about to go out in a stranger's voice, to a named person, over the user's own name. Say so once and point at `https://github.com/aaddrick/written-voice-replication`. The stakes are higher here than on a cover letter: a hiring manager reading an off-voice letter thinks the writing is stiff, and a former colleague reading an off-voice email notices it is not the person they know.
@@ -61,7 +59,7 @@ Each of these ends the run. Name which one fired.
 3. **A stronger unasked role is open at the same company.** Read the sibling role folders. If a higher-tier role there has no ask recorded, name it and stop. One person can be asked for one thing, and the ask should be the best seat available rather than the folder that happened to be typed.
 4. **The warm and cold probabilities are within a few points.** Say the numbers and stop. The ask buys almost nothing here and costs a relationship, and the role analysis already said so — this is the case where reading the matrix beats acting on it.
 
-Under `posture: selective`, also stop where the warm-referral probability does not beat the company's own conversion prior from `calibration_priors`. Under `volume`, the cap in Anti-Pattern 7 still holds: a posture that says apply broadly is not permission to message six people at one employer.
+Under `posture: selective`, also stop where `channel_ev.warm_referral.p_interview` does not clear what the search's own report called a real conversion path for this company. Compare like with like: `by_company` in `calibration_priors` records channel-blind conversion, so putting a channel-conditional estimate against it passes everything and guards nothing. Under `volume`, the cap in Anti-Pattern 7 still holds: a posture that says apply broadly is not permission to message six people at one employer.
 
 ### 1c. Report the checks that passed
 
@@ -73,7 +71,9 @@ Run this before researching a single stranger. A remembered former colleague con
 
 ### 2a. Read the Referrals table
 
-`job_search.md` holds who the user knows where, how strong the relationship is, and whether it has been used. Pull every row for this company. Pull the rows for its acquirers, its subsidiaries, and the companies people leave to join it — a contact who moved is still a contact, and the table records where they were rather than where they are.
+`job_search.md` holds who the user knows where, how strong the relationship is, and whether it has been used. Pull every row for this company.
+
+A table whose fourth column is headed `Used?` predates the strength and status vocabularies. Rewrite the header to `Status` and normalize the values before adding rows, and say you did — a workspace scaffolded before this skill existed still has the old header, and half a table in each vocabulary is worse than either one. Pull the rows for its acquirers, its subsidiaries, and the companies people leave to join it — a contact who moved is still a contact, and the table records where they were rather than where they are.
 
 ### 2b. Read `profile.md` for overlap surfaces
 
@@ -142,9 +142,11 @@ Current role, history, public work, published writing, and public speaking. Noth
 
 The boundary is what the recipient will conclude, and they conclude it from the detail you chose to use. A message showing the sender went through someone's private life reads as surveillance, and it converts at zero from a reader who is now uncomfortable.
 
+**Log every source you opened, not only the ones a claim came from.** It goes in `outreach.md` under Sources consulted. A rule about what you may read is otherwise unobservable: a page that only shaped the tone leaves no trace, so a run that ignored this line and a run that followed it produce identical output. The log is what makes the difference visible, to the user and to you on the next run.
+
 ### 3f. Two or three targets, not ten
 
-A short list you can say something specific to beats a long one you cannot. Anti-Pattern 7 caps what actually gets sent regardless, so a list of ten is nine drafts nobody uses and one that took the least attention.
+A short list you can say something specific to beats a long one you cannot. Anti-Pattern 7 caps the drafts at two per company regardless, so a list of ten is eight names nobody writes to and two messages that got a tenth of the attention each.
 
 ## Phase 4: Grade the path
 
@@ -160,6 +162,8 @@ This is where the skill either feeds the scoring model good data or corrupts it,
 Record the strength you can defend, not the one that helps. The evidence is the specific thing the person could say about the user's work — if you cannot write that sentence, the path is not `strong`.
 
 **A stranger recorded as a referral breaks the tier.** `job-board-search` reads this table, and its rule is that the tier is the highest across *available* channels. Grade a cold contact as warm here and the next assessment unlocks Tier 1 on a channel that does not exist, which is the gaming its Anti-Pattern 11 exists to catch — arriving from the one skill it has no reason to distrust.
+
+**A `none` contact never reaches the Referrals table at all.** Grading them honestly is most of the protection and not all of it. The skills reading that table check the strength column, and a reader who skims to the row count instead gets the wrong answer from a table that is technically correct. Keeping strangers out means the count and the column agree. They belong in `outreach.md`, which is where their draft lives anyway; the tracker holds people the user actually knows.
 
 ## Phase 5: Draft
 
@@ -212,7 +216,11 @@ Rules:
    the paper. A note that would work addressed to anyone gets treated as
    something that was.
 3. Under 120 words.
-4. No flattery opener and no credentials paragraph.
+4. Say in one clause that the user is looking at a role there. One clause,
+   early, not a pitch. A person who answers a friendly question and later
+   works out it was step one of a referral path has a fair complaint, and it
+   lands on the user rather than on this pipeline.
+5. No flattery opener and no credentials paragraph.
 
 Context on the user, only what is relevant to the question:
 [the relevant lines from profile.md]
@@ -254,8 +262,12 @@ Write `outreach.md` in the role folder:
 **Sources for every claim about them:** {links}
 
 ## Not pursued
-{Who was found and passed over, and why. A shortlist with no record of what
-it was cut from reads as the whole field.}
+{What the shortlist was cut from, without names. "Four engineers on the team
+page, none with public work to cite" carries the whole finding. A shortlist
+with no record of what it was cut from reads as the entire field.}
+
+## Sources consulted
+{Every page opened during Phase 3, including the ones nothing was used from.}
 
 ## Sent
 | Contact | Date sent | Reply | Outcome |
@@ -269,27 +281,26 @@ A draft nobody records is an ask the next run makes again.
 
 ### 6a. `job_search.md`
 
-Add one row per contact to the Referrals table: company, contact, the strength from Phase 4, the status, and a note carrying the basis for the vouch. The template documents both vocabularies — `strong`, `moderate`, `weak`, `none` for strength, and `not asked`, `asked YYYY-MM-DD`, `agreed`, `declined`, `used YYYY-MM-DD` for status. Use them literally. A status written in free text is one the next run has to interpret, and it will interpret an unanswered ask as a live one.
+Add one row per **`strong`, `moderate`, or `weak`** contact: company, contact, the strength from Phase 4, the status, and a note carrying the basis for the vouch. A `none` contact stays in `outreach.md`, per Phase 4.
 
-This is the write that matters most, and not because of this role. `adversarial-review` reads `job_search.md` and hands the warm-referral channel to the hiring manager as available or not. Until a row exists here, every review of every role at this company prices the warm channel as unavailable, correctly, forever.
+The template documents both vocabularies — `strong`, `moderate`, `weak`, `none` for strength, and `not asked`, `asked YYYY-MM-DD`, `agreed`, `declined`, `used YYYY-MM-DD` for status. Use them literally. A status written in free text is one the next run has to interpret, and it will interpret an unanswered ask as a live one.
+
+This is the write that matters most, and not because of this role. `job-board-search` reads this table when it builds the channel matrix, and `status` reads it when it decides whether to rank a role on its warm number or its cold one. Until a `strong` or `moderate` row exists here, both of them price the warm channel as unavailable for every role at this company, correctly, forever.
 
 ### 6b. `application.yaml`
 
-- Add a dated `log` entry naming the contact and the channel drafted.
-- Write the referrer and the graded strength into `channel_ev.warm_referral.note`. Leave `p_interview` and `verdict` alone; those are the review's.
+Two writes, and nothing else in the file.
+
+- Add a dated `log` entry naming the contact, the graded strength, and the channel drafted. `log` is the only free-form field here and it is the whole record this skill needs. The `fit` and `channel_ev` blocks are the search's, the `adversarial_review` block is the review's, and a skill that edits a block it does not own leaves the template's own provenance comments lying.
 - **Set `channel_used` only when the application actually goes through that channel.** Not on a draft, not on a sent message, not on a yes. `status` groups every calibration rate by this field, and a `warm_referral` recorded for a submission that went through the portal puts a cold outcome in the warm row — which corrupts the one table in the system built to catch exactly that kind of optimism.
 
-### 6c. The tier, when a path is real
+### 6c. Do not touch the tier
 
-A `strong` or `moderate` contact who has **agreed** clears the gate on the warm-referral row. `job-board-search` already scored that row and recorded the tier it would produce; it withheld it only because no referrer existed. Take that recorded tier.
+The tier belongs to `job-board-search`, and this skill leaves it exactly as it found it, including after a referrer agrees.
 
-Nothing is re-scored here. The pool percentile, the per-channel probabilities, and the qualification ratings are untouched — an availability flag flipped, and the tier follows the rule it was always defined by.
+The temptation is real and worth naming, because it looks safe. The tier is defined as the highest across available channels, a referrer clears the warm channel's gate, so raising the tier reads like flipping a flag rather than re-scoring anything. It is not. `role_analysis.md` records one probability and one verdict per channel and **no tier per channel**, and `job-board-search` derives the tier from the pool percentile, which a referrer does not change. There is no withheld number to take. A tier written here would be a fresh estimate produced by the skill that never looked at the pool, landing in the file the builder and every review agent read as current fact.
 
-- Update `fit.tier` and `fit.tier_via_channel` in `application.yaml`.
-- Rewrite the affected sections of `role_analysis.md` **to the new values**. No arrows between two numbers, no "was Tier 2". Every skill downstream reads that file as current fact.
-- Record what changed and why in `assessment_history.md`, from `templates/assessment_history.md`, creating it if the role has none.
-
-**Never raise a tier on an unanswered ask.** The gate clears on a yes. Raising it at draft time is the same inflation the channel matrix warns about, moved one step later and made harder to see, because by then it looks like a recorded fact.
+What to do instead: record the agreement in the Referrals table, say in the report that the warm channel is now open and that the role's tier was set without it, and let the next assessment of that role use it. Say the same thing about `application.yaml` — `fit` is written by the search, and nothing here edits it.
 
 ### 6d. `companies.md`
 
@@ -300,8 +311,9 @@ Note the approach in the company's row: who was contacted, when, and through wha
 1. **The paths found**, with strength and the basis for each
 2. **What was drafted**, where it is, and which channel each message goes out on
 3. **What the user has to do** — every message is theirs to send, from their own account, after they read it
-4. **Whether the tier moved**, and on what
-5. **The single next action**
+4. **What changes if someone says yes** — which channel opens, and that the role's tier was set without it. Name re-running `/slushpile:job-board-search` for that company as what makes the tier catch up, and say it is optional.
+5. **Whether materials already exist for this role.** If `files.resume` in `application.yaml` is filled and a warm path just opened, say so and name `/slushpile:application-builder`. A cold submission and a referral want different documents, and materials built before the channel moved are aimed at the channel that lost.
+6. **The single next action**
 
 If `identity.links` in `preferences.yaml` is empty, say so here. A cold note asks a stranger to form an opinion, and a recipient with nothing to open forms it from the message alone. Filling that block, or shipping something public, is worth more than another draft.
 
@@ -310,13 +322,13 @@ If `identity.links` in `preferences.yaml` is empty, say so here. A cold note ask
 ## Anti-Patterns
 
 1. **Do not invent a person, a title, or a team.** Every claim about a recipient traces to a source named in `outreach.md`. A message to someone about a job they do not hold is unrecoverable with that person.
-2. **Do not record a stranger as a referral.** Grade the path in Phase 4 by what the contact could actually say, not by what would help the tier. The scoring model trusts this table.
-3. **Do not ask a stranger for a referral in the first message.** Ask a question about the work. The referral becomes possible after they reply, and never before.
+2. **Do not record a stranger as a referral, and do not put a `none` contact in the Referrals table at all.** Downstream reads the strength column, and a table where the row count and the column disagree gets read wrong by whichever consumer skims.
+3. **Do not ask a stranger for a referral in the first message.** Ask a question about the work, and say in one clause that the user is looking at a role there. The referral becomes possible after they reply, and never before.
 4. **Do not construct an email address the company has not published.** Use a channel the person publishes, or record that there is no target.
 5. **Do not research past what a professional profile prints.** The recipient judges the message by which detail you chose to use.
 6. **Do not spend an ask on a lower-tier role** while a higher-tier one at the same company sits unasked.
-7. **Do not message several people at one company at once.** Two, at most, and not on the same day. They talk to each other, and a simultaneous pair reads as a blast rather than as interest in the team.
-8. **Do not raise a tier on an unanswered ask.** The gate clears when a person agrees, not when a draft exists.
+7. **Do not draft more than two messages per company in one run**, and tell the user in the handoff to space them by a few days. They talk to each other, and a simultaneous pair reads as a blast rather than as interest in the team. The draft cap is this skill's to enforce; the spacing is the user's, because nothing here can observe a send.
+8. **Do not write a tier, a pool percentile, or a channel probability anywhere.** They are `job-board-search`'s, they are derived from the pool, and a referrer does not change the pool. See 6c.
 9. **Do not skip the tells pass because the message is short.** Short messages carry the highest tell density in the pipeline.
 10. **Do not set `channel_used` before the submission actually goes through that channel.** It is the field every calibration rate is grouped by.
 11. **Do not send anything.** No skill here touches an inbox, a portal, or a form.

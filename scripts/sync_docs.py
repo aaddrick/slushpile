@@ -791,7 +791,7 @@ class Facts:
 
     def _read_call_graph(
         self,
-    ) -> tuple[list[Skill], list[Skill], list[Skill], list[str]]:
+    ) -> tuple[list[Skill], list[Skill], list[Skill], dict[str, list[str]]]:
         """Split the skills into the spine, what the spine calls, and the rest.
 
         The README separates the commands a user types from the ones a pipeline
@@ -845,12 +845,20 @@ class Facts:
                 "separate the spine from"
             )
 
-        # Every skill that dispatches another, named in the generated prose. The
+        # Which skill dispatches which, named in the generated prose. The
         # sentence used to be written for exactly one caller and raised on a
         # second, because naming one and hiding the other tells a reader that a
         # command they can type is one the pipeline runs for them.
-        named = sorted({name for names in callers.values() for name in names})
-        return spine, called, anytime, named
+        #
+        # It is a mapping rather than a list of names for the same reason. Two
+        # callers over a three-item block, joined by "and", is collectively true
+        # and individually false: it reads as both of them dispatching all
+        # three. Each caller is printed with what it actually runs.
+        dispatched: dict[str, list[str]] = {}
+        for target, names in callers.items():
+            for name in names:
+                dispatched.setdefault(name, []).append(target)
+        return spine, called, anytime, {k: sorted(v) for k, v in sorted(dispatched.items())}
 
     def _read_dispatch(self) -> tuple[list[str], list[str], list[str]]:
         path = ROOT / DISPATCH_SOURCE
@@ -1118,11 +1126,18 @@ def readme_pipeline(facts: Facts) -> str:
     would look like a formatting mistake.
     """
     column = max(len(f"/slushpile:{skill.name}") for skill in facts.skills) + 2
-    commands = [f"`/slushpile:{name}`" for name in facts.callers]
-    who = commands[0] if len(commands) == 1 else (
-        ", ".join(commands[:-1]) + f" and {commands[-1]}"
+
+    def dispatches(caller: str, targets: list[str]) -> str:
+        names = [f"`{name}`" for name in targets]
+        listed = (
+            names[0] if len(names) == 1
+            else ", ".join(names[:-1]) + f" and {names[-1]}"
+        )
+        return f"`/slushpile:{caller}` dispatches {listed}"
+
+    who = "; ".join(
+        dispatches(caller, targets) for caller, targets in facts.callers.items()
     )
-    verb = "dispatches" if len(commands) == 1 else "dispatch"
 
     def block(skills: list[Skill]) -> str:
         entries = []
@@ -1145,9 +1160,9 @@ def readme_pipeline(facts: Facts) -> str:
             block(facts.spine),
             f"### The {called} dispatched for you",
             fill(
-                f"{who} {verb} these in the course of a run. Run one directly "
-                f"only to work on materials this pipeline did not build — a "
-                f"resume written elsewhere, a letter drafted by hand."
+                f"{who}. Run one directly only to work on materials this "
+                f"pipeline did not build — a resume written elsewhere, a letter "
+                f"drafted by hand."
             ),
             block(facts.called),
             "### Any time",

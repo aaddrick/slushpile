@@ -133,8 +133,8 @@ alguien que ya conoces ahí, te hace la única pregunta que ningún archivo pued
 responder, investiga contactos con nombre a partir de presencia profesional
 pública solo cuando no conoces a nadie, y redacta el pedido con tu voz. Califica
 cada vía por lo que esa persona podría decir de verdad sobre tu trabajo, y lo
-registra en `job_search.md`, que es de donde cada revisión posterior lee si ese
-canal está abierto. Nunca envía nada.
+registra en `job_search.md`, de donde la siguiente evaluación lee si ese canal
+está abierto. Nunca envía nada.
 
 **Ataca lo que acaba de escribir.** Un modelo al que le preguntas si su propio
 borrador es bueno te va a decir que sí, y largamente. Así que el constructor no
@@ -223,9 +223,10 @@ Three commands, in order. A search runs on these alone.
 
 ### The three dispatched for you
 
-`/slushpile:application-builder` and `/slushpile:outreach` dispatch these in the
-course of a run. Run one directly only to work on materials this pipeline did
-not build — a resume written elsewhere, a letter drafted by hand.
+`/slushpile:application-builder` dispatches `adversarial-review`,
+`explore-experience` and `removing-ai-tells`; `/slushpile:outreach` dispatches
+`removing-ai-tells`. Run one directly only to work on materials this pipeline
+did not build — a resume written elsewhere, a letter drafted by hand.
 
 ```
 /slushpile:explore-experience   interview to surface experience you have
