@@ -47,7 +47,7 @@ The contrarian pass is a **gate**, not an appendix. It runs before tier tables a
 Read in full before assessing anything. Skipping these produces assessments that are confidently wrong about relocation, blockers, and domain overlap — the three things a user notices immediately and then stops trusting the tool over.
 
 - **`profile.md`** — complete background. The primary reference for every fit judgment.
-- **`preferences.yaml`** — constraints, compensation method, targeting, claimed differentiators. **Every hard kill in Phase 3j comes from this file.** Nothing here is hardcoded.
+- **`preferences.yaml`** — constraints, compensation method, work authorization, targeting, claimed differentiators, application posture. **Every hard kill in Phase 3j comes from this file.** Nothing here is hardcoded.
 - **`job_search.md`** — the tracker. Referrals, cooldowns, and the calibration table.
 - **`companies.md`** — whether this company has already been searched, and whether it is excluded. In query mode this file is load-bearing rather than advisory: it is the only thing standing between a market query and a list that re-searches everything the user already looked at last month.
 
@@ -330,6 +330,12 @@ Every one of these comes from `preferences.yaml`. Nothing is hardcoded.
 
 8. **Hard requirement violated.** Any entry in `constraints.hard_requirements` that the posting contradicts. Travel above `max_travel_percent`. A start date before `earliest_start`.
 
+9. **Sponsorship refused.** Only when `work_authorization.needs_sponsorship` is true **and** the posting states it will not sponsor — "no visa sponsorship", "must be authorized to work in {country} without current or future sponsorship", "we are unable to sponsor at this time". Same kill when the role's country is outside `work_authorization.authorized_in` and the posting rules out sponsorship for it.
+
+   **Silence is not a kill.** Most postings never mention sponsorship, and killing on absence passes nearly the whole pool for the users this check exists to protect. When the posting says nothing, the role proceeds and the unknown goes in the role analysis as a risk factor, phrased as the question the form will ask.
+
+   Read `work_authorization.notes` before killing. It is free text and it routinely holds the fact that makes blanket language not apply — a treaty status, a second passport, a transfer that needs no new petition. A posting that says "must be authorized in the US" does not kill a candidate who is.
+
 **Soft kills. Do not invest narrative effort. Bottom of Tier 3.**
 
 - Two or more NOT MET minimum quals where the gap is credential rather than delivery pattern
@@ -369,6 +375,7 @@ Write to `searches/{YYYY-MM-DD}/{company-slug}_search.md`.
 **Keywords:** {what was searched}
 **Board:** {URL} ({platform}, {server-rendered | SPA})
 **Results scanned:** {n} · **Assessed:** {n} · **Folders created:** {n}
+**Posture:** {selective | balanced | volume}
 
 ## Company Context
 {What they do, size, stage, hiring posture, anything from 3b that applies company-wide.}
@@ -380,11 +387,15 @@ Write to `searches/{YYYY-MM-DD}/{company-slug}_search.md`.
 {Which target functions exist here at all. A function's absence is a
 point-in-time observation — say so, and give a recheck trigger.}
 
-## Tier 1 — Recommended
-| Role | Req | Location | Pool position | Unlocking channel | Primary strength |
+## Recommended
+| Role | Req | Tier | Location | Pool position | Unlocking channel | Primary strength |
 
-## Tier 2 — Assessed, Lower Priority
-| Role | Req | Location | Pool position | Unlocking channel | Primary gap |
+## Assessed, Lower Priority
+{Everything assessed that the posture did not recommend. Name why in the last
+column: the tier, or under `selective`, that no available channel clears the
+company prior.}
+
+| Role | Req | Tier | Location | Pool position | Unlocking channel | Not recommended because |
 
 ## Passed
 | Role | Req | Primary blocker |
@@ -454,6 +465,8 @@ Kill criteria:
 - Was the compensation method in preferences.yaml actually applied, with the
   arithmetic shown, or did the assessment fall back to comparing nominal base?
 - Was cooldown checked against job_search.md?
+- If the candidate needs sponsorship, was the posting's sponsorship language
+  read, and was a role killed on the posting merely being silent about it?
 
 Narrative angle:
 - Does it lean on a differentiator the pool comparison flagged as median?
@@ -465,6 +478,8 @@ Per role, produce a net call:
 Format as a table: | Role | Net call | Primary reason |
 Then a 2-3 sentence rationale for every non-STAND call.
 ```
+
+**The posture is deliberately not in that prompt.** Every net call here moves a tier, and a tier is an estimate the posture is not allowed to touch — hand the contrarian an aggressive posture and the downgrades it should be making get argued away as fitting the user's appetite. It is applied in 5c instead, once the tiers are settled. The contrarian does see it in `adversarial-review`, where the call it makes is whether to submit rather than what the queue looks like.
 
 ### 5b. Apply the calls
 
@@ -488,7 +503,23 @@ The Contrarian Review section of `role_analysis.md` gets a provenance stamp and 
 
 **Never append corrections to a role analysis.** Rewrite the section. If the file still contains "corrected", "re-scored", "superseded", "previously", or an arrow between two numbers, it is not finished. `application-builder` and every review agent read this file and treat everything in it as a live finding — give a downstream reader three numbers and no instruction and it will not reliably pick the last one.
 
-### 5c. Finalize
+### 5c. Apply the posture — required
+
+The tiers are final as of 5b. `application_policy.posture` now decides which of them reach the user as a recommendation.
+
+| Posture | Recommended | Assessed, lower priority |
+|---|---|---|
+| `selective` | Tier 1 where 3i found an available channel converting above the company prior | every other Tier 1, and all of Tier 2-3 |
+| `balanced` | Tier 1, plus Tier 2 where a warm channel exists and the referrer is real | the rest of Tier 2, and Tier 3 |
+| `volume` | Tier 1-3, cold submission included | nothing |
+
+Under `volume`, name per role which submissions are record creation rather than conversion shots. A posture that says "apply broadly" is not a claim that the odds improved, and a list of 2% shots presented as a plan is what makes a user stop believing the tiers.
+
+**The posture never changes a tier.** The tier is an estimate of what the queue looks like; the posture is what the user has decided to do about it. Fold the preference into the estimate and two searches run under different postures stop being comparable — which breaks the calibration table in `job_search.md`, because that table is built by scoring past tiers against what actually happened. A Tier 1 that means "strong fit" in one search and "strong fit, and the user was feeling aggressive" in another cannot be scored against anything.
+
+**Name the posture and what it held back in the report.** A posture that silently drops roles is indistinguishable from a search that never found them.
+
+### 5d. Finalize
 
 Only now write the tier tables. They reflect post-contrarian decisions.
 
@@ -496,7 +527,7 @@ Only now write the tier tables. They reflect post-contrarian decisions.
 
 ## Phase 6: Report
 
-Show the user: how many roles were scanned, assessed, and foldered; the Tier 1 list with pool positions and unlocking channels; anything killed and why; the company verdict; and the single next action.
+Show the user: how many roles were scanned, assessed, and foldered; the posture in force and the recommended list with pool positions and unlocking channels; what the posture held back; anything killed and why; the company verdict; and the single next action.
 
 ## Anti-Patterns
 
@@ -518,3 +549,5 @@ Show the user: how many roles were scanned, assessed, and foldered; the Tier 1 l
 16. **Do not let a query silently override `preferences.yaml`.** A query adds constraints. It does not withdraw the ones already on file, and a list built as though it did looks correct while containing roles the user ruled out months ago.
 17. **Do not start Phase 1 in query mode without the user confirming the company list.** Everything expensive is downstream of that list, and it is the one artifact only the user can check.
 18. **Do not report a capped or filtered company list as the market.** Name what was cut and why. "Thirteen companies" and "thirteen companies, nine cut for cooldown" describe very different searches and read identically.
+19. **Do not kill on sponsorship the posting never mentioned.** The kill needs the posting to rule sponsorship out. Silence is the common case, and treating it as a refusal removes almost every role from the users this check is for.
+20. **Do not let the posture move a tier.** It selects from finished tiers in 5c. A tier that already encodes what the user feels like doing cannot be scored against an outcome later, which is the whole of the calibration loop.
