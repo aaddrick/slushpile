@@ -13,7 +13,7 @@
 
 <!-- END GENERATED language-nav -->
 
-slushpile 就是9个技能和8个智能体定义，全部是 Markdown。下面每一条路线，都是把同一批文件放到你的智能体会去读的地方。
+slushpile 就是10个技能和8个智能体定义，全部是 Markdown。下面每一条路线，都是把同一批文件放到你的智能体会去读的地方。
 
 **装任何东西之前先定一件事：** 你的工作区放在哪里。
 
@@ -179,6 +179,7 @@ the matching skill and follow it:
 
 - `~/.slushpile/skills/onboard/SKILL.md` — set up the workspace, once
 - `~/.slushpile/skills/job-board-search/SKILL.md` — search and score roles
+- `~/.slushpile/skills/outreach/SKILL.md` — find a referrer and draft the ask
 - `~/.slushpile/skills/explore-experience/SKILL.md` — interview for undocumented experience
 - `~/.slushpile/skills/application-builder/SKILL.md` — build the resume and cover letter
 - `~/.slushpile/skills/adversarial-review/SKILL.md` — run the seven-agent review

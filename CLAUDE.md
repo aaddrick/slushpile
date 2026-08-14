@@ -1,7 +1,7 @@
 # Working in this repository
 
 This repository ships one job-application pipeline to several coding agents.
-Nine skills and eight agent definitions are the product. Everything else is a
+Ten skills and eight agent definitions are the product. Everything else is a
 manifest, a template, or a check.
 
 ## Generated files
@@ -233,7 +233,7 @@ Three mechanisms to know before writing in one of these files:
 - **Counts are digits plus a registered noun.** The sweep matches English number
   words, so a spelled-out number in another language is checked by nothing.
   `TRANSLATED_COUNTED_NOUNS` carries the nouns per language, translated prose
-  writes `9 habilidades` rather than `nueve habilidades`, and every translated
+  writes `10 habilidades` rather than `diez habilidades`, and every translated
   page must carry at least as many counted phrases as its English original.
   That last rule is what fails a translation that dropped the sentence.
 - **Generated regions are copied in English.** Skill names and slash commands
@@ -382,7 +382,7 @@ a change that was considered and dropped, and it is what a second person reads
 to see whether the work is worth doing before anyone has spent a day on it.
 
 **Keep the issue short.** State what is wrong and what should be true instead,
-in a few sentences. "The help skill lists eight of the nine skills, so the one
+in a few sentences. "The help skill lists nine of the ten skills, so the one
 it drops is unreachable from the file whose job is answering what to run next."
 That is a whole issue. An issue front-loaded with the investigation gets
 skimmed, and the sentence saying what broke is what gets skimmed past.
@@ -438,7 +438,7 @@ A commit subject states what changed. The body states why, with the evidence.
 
 | Path | What it holds |
 |---|---|
-| `skills/` | the nine skills. The product. |
+| `skills/` | the ten skills. The product. |
 | `agents/` | the eight agent definitions. The product. |
 | `templates/` | what a user's workspace gets scaffolded from |
 | `docs/` | the manual, its architecture pages, and the D2 diagram sources |

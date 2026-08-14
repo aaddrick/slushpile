@@ -77,6 +77,13 @@ y no desbloquea el Nivel 1. Inflar un nivel apoyándose en un canal
 no disponible es la forma más común de hacer trampa con esta matriz, y es
 autoinfligida.
 
+No disponible es un estado, no un veredicto. `/slushpile:outreach` es la etapa
+que lo cambia: encuentra la vía, la califica por lo que ese contacto podría
+decir de verdad sobre tu trabajo, y la registra en `job_search.md`, que es de
+donde la leen la siguiente evaluación y cada revisión. Sin esa etapa la matriz
+enruta una y otra vez hacia un canal que el pipeline no puede abrir, lo que te
+mide contra el que sí puede.
+
 **Tu propio historial le gana a cualquier prior.** Cuando `job_search.md`
 registra una tasa real de referido tibio en esta empresa, se usa ese número
 en lugar del genérico. Ve

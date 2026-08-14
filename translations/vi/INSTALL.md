@@ -13,7 +13,7 @@
 
 <!-- END GENERATED language-nav -->
 
-slushpile là 9 kỹ năng và 8 định nghĩa tác nhân, tất cả đều là Markdown. Mọi
+slushpile là 10 kỹ năng và 8 định nghĩa tác nhân, tất cả đều là Markdown. Mọi
 cách cài bên dưới đều đặt cùng bộ tệp đó vào nơi tác nhân của bạn sẽ đọc được.
 
 **Một điều phải quyết trước khi cài bất cứ thứ gì:** không gian làm việc của bạn
@@ -206,6 +206,7 @@ the matching skill and follow it:
 
 - `~/.slushpile/skills/onboard/SKILL.md` — set up the workspace, once
 - `~/.slushpile/skills/job-board-search/SKILL.md` — search and score roles
+- `~/.slushpile/skills/outreach/SKILL.md` — find a referrer and draft the ask
 - `~/.slushpile/skills/explore-experience/SKILL.md` — interview for undocumented experience
 - `~/.slushpile/skills/application-builder/SKILL.md` — build the resume and cover letter
 - `~/.slushpile/skills/adversarial-review/SKILL.md` — run the seven-agent review

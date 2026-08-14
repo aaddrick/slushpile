@@ -29,6 +29,7 @@ except ImportError:  # pragma: no cover - exercised only without PyYAML
 EXPECTED_SKILLS = {
     "onboard",
     "job-board-search",
+    "outreach",
     "explore-experience",
     "application-builder",
     "adversarial-review",

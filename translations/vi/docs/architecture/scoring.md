@@ -75,6 +75,13 @@ giới thiệu nào, dòng giới thiệu nội bộ chỉ mang tính tham khả
 Hạng 1. Thổi phồng một hạng bằng cách dựa vào một kênh không có sẵn là cách phổ
 biến nhất khiến ma trận này bị lách, và đó là tự mình gây ra.
 
+Không có sẵn là một trạng thái, không phải một phán quyết. `/slushpile:outreach`
+là giai đoạn thay đổi nó: nó tìm ra con đường, chấm điểm con đường đó theo điều
+mà người kia thực sự có thể nói về công việc của bạn, rồi ghi vào
+`job_search.md`, đúng chỗ mà lần đánh giá sau và mọi vòng đánh giá đều đọc. Thiếu
+giai đoạn ấy, ma trận cứ đều đặn dẫn về một kênh mà quy trình không mở nổi, tức
+là đo bạn bằng cái kênh mà nó mở được.
+
 **Lịch sử của chính bạn thắng mọi tiên nghiệm.** Ở đâu `job_search.md` ghi lại
 một tỷ lệ giới thiệu nội bộ thật tại công ty này, con số đó được dùng thay cho
 con số chung. Xem [memory-and-calibration.md](memory-and-calibration.md).

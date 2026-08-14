@@ -1,6 +1,6 @@
 # slushpile
 
-An adversarial job search that gets better as it goes. Nine skills and eight
+An adversarial job search that gets better as it goes. Ten skills and eight
 agents that take a role from a careers-board listing to a resume and cover
 letter that have already survived an adversarial review, then write what that
 review found back into the profile every later role is built from.
@@ -32,6 +32,7 @@ every personal fact lives.
 
 @./skills/onboard/SKILL.md
 @./skills/job-board-search/SKILL.md
+@./skills/outreach/SKILL.md
 @./skills/explore-experience/SKILL.md
 @./skills/application-builder/SKILL.md
 @./skills/adversarial-review/SKILL.md

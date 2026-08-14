@@ -13,14 +13,14 @@
 
 <!-- END GENERATED language-nav -->
 
-Slushpile se instala como 9 habilidades. Claude Code expone cada una como
+Slushpile se instala como 10 habilidades. Claude Code expone cada una como
 `/slushpile:<name>`; Codex usa `$slushpile:<name>`; Gemini CLI y otros entornos
 leen los mismos archivos y ahí pides la etapa con palabras.
 
 Tres de ellas son la columna vertebral. Otras tres se despachan solas mientras
 se construye una postulación, y solo las ejecutas a mano sobre materiales que
-este pipeline no construyó. Las últimas tres son consultivas y se pueden
-ejecutar en cualquier momento.
+este pipeline no construyó. Las últimas cuatro las ejecutas cuando hacen falta
+y no en secuencia, y una de ellas necesita una carpeta de puesto ya evaluada.
 
 ## La columna vertebral
 
@@ -67,7 +67,7 @@ de tres rondas.
 Despacha `explore-experience`, `adversarial-review` y `removing-ai-tells` por su
 cuenta. Nunca envía nada; te entrega archivos terminados.
 
-## Las tres que ejecuta por ti
+## Las tres que se despachan por ti
 
 Ejecuta una de estas directamente solo para trabajar sobre materiales que este
 pipeline no construyó: un currículum escrito en otro lado, una carta redactada a
@@ -106,6 +106,28 @@ orquestador filtra cada cambio individual.
 tenga que leerse como escrita por una persona.
 
 ## En cualquier momento
+
+### `/slushpile:outreach`
+
+Abre el canal cálido para un puesto. Lee la tabla de referencias y tu perfil
+buscando gente que ya conoces en la empresa, te hace la pregunta que ningún
+archivo puede responder, investiga contactos con nombre a partir de presencia
+profesional pública solo cuando no conoces a nadie, califica cada vía por lo que
+esa persona podría decir de verdad sobre tu trabajo, y redacta el pedido de
+referencia o la nota en frío con tu agente de voz.
+
+**Argumento:** la ruta de una carpeta de puesto.
+
+Ejecútala cuando la evaluación diga que la referencia convierte varias veces
+mejor que el envío en frío y no tengas a nadie que te refiera. Sin esto el
+pipeline calcula que tu mejor canal es una referencia, te lo dice, y después
+construye materiales de portal en frío igual. Escribe los contactos en
+`job_search.md`, que es de donde la búsqueda arma su matriz de canales y de
+donde `status` decide si ordenar un puesto por su número cálido o por el frío.
+Hasta que ahí haya un contacto real, las dos valoran ese canal como cerrado, con
+razón.
+
+Nunca envía nada. Los mensajes son tuyos, desde tu propia cuenta.
 
 ### `/slushpile:redesign-templates`
 

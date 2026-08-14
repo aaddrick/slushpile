@@ -13,7 +13,7 @@
 
 <!-- END GENERATED language-nav -->
 
-slushpile son 9 habilidades y 8 definiciones de agente, todo en Markdown. Cada
+slushpile son 10 habilidades y 8 definiciones de agente, todo en Markdown. Cada
 ruta de abajo deja los mismos archivos en algún lugar donde tu agente los va a
 leer.
 
@@ -208,6 +208,7 @@ the matching skill and follow it:
 
 - `~/.slushpile/skills/onboard/SKILL.md` — set up the workspace, once
 - `~/.slushpile/skills/job-board-search/SKILL.md` — search and score roles
+- `~/.slushpile/skills/outreach/SKILL.md` — find a referrer and draft the ask
 - `~/.slushpile/skills/explore-experience/SKILL.md` — interview for undocumented experience
 - `~/.slushpile/skills/application-builder/SKILL.md` — build the resume and cover letter
 - `~/.slushpile/skills/adversarial-review/SKILL.md` — run the seven-agent review

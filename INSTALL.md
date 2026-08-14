@@ -13,7 +13,7 @@
 
 <!-- END GENERATED language-nav -->
 
-slushpile is nine skills and eight agent definitions, all Markdown. Every route
+slushpile is ten skills and eight agent definitions, all Markdown. Every route
 below puts the same files somewhere your agent will read them.
 
 **One thing to decide before you install anything:** where your workspace goes.
@@ -201,6 +201,7 @@ the matching skill and follow it:
 
 - `~/.slushpile/skills/onboard/SKILL.md` — set up the workspace, once
 - `~/.slushpile/skills/job-board-search/SKILL.md` — search and score roles
+- `~/.slushpile/skills/outreach/SKILL.md` — find a referrer and draft the ask
 - `~/.slushpile/skills/explore-experience/SKILL.md` — interview for undocumented experience
 - `~/.slushpile/skills/application-builder/SKILL.md` — build the resume and cover letter
 - `~/.slushpile/skills/adversarial-review/SKILL.md` — run the seven-agent review

@@ -126,6 +126,16 @@ herramienta empieza a trabajar después de que ya decidiste postular. El error
 caro ocurre antes de eso, y esta es la única etapa que todavía puede atraparlo
 gratis.
 
+**Va y abre el canal que él mismo dice que es el mejor.** Una matriz que valora
+un referido varias veces por encima de un envío en frío no sirve de nada si
+nadie actúa sobre ella. `/slushpile:outreach` lee tu propio historial buscando a
+alguien que ya conoces ahí, te hace la única pregunta que ningún archivo puede
+responder, investiga contactos con nombre a partir de presencia profesional
+pública solo cuando no conoces a nadie, y redacta el pedido con tu voz. Califica
+cada vía por lo que esa persona podría decir de verdad sobre tu trabajo, y lo
+registra en `job_search.md`, de donde la siguiente evaluación lee si ese canal
+está abierto. Nunca envía nada.
+
 **Ataca lo que acaba de escribir.** Un modelo al que le preguntas si su propio
 borrador es bueno te va a decir que sí, y largamente. Así que el constructor no
 pregunta. Le entrega el currículum y la carta a 7 revisores, con
@@ -211,12 +221,12 @@ Three commands, in order. A search runs on these alone.
                                 stabilize
 ```
 
-### The three it runs for you
+### The three dispatched for you
 
-`/slushpile:application-builder` dispatches all three of these itself, in the
-course of building an application. Run one directly only to work on materials
-this pipeline did not build — a resume written elsewhere, a letter drafted by
-hand.
+`/slushpile:application-builder` dispatches `adversarial-review`,
+`explore-experience` and `removing-ai-tells`; `/slushpile:outreach` dispatches
+`removing-ai-tells`. Run one directly only to work on materials this pipeline
+did not build — a resume written elsewhere, a letter drafted by hand.
 
 ```
 /slushpile:explore-experience   interview to surface experience you have
@@ -232,6 +242,9 @@ hand.
 ### Any time
 
 ```
+/slushpile:outreach             find who they already know at the company,
+                                grade the path, and draft the ask
+
 /slushpile:redesign-templates   restyle the resume and letter templates,
                                 holding the ATS constraints fixed
 
@@ -342,7 +355,7 @@ confianza de nadie.
 
 ## Ajústalo
 
-Las 9 habilidades y los 8 agentes son Markdown. Haz un fork, edita, instala tu
+Las 10 habilidades y los 8 agentes son Markdown. Haz un fork, edita, instala tu
 copia:
 
 ```bash

@@ -80,7 +80,9 @@ Everything at `status: assessed` that has not been passed, ranked by the probabi
 
 Do not compute a composite score across channels. A single number per role collapses the channel-conditional model back into the thing it was built to replace: the same materials convert at wildly different rates cold and warm, and one scalar cannot say so. Show the channel and its probability, side by side.
 
-Where the highest-EV channel is `warm_referral` and no referrer exists in `job_search.md`, show the cold number as the actionable one and mark the referral row unavailable. The tier was allowed to reflect the best available channel; the queue ranking is about what the user can do this afternoon.
+Where the highest-EV channel is `warm_referral` and the Referrals table in `job_search.md` holds no `strong` or `moderate` contact at that company, show the cold number as the actionable one and mark the referral row unavailable. A weak tie in that table is an introduction to chase, not a referrer. The tier was allowed to reflect the best available channel; the queue ranking is about what the user can do this afternoon.
+
+**Then name `/slushpile:outreach` against those roles.** Unavailable is a state somebody can change, and for the roles at the top of this list it is usually the highest-value hour available. A queue that reports the referral row as unavailable and moves on is telling the user their best channel is closed without mentioning that opening it is a command.
 
 ### 2d. Cooldowns clearing
 
@@ -105,6 +107,8 @@ Group by `adversarial_review.hm_verdict_by_channel[channel_used]` — the verdic
 | Channel | Sent | Responses | Interviews | Actual rate | Pipeline's estimate | Delta |
 
 The pipeline's estimate is the mean of the `channel_ev` probabilities it assigned to applications actually sent through that channel.
+
+A channel with no rows has never been used, which is a finding rather than a blank. Say which channels are empty and how many applications went through the one that is not. A warm-referral row that has been empty across thirty applications means the estimate on the channel the pipeline calls best has never once been tested, and the correction for that is `/slushpile:outreach` rather than another cold submission.
 
 ### 3c. The outliers
 

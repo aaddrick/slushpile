@@ -163,6 +163,18 @@ SKILLS = (
         install="search and score roles",
     ),
     Skill(
+        name="outreach",
+        cursor="Find a warm path into a company",
+        rule="Open the warm channel for a role",
+        readme=(
+            "find who they already know at the company,",
+            "grade the path, and draft the ask",
+        ),
+        install="find a referrer and draft the ask",
+        runs=("removing-ai-tells",),
+        anytime=True,
+    ),
+    Skill(
         name="explore-experience",
         cursor="Surface experience they never wrote down",
         rule="Interview for undocumented experience",
@@ -775,9 +787,11 @@ class Facts:
             list(REVIEWERS), set(self.dispatch), "REVIEWERS in scripts/sync_docs.py"
         )
         self.skills = SKILLS
-        self.spine, self.called, self.anytime, self.caller = self._read_call_graph()
+        self.spine, self.called, self.anytime, self.callers = self._read_call_graph()
 
-    def _read_call_graph(self) -> tuple[list[Skill], list[Skill], list[Skill], str]:
+    def _read_call_graph(
+        self,
+    ) -> tuple[list[Skill], list[Skill], list[Skill], dict[str, list[str]]]:
         """Split the skills into the spine, what the spine calls, and the rest.
 
         The README separates the commands a user types from the ones a pipeline
@@ -831,17 +845,20 @@ class Facts:
                 "separate the spine from"
             )
 
-        # The generated prose names one caller and says it dispatches all of
-        # them. Two callers would need a sentence this script does not know how
-        # to write, so it fails here rather than naming one and hiding the other.
-        named = sorted({name for names in callers.values() for name in names})
-        if len(named) != 1:
-            raise ValueError(
-                f"SKILLS: {', '.join(named)} all dispatch other skills, but the "
-                f"README prose is written for exactly one caller. Update "
-                f"readme_pipeline() to describe the new shape."
-            )
-        return spine, called, anytime, named[0]
+        # Which skill dispatches which, named in the generated prose. The
+        # sentence used to be written for exactly one caller and raised on a
+        # second, because naming one and hiding the other tells a reader that a
+        # command they can type is one the pipeline runs for them.
+        #
+        # It is a mapping rather than a list of names for the same reason. Two
+        # callers over a three-item block, joined by "and", is collectively true
+        # and individually false: it reads as both of them dispatching all
+        # three. Each caller is printed with what it actually runs.
+        dispatched: dict[str, list[str]] = {}
+        for target, names in callers.items():
+            for name in names:
+                dispatched.setdefault(name, []).append(target)
+        return spine, called, anytime, {k: sorted(v) for k, v in sorted(dispatched.items())}
 
     def _read_dispatch(self) -> tuple[list[str], list[str], list[str]]:
         path = ROOT / DISPATCH_SOURCE
@@ -1100,15 +1117,27 @@ def readme_pipeline(facts: Facts) -> str:
 
     A renamed skill leaves a documented command that fails, so the commands are
     generated. The grouping is generated for a second reason: a flat list of
-    {skills} commands reads as {skills} things the user has to run, and three of
-    them are things the builder already ran. That misreading costs a user two
-    redundant review passes before they work out which commands are theirs.
+    {skills} commands reads as {skills} things the user has to run, and some of
+    them are things another stage already ran for them. That misreading costs a
+    user two redundant review passes before they work out which are theirs.
 
     One column width across every block. The groups sit under separate headings
     and still read as one list, so a blurb column that shifted between them
     would look like a formatting mistake.
     """
     column = max(len(f"/slushpile:{skill.name}") for skill in facts.skills) + 2
+
+    def dispatches(caller: str, targets: list[str]) -> str:
+        names = [f"`{name}`" for name in targets]
+        listed = (
+            names[0] if len(names) == 1
+            else ", ".join(names[:-1]) + f" and {names[-1]}"
+        )
+        return f"`/slushpile:{caller}` dispatches {listed}"
+
+    who = "; ".join(
+        dispatches(caller, targets) for caller, targets in facts.callers.items()
+    )
 
     def block(skills: list[Skill]) -> str:
         entries = []
@@ -1129,12 +1158,11 @@ def readme_pipeline(facts: Facts) -> str:
                 f"alone."
             ),
             block(facts.spine),
-            f"### The {called} it runs for you",
+            f"### The {called} dispatched for you",
             fill(
-                f"`/slushpile:{facts.caller}` dispatches all {called} of these "
-                f"itself, in the course of building an application. Run one "
-                f"directly only to work on materials this pipeline did not build "
-                f"— a resume written elsewhere, a letter drafted by hand."
+                f"{who}. Run one directly only to work on materials this "
+                f"pipeline did not build — a resume written elsewhere, a letter "
+                f"drafted by hand."
             ),
             block(facts.called),
             "### Any time",

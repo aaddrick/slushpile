@@ -126,6 +126,15 @@ cụ khác chỉ bắt đầu làm việc sau khi bạn đã quyết định n�
 ra trước thời điểm đó, và đây là giai đoạn duy nhất còn kịp bắt được nó mà không
 tốn gì.
 
+**Nó đi mở đúng cái kênh mà chính nó nói là tốt nhất.** Một ma trận định giá
+việc giới thiệu cao gấp nhiều lần nộp nguội thì cũng vô nghĩa nếu chẳng ai làm
+gì với nó. `/slushpile:outreach` đọc lịch sử của chính bạn để tìm người bạn đã
+quen ở đó, hỏi bạn câu hỏi duy nhất mà không tệp nào giữ, chỉ tra cứu người cụ
+thể từ hiện diện nghề nghiệp công khai khi bạn không quen ai, rồi soạn lời nhờ
+bằng giọng văn của bạn. Nó chấm từng con đường theo điều mà người đó thực sự có
+thể nói về công việc của bạn, rồi ghi vào `job_search.md`, đúng chỗ lần đánh giá
+kế tiếp đọc để biết kênh ấy có mở hay không. Nó không bao giờ gửi gì cả.
+
 **Nó tấn công chính thứ nó vừa viết.** Một mô hình được hỏi bản nháp của chính
 nó có tốt không sẽ trả lời là có, và trả lời rất dài. Nên trình dựng hồ sơ không
 hỏi. Nó giao bản CV và lá thư cho 7 người đánh giá, trong đó 5 người đánh giá
@@ -209,12 +218,12 @@ Three commands, in order. A search runs on these alone.
                                 stabilize
 ```
 
-### The three it runs for you
+### The three dispatched for you
 
-`/slushpile:application-builder` dispatches all three of these itself, in the
-course of building an application. Run one directly only to work on materials
-this pipeline did not build — a resume written elsewhere, a letter drafted by
-hand.
+`/slushpile:application-builder` dispatches `adversarial-review`,
+`explore-experience` and `removing-ai-tells`; `/slushpile:outreach` dispatches
+`removing-ai-tells`. Run one directly only to work on materials this pipeline
+did not build — a resume written elsewhere, a letter drafted by hand.
 
 ```
 /slushpile:explore-experience   interview to surface experience you have
@@ -230,6 +239,9 @@ hand.
 ### Any time
 
 ```
+/slushpile:outreach             find who they already know at the company,
+                                grade the path, and draft the ask
+
 /slushpile:redesign-templates   restyle the resume and letter templates,
                                 holding the ATS constraints fixed
 
@@ -337,7 +349,7 @@ tin của bất kỳ ai.
 
 ## Tinh chỉnh nó
 
-9 kỹ năng và 8 tác nhân đều là Markdown. Hãy fork, sửa, cài bản của bạn:
+10 kỹ năng và 8 tác nhân đều là Markdown. Hãy fork, sửa, cài bản của bạn:
 
 ```bash
 claude plugin uninstall slushpile

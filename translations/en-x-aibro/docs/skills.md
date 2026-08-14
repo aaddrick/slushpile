@@ -13,7 +13,7 @@
 
 <!-- END GENERATED language-nav -->
 
-9 skills. One surface, four runtimes.
+10 skills. One surface, four runtimes.
 
 Claude Code exposes each as `/slushpile:<name>`. Codex uses `$slushpile:<name>`.
 Gemini CLI and everything else read the same files and you ask for the stage in
@@ -21,8 +21,9 @@ words. Same Markdown, every harness. No adapter layer, because there is nothing
 to adapt.
 
 Three are the spine. Three are dispatched for you mid-build and you only invoke
-them by hand on materials this pipeline did not produce. Three are advisory and
-run whenever.
+them by hand on materials this pipeline did not produce. Four run whenever they
+apply rather than in sequence, and one needs a scored role folder to run
+against.
 
 ## The spine
 
@@ -80,7 +81,7 @@ It dispatches `explore-experience`, `adversarial-review`, and
 
 It never submits anything. It hands you artifacts.
 
-## The three it runs for you
+## The three dispatched for you
 
 Invoke these directly only for materials this pipeline did not build. A resume
 written elsewhere. A letter drafted by hand.
@@ -120,6 +121,30 @@ Run it on a cover letter before submission, or on any prose that has to read as
 human-written.
 
 ## Any time
+
+### `/slushpile:outreach`
+
+Opens the warm channel for one role. Reads the referrals table and your profile
+for people you already know at the company. Asks you the one question no file
+can answer. Researches named targets from public professional presence only when
+you know nobody. Grades each path on what that person could actually say about
+your work, then drafts the referral ask or the cold note through your voice
+agent.
+
+**Argument:** a role folder path.
+
+Run it where the assessment prices a referral several times above cold
+submission and you have no referrer. Without it the pipeline computes that your
+highest-EV channel is a referral, surfaces that finding, and then ships
+cold-portal materials anyway. Optimizing for the channel you can execute is not
+the same as optimizing for the channel that converts.
+
+Contacts land in `job_search.md`. That is the read path the search builds its
+channel matrix from, and the one `status` uses to decide whether to rank a role
+on its warm number or its cold one. Until a real contact is recorded there, both
+price that channel as closed. Correctly.
+
+It never sends. The messages are yours, from your own account.
 
 ### `/slushpile:redesign-templates`
 
