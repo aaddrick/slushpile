@@ -53,6 +53,36 @@ EXPECTED_AGENTS = {
 # the one agent exempt from the slushpile-* namespace rule.
 VOICE_AGENTS = {"aaddrick-voice"}
 
+# Fields in preferences.yaml that no skill reads, on purpose, with the reason.
+# Every other field must be named by a skill or an agent — see
+# Templates.test_every_preference_field_is_read_by_something for why.
+PREFERENCES_UNREAD = {
+    "schema_version": "Identifies the file's shape for a future migration. "
+    "Nothing in the pipeline branches on it and nothing should.",
+    # The four channels below are read as the observed_conversion block, which
+    # both status and adversarial-review pass whole. Naming each one in a skill
+    # would put application.yaml's channel list in a second place to maintain.
+    "cold_submission": "Read as part of the observed_conversion block.",
+    "warm_referral": "Read as part of the observed_conversion block.",
+    "cold_outreach": "Read as part of the observed_conversion block.",
+    "public_visibility_inbound": "Read as part of the observed_conversion block.",
+}
+
+
+def preference_fields(node: dict | None = None, path: tuple = ()) -> list[tuple]:
+    """Every leaf field in preferences.yaml, as a dotted path. A leaf is a key
+    whose value is not a mapping — a list is a leaf, because a skill reads it
+    as one value."""
+    if node is None:
+        node = yaml.safe_load((ROOT / "templates/preferences.yaml").read_text())
+    out = []
+    for key, value in node.items():
+        if isinstance(value, dict):
+            out += preference_fields(value, path + (key,))
+        else:
+            out.append(path + (key,))
+    return out
+
 
 def frontmatter(path: Path) -> dict:
     data = check_configs.parse_frontmatter(path, yaml.safe_load)
@@ -203,6 +233,60 @@ class Templates(unittest.TestCase):
         for name in ("preferences.yaml", "application.yaml"):
             with self.subTest(template=name):
                 yaml.safe_load((ROOT / "templates" / name).read_text())
+
+    def test_every_preference_field_is_read_by_something(self) -> None:
+        """A field in preferences.yaml that nothing reads is worse than a
+        missing one. Onboarding presents it as a working dial, so a user sets
+        it and stops applying their own judgment to whatever they believe it
+        now handles. Six shipped that way, and each one's comment documented
+        behavior that did not exist anywhere in the pipeline.
+
+        A field is read when a skill or an agent names it in a form that is
+        unambiguously the field: a dotted path ending in it, or the name as a
+        token inside a code span. Prose alone does not count. `posture` went
+        unnoticed for exactly that reason — the only match for it was "hiring
+        posture" in a report heading, so any check loose enough to accept prose
+        would have passed the field that motivated this test."""
+        code = {
+            p.relative_to(ROOT).as_posix(): [
+                span
+                for span in re.findall(r"`([^`\n]+)`", p.read_text())
+                if "://" not in span
+            ]
+            + re.findall(r"(?:[a-z_]+\.)+[a-z_]+", p.read_text())
+            for p in list((ROOT / "skills").rglob("*.md"))
+            + list((ROOT / "agents").rglob("*.md"))
+        }
+        fields = preference_fields()
+        ambiguous = {
+            leaf
+            for leaf in (p[-1] for p in fields)
+            if sum(p[-1] == leaf for p in fields) > 1
+        }
+        for path in fields:
+            leaf = path[-1]
+            with self.subTest(field=".".join(path)):
+                if leaf in PREFERENCES_UNREAD:
+                    continue
+                # Two blocks both have a `notes`. A bare match on the name would
+                # let either one's reader vouch for both, which is the exact
+                # false pass this test exists to prevent — so an ambiguous leaf
+                # has to be named with its parent.
+                wanted = ".".join(path[-2:]) if leaf in ambiguous else leaf
+                token = re.compile(rf"(?:^|[^\w.]|\.){re.escape(wanted)}(?:\W|$)")
+                self.assertTrue(
+                    any(token.search(s) for spans in code.values() for s in spans),
+                    f"preferences.yaml collects {'.'.join(path)} and no skill or "
+                    f"agent reads it. Wire it in, or give it a row in "
+                    f"PREFERENCES_UNREAD saying why it is not read.",
+                )
+
+    def test_no_unread_exemption_outlives_its_field(self) -> None:
+        """The other direction. An exemption for a field that no longer exists
+        is a note about nothing, and it makes the next reader trust the table
+        less than the file it describes."""
+        leaves = {path[-1] for path in preference_fields()}
+        self.assertEqual(set(PREFERENCES_UNREAD) - leaves, set())
 
     def test_every_template_referenced_by_a_skill_exists(self) -> None:
         referenced = set()

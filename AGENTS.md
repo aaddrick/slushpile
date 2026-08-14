@@ -100,6 +100,32 @@ while dropping a real one. `tests/test_structure.py` counts the items after `The
 skills:` against the number of skills, which is why those blurbs have to stay
 comma-free.
 
+A third gate covers `templates/preferences.yaml`, where the same failure took a
+different shape. Every field there is a promise: onboarding asks for it, the
+field's own comment says what reading it does, and nothing checked that anything
+read it. Fields shipped that way for as long as they had existed, including the
+work-authorization block and the application posture — so a user needing
+sponsorship got a fully built application for a posting that says it will not
+sponsor, and a user who set the posture to selective got the same list as
+everyone else. That is worse than a missing field. A missing field is noticed;
+a dead one is trusted, and the user stops applying their own judgment to
+whatever they believe it now handles.
+
+So `test_every_preference_field_is_read_by_something` in
+`tests/test_structure.py` walks every leaf in that file and requires a skill or
+an agent to name it — as a dotted path, or as the bare name inside a code span.
+Prose does not count, and that is the whole design: the only match for `posture`
+was the phrase "hiring posture" in a report heading, so a check loose enough to
+read prose would have passed the field that motivated the gate. A leaf name that
+two blocks share, like `notes`, has to be named with its parent, because
+otherwise one block's reader vouches for the other's — which it did, and that
+false pass is what the ambiguity rule exists to stop.
+
+`PREFERENCES_UNREAD` beside it holds the fields nothing reads on purpose, each
+with its reason, and it is checked in the other direction too: an exemption for
+a field that no longer exists fails, because a note about nothing makes the next
+reader trust the table less than the file it describes.
+
 Two consequences worth knowing before you write about this pipeline.
 
 A sentence that counts a subset on purpose — the agents that parse a posting
