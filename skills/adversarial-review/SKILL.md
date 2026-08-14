@@ -59,7 +59,7 @@ Read before dispatching anything:
 - The role's `role_analysis.md` if it exists — for level, comp band, and prior company research
 - The resume: extract text with `pdftotext <file>.pdf -`. Use the extracted text, not the LaTeX or Markdown source. The agents must see what an ATS and a recruiter see.
 - The cover letter, if one exists
-- `preferences.yaml` — the contrarian needs the compensation method and any stated constraints, and both it and the pool analyst need the `calibration_priors` block
+- `preferences.yaml` — the contrarian needs the compensation method, the application posture, and any stated constraints, and both it and the pool analyst need the `calibration_priors` block
 - `job_search.md` — for prior application history at this company, which the pool analyst and contrarian both need
 
 If the resume is a `.tex` or `.docx` file with no compiled PDF, build it first. Reviewing source is reviewing a document nobody will ever read.
@@ -166,6 +166,8 @@ Pass the condensed specialist reports, the full hiring manager synthesis, the fu
 The agent definition carries its own binding scope limits. Do not restate them in the prompt and do not add new ones — an orchestrator that improvises extra constraints per run is the reason findings stop being comparable across applications.
 
 `calibration_priors` is data, not a constraint, which is why it goes in the prompt while the scope limits stay in the definition. It changes what the agent knows. It does not change what the agent is allowed to say.
+
+`application_policy.posture` travels with the file on the same footing. How the agent weighs it is in its definition; the value is data. Do not paraphrase the posture into an instruction — "the user is applying aggressively, so lean toward SUBMIT" is the orchestrator improvising a constraint, and it produces a pass whose probabilities move with the user's mood.
 
 ## Step 5: Gatekeeper Review
 

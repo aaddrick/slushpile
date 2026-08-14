@@ -90,7 +90,12 @@ real and so `/slushpile:explore-experience` knows where to dig. -->
 
 <!-- Things that could sink this but are not disqualifying: clearance,
 degree, relocation, level mismatch, gap in employment. Each with how you
-would handle it if raised. -->
+would handle it if raised.
+
+If sponsorship is needed and the posting says nothing either way, it belongs
+here rather than in the kill check — as the question the form is going to ask,
+so it is answered before the portal asks it and not during. -->
+
 
 ## Kill Criteria Check
 
