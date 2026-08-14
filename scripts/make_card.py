@@ -157,6 +157,7 @@ def tracked_len(draw, text, font, track=0):
 
 
 PAD = 72 * S
+FOOT_GUTTER = 32 * S       # clear space between the footer's two anchored runs
 URL = "github.com/VonTerraProject501c3/slushpile"
 
 # Drawn as separate runs so the second half carries the accent. Kept here rather
@@ -521,8 +522,8 @@ class Overflow:
     are gathered and raised at once.
     """
 
-    def __init__(self, tag: str) -> None:
-        self.tag = tag
+    def __init__(self, label: str) -> None:
+        self.label = label
         self.problems: list[str] = []
 
     def wide(self, draw, text, font, right, where, x=0, track=0):
@@ -541,7 +542,7 @@ class Overflow:
         if self.problems:
             joined = "\n  ".join(self.problems)
             raise SystemExit(
-                f"make_card.py: the {self.tag} hero does not fit:\n  {joined}\n"
+                f"make_card.py: the {self.label} does not fit:\n  {joined}\n"
                 f"Shorten the line or break it differently in CARDS. The columns "
                 f"are fixed: whatever spills crosses into the next one."
             )
@@ -572,7 +573,7 @@ def draw_hero(d, tag: str, card: Card, facts: sync_docs.Facts):
 
     label_font = disp(20, "SemiBold", script)
     note_font = disp(20, "Medium", script)
-    over = Overflow(tag)
+    over = Overflow(f"{tag} hero")
 
     # Two hairlines carry the three-column structure. Without them the middle and
     # right lists read as one ragged block of grey text.
@@ -664,10 +665,17 @@ def draw_hero(d, tag: str, card: Card, facts: sync_docs.Facts):
     # translated: one is a URL and the other is four product names.
     BASE = H - 44 * S
     url_font = mono(23, "Medium")
-    d.text((PAD, BASE - url_font.getmetrics()[0]), URL, font=url_font, fill=INK_MUTE)
     harnesses = "CLAUDE CODE  ·  CODEX  ·  CURSOR  ·  GEMINI CLI"
     hf = disp(21, "SemiBold")
-    tracked(d, (W - PAD - tracked_len(d, harnesses, hf, track=2.5), BASE - hf.getmetrics()[0]),
+    harness_left = W - PAD - tracked_len(d, harnesses, hf, track=2.5)
+
+    # The only row whose neighbour moves: URL anchored left, harnesses right.
+    # Every other guard measures against a fixed column, so this one has to be
+    # written separately or the URL grows into the harness list with no error.
+    over.wide(d, URL, url_font, harness_left - FOOT_GUTTER, "footer URL", x=PAD)
+
+    d.text((PAD, BASE - url_font.getmetrics()[0]), URL, font=url_font, fill=INK_MUTE)
+    tracked(d, (harness_left, BASE - hf.getmetrics()[0]),
             harnesses, hf, (0x6E, 0x73, 0x7B), track=2.5)
 
     return over
@@ -680,7 +688,13 @@ def draw_social(d, card: Card):
     hero. A 42px line survives the scale down to roughly 13px; the hero's 20px
     list items would land at 6px, which is why none of them are here.
     """
+    # Everything here is centred, so a line that is too long bleeds off both
+    # edges rather than into a column. Measured against the same margin the hero
+    # uses, since a card cropped at 400px has no room to lose a character.
+    over = Overflow("social card")
+
     eyebrow = disp(26, "SemiBold")
+    over.wide(d, card.eyebrow, eyebrow, W - 2 * PAD, "eyebrow", track=4)
     tracked(d, ((W - tracked_len(d, card.eyebrow, eyebrow, track=4)) / 2, 138 * S),
             card.eyebrow, eyebrow, INK_MUTE, track=4)
 
@@ -691,10 +705,15 @@ def draw_social(d, card: Card):
 
     tag_font = disp(42, "Medium")
     for i, line in enumerate([*card.hook, *card.keep]):
+        over.wide(d, line, tag_font, W - 2 * PAD, "hook line")
         centred(d, (396 + i * 48) * S, line, tag_font,
                 BLUE if line in card.keep else INK_BODY)
 
-    centred(d, 570 * S, URL, mono(21, "Medium"), (0x5C, 0x63, 0x6D))
+    url_font = mono(21, "Medium")
+    over.wide(d, URL, url_font, W - 2 * PAD, "URL")
+    centred(d, 570 * S, URL, url_font, (0x5C, 0x63, 0x6D))
+
+    return over
 
 
 def main():
@@ -713,7 +732,7 @@ def main():
         print(f"wrote {out_dir / name} {out.size[0]}x{out.size[1]}")
 
     img, d = new_card()
-    draw_social(d, resolve("en", facts))
+    draw_social(d, resolve("en", facts)).raise_if_any()
     out = img.resize((W // S, H // S), Image.LANCZOS)
     out.save(out_dir / "social.png", optimize=True)
     print(f"wrote {out_dir / 'social.png'} {out.size[0]}x{out.size[1]}")
