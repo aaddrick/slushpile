@@ -377,13 +377,59 @@ it does not reach "enabled". No job filters by path.
 
 ## Git
 
-Push to `main`. Pull request creation is set to collaborators only, so a
-branch-and-merge cycle with one participant costs a round trip without adding a
-reader. Branch when you want the work to sit somewhere before it lands, and
-rebase rather than merge.
+Every change goes issue, branch, pull request, merge. Do not push to `main`.
 
-Run the four checks before you push. CI tells you what you shipped; the local
-run tells you what you are about to.
+**Open the issue first**, including for your own work. It is the only record of
+a change that was considered and dropped, and it is what a second person reads
+to see whether the work is worth doing before anyone has spent a day on it.
+
+**Keep the issue short.** State what is wrong and what should be true instead,
+in a few sentences. "The help skill lists eight of the nine skills, so the one
+it drops is unreachable from the file whose job is answering what to run next."
+That is a whole issue. An issue front-loaded with the investigation gets
+skimmed, and the sentence saying what broke is what gets skimmed past.
+
+**Keep the pull request short too.** What changed, and why this way. Enough for
+a reviewer to decide where to look, and no further. The file inventory, the grep
+output, and the reasoning that ruled out the obvious approach go in the commit
+bodies, where the person deep-diving is already reading. A description that
+retells the diff in prose gets read instead of the diff, and it is the copy that
+goes stale.
+
+**Reference the issue from the pull request.** `Closes #12` in the body links
+them, so the issue closes on merge and the search that finds one finds the
+other.
+
+**CI gates the merge rather than reporting on it.** All four checks plus the
+plugin-load check run on the pull request, so a red gate costs a push instead of
+a public commit. Run the four locally first anyway. A CI round trip is slower
+than the local run that would have caught the same thing.
+
+**`main` is protected, administrators included.** A pull request is required,
+force-pushes and deletions are refused, and the `issue link` check must pass.
+Nothing here is a convention you can decide to skip on a small change.
+
+That check is a workflow rather than a setting, because branch protection can
+require a pull request and cannot require that it names an issue.
+`.github/workflows/issue-link.yml` reads the body for a closing keyword and an
+issue number, which is the same thing that closes the issue on merge. A bare
+`#12` links the two and leaves the issue open, so it does not pass.
+
+The check is required by job name, so renaming that job blocks every pull
+request on a check that will never report, and the branch fixing the workflow is
+blocked by the same rule. Read the current protection before touching either:
+
+```bash
+gh api repos/VonTerraProject501c3/slushpile/branches/main/protection
+```
+
+The four gates and the plugin-load check are not required to merge. They run on
+every pull request and every push, and a red one is a reason to stop rather than
+a block the platform enforces.
+
+**Merge by rebase or squash.** Never a merge commit. The history here is linear
+and worth keeping that way. Squash when the branch is one change told in several
+commits; rebase when each commit stands on its own.
 
 Do not force-push `main`. It breaks every clone and fork and orphans any open
 pull request.
