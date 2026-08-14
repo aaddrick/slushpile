@@ -672,9 +672,17 @@ license: MIT
 ---
 """
 
+# Must stay `true`. With `false`, a description and no globs, Cursor makes this
+# agent-requested: the model decides from the description whether to load it. One
+# of the two standing rules here is "never submit anything", and a safety rule is
+# needed most in the request the model did not read as job-search — the one an
+# agent-requested rule sits out.
+#
+# The description stays. Cursor ignores it for matching once `alwaysApply` is
+# true, but it is still how the rule is listed in the UI.
 CURSOR_RULE_FRONTMATTER = """---
 description: 'Adversarial job search: pool-anchored fit scoring, adversarial review, channel-conditional verdicts, findings written back to the profile.'
-alwaysApply: false
+alwaysApply: true
 ---
 """
 
