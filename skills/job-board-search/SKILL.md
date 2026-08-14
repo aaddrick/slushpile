@@ -239,7 +239,7 @@ The calibration that matters: a differentiator can be rare in absolute terms and
 
 These reduce the score. They do not auto-pass. Whether any of them is a hard blocker is set in `preferences.yaml`, and by default none of them are.
 
-- **Clearance requirement.** Note as a gap for the cover letter. Roughly 5-10 percentile points. Auto-pass only if `clearance.hard_blocker` is true. Check `clearance.eligible_for` before scoring the gap at full weight: a clearance the candidate is eligible for is a sponsorship timeline, not a missing credential, and it is worth a line in the letter saying so.
+- **Clearance requirement.** Note as a gap for the cover letter. Roughly 5-10 percentile points. Auto-pass only if `clearance.hard_blocker` is true. There is no gap at all when `clearance.held` already covers what the posting asks for, and a clearance in `clearance.eligible_for` is a sponsorship timeline rather than a missing credential — score it at less than full weight and say so in the letter. A held clearance the posting requires is not a neutral fact either: in a pool where most applicants lack one it is a differentiator, and 3d should be told about it.
 - **Degree requirement**, even without "or equivalent". Same treatment. Compare the posting's requirement against `education.highest_degree`, and score the gap only where there actually is one — a posting asking for a bachelor's is not a risk factor for someone holding one, and scoring it as though it were is how a role drifts a tier for no reason. Auto-pass only if `education.degree_requirement_is_hard_blocker` is true.
 - **Years-in-domain minimums.** Assess whether the pattern transfers. NOT MET only when no meaningful analog exists.
 - **Location.** Check against `relocation`. Only a blocker if it falls in `excluded_regions` or the user is not willing to relocate.
@@ -263,6 +263,8 @@ Distinguish three kinds of gap, because they are not equally bridgeable:
 ### 3g. Preferred qualifications
 
 Same rating. These shape the narrative angle. They do not gate.
+
+Check `education.certifications` against the ones the posting names before rating any of them NOT MET. A certification the candidate holds and the posting asks for by name is the cheapest MET in this whole assessment, and it is the one most often missed, because it lives in `preferences.yaml` rather than in the narrative parts of `profile.md` the assessment spends its attention on.
 
 ### 3h. Pool-anchored fit score
 
@@ -308,11 +310,13 @@ Every one of these comes from `preferences.yaml`. Nothing is hardcoded.
 **Hard kills. Mark the role passed, name the trigger, skip scoring.**
 
 1. **Compensation floor.** Apply whatever method `compensation.method` specifies.
-   - `nominal` — total compensation below `nominal.floor` kills the role. Count equity toward the total only when `nominal.include_equity` is true; when it is false the comparison is cash against the floor, and unvested paper is noted as upside rather than counted as pay.
+   - `nominal` — total compensation below `nominal.floor` kills the role. Count equity toward the total only when `nominal.include_equity` is true; when it is false the comparison is cash against the floor, and unvested paper is noted as upside rather than counted as pay. Between the floor and `nominal.target`, flag `tight_band`; at or above the target, flag `strong_comp`. Without those flags this method reports only a kill, so every surviving role reads as equally affordable — the distinction `net_qol` gets from its three deltas and this one was missing.
    - `net_qol` — compute `net_qol = after_tax(total_comp) − annual_housing(where they would live) − healthcare_haircut`, then `delta = net_qol − current_baseline`. Below `minimum_delta` kills. Between `minimum_delta` and `comfortable_delta`, proceed with a `tight_band` flag. At or above `strong_delta`, flag `strong_comp`. In a `homecoming_corridor`, the threshold relaxes to `homecoming_minimum_delta`.
    - `none` — skip this check.
 
    Use total compensation, not base alone. If only base is posted, use base and note equity as upside. Estimate housing for where the candidate would **live**, not the office address — `net_qol.housing_notes` says where that is when it differs from the office, and for a remote role it is the candidate's choice of location. It frequently decides the outcome.
+
+   Carry `compensation.notes` into the role analysis where the posting speaks to one — an equity-heavy band against a user who has said they will not take one, say. **They qualify the assessment and never kill the role.** Every example in that field is an offer-stage term, and killing an application over money that is still negotiable, at the one stage where the candidate has no leverage, is the same category error the contrarian's scope limits exist to strike.
 
    **Convert the posted band into `compensation.currency` before comparing, and show the rate you used.** Every threshold in this block is denominated in that currency. Comparing a posted figure against a floor set in a different one is not a close call, it is off by the exchange rate — and it fails silently, because both numbers look like compensation.
 

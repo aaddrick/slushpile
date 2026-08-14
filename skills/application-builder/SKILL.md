@@ -100,6 +100,8 @@ One vivid story with room to breathe beats three summary paragraphs. Give it the
 
 **Header.** Update the tagline to match the role's function. Add location targeting if the role is site-specific and the candidate would relocate. Keep contact details in the document body, never in a `\header` — roughly a quarter of ATS drop header content.
 
+**Contact line.** Fill the template's placeholders from `identity.name`, `identity.location`, and `identity.links` in `preferences.yaml`, with phone and email from `profile.md`. **Delete the separator and the link for anything empty in `identity.links`** — the template ships a `github` and a `linkedin` slot because most candidates have both, and a user who filled in `website` or `portfolio` instead gets them dropped unless this step reads the whole block. A resume that goes out reading `linkedin.com/in/USER` is the single most expensive typo in the pipeline, and it survives every downstream review, because the review agents are handed extracted text and read that string as a link the candidate actually has.
+
 **Summary.** Rewrite in two or three sentences for this specific role. Lead with the strongest match to the core function.
 
 Do not paste phrases from the posting. If a sentence in the summary could be copied out of the JD, rewrite it in the candidate's own words. A screener reading their own posting back at them stops reading, and the ATS gains nothing the Skills section is not already providing.

@@ -117,7 +117,8 @@ Resume (as extracted by ATS):
 Cover letter:
 [text, or "No cover letter provided"]
 
-Candidate's claimed differentiators, from preferences.yaml:
+Candidate's claimed differentiators, from preferences.yaml
+`targeting.claimed_differentiators`:
 [list]
 
 Prior application history at this company:
