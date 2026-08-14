@@ -9,8 +9,8 @@
 </p>
 
 <p align="center">
-  <a href="../../LICENSE"><img src="https://img.shields.io/github/license/aaddrick/slushpile?style=flat" alt="License"></a>
-  <a href="../../.github/workflows/plugin-load-check.yml"><img src="https://img.shields.io/github/actions/workflow/status/aaddrick/slushpile/plugin-load-check.yml?label=plugin%20loads&style=flat" alt="Plugin load check"></a>
+  <a href="../../LICENSE"><img src="https://img.shields.io/github/license/VonTerraProject501c3/slushpile?style=flat" alt="License"></a>
+  <a href="../../.github/workflows/plugin-load-check.yml"><img src="https://img.shields.io/github/actions/workflow/status/VonTerraProject501c3/slushpile/plugin-load-check.yml?label=plugin%20loads&style=flat" alt="Plugin load check"></a>
 </p>
 
 <p align="center">
@@ -32,7 +32,7 @@
 
 <!-- BEGIN GENERATED market-note: scripts/sync_docs.py -->
 
-> **Market fit**: this pipeline is built against anglophone hiring conventions, primarily US: one page, no photo, no date of birth, reverse chronological, one work-authorization line. If your target market runs a standardized CV form, the formatting layer is misaligned for your use case and the review will score local convention as a defect. Expansion is a roadmap conversation, not a translation conversation, and it is tracked in [issue #2](https://github.com/aaddrick/slushpile/issues/2).
+> **Market fit**: this pipeline is built against anglophone hiring conventions, primarily US: one page, no photo, no date of birth, reverse chronological, one work-authorization line. If your target market runs a standardized CV form, the formatting layer is misaligned for your use case and the review will score local convention as a defect. Expansion is a roadmap conversation, not a translation conversation, and it is tracked in [issue #2](https://github.com/VonTerraProject501c3/slushpile/issues/2).
 
 <!-- END GENERATED market-note -->
 
@@ -54,7 +54,7 @@ Everything else is a wrapper.
 <summary><strong>Claude Code</strong></summary>
 
 ```bash
-claude plugin marketplace add aaddrick/slushpile
+claude plugin marketplace add VonTerraProject501c3/slushpile
 ```
 
 ```bash
@@ -73,7 +73,7 @@ Then, in the directory where you keep your job search:
 <summary><strong>Codex</strong></summary>
 
 ```bash
-codex plugin marketplace add aaddrick/slushpile --ref main
+codex plugin marketplace add VonTerraProject501c3/slushpile --ref main
 ```
 
 ```bash

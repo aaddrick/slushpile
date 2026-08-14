@@ -157,7 +157,7 @@ def tracked_len(draw, text, font, track=0):
 
 
 PAD = 72 * S
-URL = "github.com/aaddrick/slushpile"
+URL = "github.com/VonTerraProject501c3/slushpile"
 
 # Drawn as separate runs so the second half carries the accent. Kept here rather
 # than inline in each card, because a wordmark that differs between the README

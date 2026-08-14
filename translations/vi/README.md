@@ -9,8 +9,8 @@
 </p>
 
 <p align="center">
-  <a href="../../LICENSE"><img src="https://img.shields.io/github/license/aaddrick/slushpile?style=flat" alt="Giấy phép"></a>
-  <a href="../../.github/workflows/plugin-load-check.yml"><img src="https://img.shields.io/github/actions/workflow/status/aaddrick/slushpile/plugin-load-check.yml?label=plugin%20loads&style=flat" alt="Kiểm tra nạp plugin"></a>
+  <a href="../../LICENSE"><img src="https://img.shields.io/github/license/VonTerraProject501c3/slushpile?style=flat" alt="Giấy phép"></a>
+  <a href="../../.github/workflows/plugin-load-check.yml"><img src="https://img.shields.io/github/actions/workflow/status/VonTerraProject501c3/slushpile/plugin-load-check.yml?label=plugin%20loads&style=flat" alt="Kiểm tra nạp plugin"></a>
 </p>
 
 <p align="center">
@@ -32,7 +32,7 @@
 
 <!-- BEGIN GENERATED market-note: scripts/sync_docs.py -->
 
-> **Phạm vi**: quy trình này mô phỏng quy ước tuyển dụng của các thị trường nói tiếng Anh, chủ yếu là Mỹ: một trang, không ảnh, không ngày sinh, sắp xếp ngược theo thời gian, và một dòng về tình trạng được phép làm việc. Nếu bạn ứng tuyển ở thị trường trong nước với quy ước khác, lời khuyên về định dạng không áp dụng và vòng đánh giá sẽ coi những gì bình thường ở đó là lỗi. Theo dõi tại [issue #2](https://github.com/aaddrick/slushpile/issues/2).
+> **Phạm vi**: quy trình này mô phỏng quy ước tuyển dụng của các thị trường nói tiếng Anh, chủ yếu là Mỹ: một trang, không ảnh, không ngày sinh, sắp xếp ngược theo thời gian, và một dòng về tình trạng được phép làm việc. Nếu bạn ứng tuyển ở thị trường trong nước với quy ước khác, lời khuyên về định dạng không áp dụng và vòng đánh giá sẽ coi những gì bình thường ở đó là lỗi. Theo dõi tại [issue #2](https://github.com/VonTerraProject501c3/slushpile/issues/2).
 
 <!-- END GENERATED market-note -->
 
@@ -42,7 +42,7 @@
 <summary><strong>Claude Code</strong></summary>
 
 ```bash
-claude plugin marketplace add aaddrick/slushpile
+claude plugin marketplace add VonTerraProject501c3/slushpile
 ```
 
 ```bash
@@ -61,7 +61,7 @@ Sau đó, trong thư mục bạn dùng để tìm việc:
 <summary><strong>Codex</strong></summary>
 
 ```bash
-codex plugin marketplace add aaddrick/slushpile --ref main
+codex plugin marketplace add VonTerraProject501c3/slushpile --ref main
 ```
 
 ```bash

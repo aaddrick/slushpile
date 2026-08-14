@@ -28,7 +28,7 @@ So: what to install, what to bring, where to run it.
 CLI, Cursor, and a paste-in snippet for anything else. Short version:
 
 ```bash
-claude plugin marketplace add aaddrick/slushpile
+claude plugin marketplace add VonTerraProject501c3/slushpile
 claude plugin install slushpile@slushpile
 ```
 

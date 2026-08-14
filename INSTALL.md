@@ -31,7 +31,7 @@ The full pipeline. Skills become slash commands, the eight agents are dispatched
 as subagents, and the five parallel review stages actually run in parallel.
 
 ```bash
-claude plugin marketplace add aaddrick/slushpile
+claude plugin marketplace add VonTerraProject501c3/slushpile
 ```
 
 ```bash
@@ -81,7 +81,7 @@ Neither command touches your workspace files.
 ## Codex
 
 ```bash
-codex plugin marketplace add aaddrick/slushpile --ref main
+codex plugin marketplace add VonTerraProject501c3/slushpile --ref main
 ```
 
 ```bash
@@ -113,7 +113,7 @@ The output is the same shape. Two things degrade, and it is worth knowing which:
 ## Gemini CLI
 
 ```bash
-gemini extensions install https://github.com/aaddrick/slushpile
+gemini extensions install https://github.com/VonTerraProject501c3/slushpile
 ```
 
 The extension names `GEMINI.md` as its context file, which imports every skill
@@ -132,7 +132,7 @@ Gemini has no subagent dispatch either, so the same sequential caveat applies.
 Clone into the extensions directory:
 
 ```bash
-git clone https://github.com/aaddrick/slushpile ~/.gemini/extensions/slushpile
+git clone https://github.com/VonTerraProject501c3/slushpile ~/.gemini/extensions/slushpile
 ```
 
 ---
@@ -143,7 +143,7 @@ Cursor reads `.cursor/skills/` and `.cursor/rules/` from the workspace it has
 open. Clone the repository and copy them into your workspace:
 
 ```bash
-git clone https://github.com/aaddrick/slushpile /tmp/slushpile
+git clone https://github.com/VonTerraProject501c3/slushpile /tmp/slushpile
 ```
 
 ```bash
@@ -169,7 +169,7 @@ files can run it.
 Clone the repository somewhere your agent can reach:
 
 ```bash
-git clone https://github.com/aaddrick/slushpile ~/.slushpile
+git clone https://github.com/VonTerraProject501c3/slushpile ~/.slushpile
 ```
 
 Then put this in your `AGENTS.md`, your system prompt, or whatever your harness

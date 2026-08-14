@@ -33,7 +33,7 @@ despachados como subagentes, e os 5 revisores em paralelo de fato rodam ao mesmo
 tempo.
 
 ```bash
-claude plugin marketplace add aaddrick/slushpile
+claude plugin marketplace add VonTerraProject501c3/slushpile
 ```
 
 ```bash
@@ -83,7 +83,7 @@ Nenhum dos dois comandos toca nos arquivos do seu espaço de trabalho.
 ## Codex
 
 ```bash
-codex plugin marketplace add aaddrick/slushpile --ref main
+codex plugin marketplace add VonTerraProject501c3/slushpile --ref main
 ```
 
 ```bash
@@ -117,7 +117,7 @@ A saída tem o mesmo formato. Duas coisas pioram, e vale saber quais:
 ## Gemini CLI
 
 ```bash
-gemini extensions install https://github.com/aaddrick/slushpile
+gemini extensions install https://github.com/VonTerraProject501c3/slushpile
 ```
 
 A extensão nomeia `GEMINI.md` como seu arquivo de contexto, que importa toda
@@ -137,7 +137,7 @@ sobre execução sequencial.
 Clone no diretório de extensões:
 
 ```bash
-git clone https://github.com/aaddrick/slushpile ~/.gemini/extensions/slushpile
+git clone https://github.com/VonTerraProject501c3/slushpile ~/.gemini/extensions/slushpile
 ```
 
 ---
@@ -149,7 +149,7 @@ estiver aberto. Clone o repositório e copie os dois para o seu espaço de
 trabalho:
 
 ```bash
-git clone https://github.com/aaddrick/slushpile /tmp/slushpile
+git clone https://github.com/VonTerraProject501c3/slushpile /tmp/slushpile
 ```
 
 ```bash
@@ -175,7 +175,7 @@ arquivos consegue rodá-lo.
 Clone o repositório em algum lugar que seu agente alcance:
 
 ```bash
-git clone https://github.com/aaddrick/slushpile ~/.slushpile
+git clone https://github.com/VonTerraProject501c3/slushpile ~/.slushpile
 ```
 
 Depois coloque isto no seu `AGENTS.md`, no seu prompt de sistema, ou no que quer

@@ -23,7 +23,7 @@ CLI, Cursor, and a paste-in snippet for anything else. The short version for
 Claude Code:
 
 ```bash
-claude plugin marketplace add aaddrick/slushpile
+claude plugin marketplace add VonTerraProject501c3/slushpile
 claude plugin install slushpile@slushpile
 ```
 

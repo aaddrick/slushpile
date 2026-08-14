@@ -21,7 +21,7 @@
 CLI、Cursor，还有给其他任何东西用的一段粘贴片段。Claude Code 的简版：
 
 ```bash
-claude plugin marketplace add aaddrick/slushpile
+claude plugin marketplace add VonTerraProject501c3/slushpile
 claude plugin install slushpile@slushpile
 ```
 

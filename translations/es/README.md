@@ -9,8 +9,8 @@
 </p>
 
 <p align="center">
-  <a href="../../LICENSE"><img src="https://img.shields.io/github/license/aaddrick/slushpile?style=flat" alt="Licencia"></a>
-  <a href="../../.github/workflows/plugin-load-check.yml"><img src="https://img.shields.io/github/actions/workflow/status/aaddrick/slushpile/plugin-load-check.yml?label=plugin%20loads&style=flat" alt="Comprobación de carga del plugin"></a>
+  <a href="../../LICENSE"><img src="https://img.shields.io/github/license/VonTerraProject501c3/slushpile?style=flat" alt="Licencia"></a>
+  <a href="../../.github/workflows/plugin-load-check.yml"><img src="https://img.shields.io/github/actions/workflow/status/VonTerraProject501c3/slushpile/plugin-load-check.yml?label=plugin%20loads&style=flat" alt="Comprobación de carga del plugin"></a>
 </p>
 
 <p align="center">
@@ -32,7 +32,7 @@
 
 <!-- BEGIN GENERATED market-note: scripts/sync_docs.py -->
 
-> **Alcance**: este pipeline modela convenciones de contratación anglófonas, sobre todo estadounidenses: una página, sin foto, sin fecha de nacimiento, orden cronológico inverso y una línea de autorización de trabajo. Si postulas en un mercado local con otras convenciones, los consejos de formato no aplican y la revisión marcará como defectos cosas que allí son normales. Seguimiento en el [issue #2](https://github.com/aaddrick/slushpile/issues/2).
+> **Alcance**: este pipeline modela convenciones de contratación anglófonas, sobre todo estadounidenses: una página, sin foto, sin fecha de nacimiento, orden cronológico inverso y una línea de autorización de trabajo. Si postulas en un mercado local con otras convenciones, los consejos de formato no aplican y la revisión marcará como defectos cosas que allí son normales. Seguimiento en el [issue #2](https://github.com/VonTerraProject501c3/slushpile/issues/2).
 
 <!-- END GENERATED market-note -->
 
@@ -42,7 +42,7 @@
 <summary><strong>Claude Code</strong></summary>
 
 ```bash
-claude plugin marketplace add aaddrick/slushpile
+claude plugin marketplace add VonTerraProject501c3/slushpile
 ```
 
 ```bash
@@ -61,7 +61,7 @@ Luego, en el directorio donde llevas tu búsqueda de empleo:
 <summary><strong>Codex</strong></summary>
 
 ```bash
-codex plugin marketplace add aaddrick/slushpile --ref main
+codex plugin marketplace add VonTerraProject501c3/slushpile --ref main
 ```
 
 ```bash
