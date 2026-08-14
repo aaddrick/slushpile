@@ -32,7 +32,7 @@ Toàn bộ quy trình. Kỹ năng trở thành lệnh gạch chéo, 8 tác nhân
 dưới dạng tác nhân con, và 5 người đánh giá song song thực sự chạy song song.
 
 ```bash
-claude plugin marketplace add aaddrick/slushpile
+claude plugin marketplace add VonTerraProject501c3/slushpile
 ```
 
 ```bash
@@ -83,7 +83,7 @@ bạn.
 ## Codex
 
 ```bash
-codex plugin marketplace add aaddrick/slushpile --ref main
+codex plugin marketplace add VonTerraProject501c3/slushpile --ref main
 ```
 
 ```bash
@@ -117,7 +117,7 @@ Kết quả vẫn cùng hình dạng. Hai thứ suy giảm, và đáng biết l�
 ## Gemini CLI
 
 ```bash
-gemini extensions install https://github.com/aaddrick/slushpile
+gemini extensions install https://github.com/VonTerraProject501c3/slushpile
 ```
 
 Extension khai báo `GEMINI.md` là tệp ngữ cảnh của nó, và tệp đó nạp vào mọi kỹ
@@ -137,7 +137,7 @@ chạy tuần tự ở trên.
 Clone vào thư mục extension:
 
 ```bash
-git clone https://github.com/aaddrick/slushpile ~/.gemini/extensions/slushpile
+git clone https://github.com/VonTerraProject501c3/slushpile ~/.gemini/extensions/slushpile
 ```
 
 ---
@@ -148,7 +148,7 @@ Cursor đọc `.cursor/skills/` và `.cursor/rules/` từ không gian làm việ
 đang mở. Hãy clone kho lưu trữ rồi chép chúng vào không gian làm việc của bạn:
 
 ```bash
-git clone https://github.com/aaddrick/slushpile /tmp/slushpile
+git clone https://github.com/VonTerraProject501c3/slushpile /tmp/slushpile
 ```
 
 ```bash
@@ -174,7 +174,7 @@ tệp đều chạy được nó.
 Clone kho lưu trữ vào một chỗ mà tác nhân của bạn với tới được:
 
 ```bash
-git clone https://github.com/aaddrick/slushpile ~/.slushpile
+git clone https://github.com/VonTerraProject501c3/slushpile ~/.slushpile
 ```
 
 Rồi đặt đoạn dưới đây vào `AGENTS.md` của bạn, vào system prompt, hoặc vào bất

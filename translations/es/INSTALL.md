@@ -33,7 +33,7 @@ se despachan como subagentes, y los 5 revisores en paralelo corren de verdad al
 mismo tiempo.
 
 ```bash
-claude plugin marketplace add aaddrick/slushpile
+claude plugin marketplace add VonTerraProject501c3/slushpile
 ```
 
 ```bash
@@ -83,7 +83,7 @@ Ninguno de los dos comandos toca los archivos de tu espacio de trabajo.
 ## Codex
 
 ```bash
-codex plugin marketplace add aaddrick/slushpile --ref main
+codex plugin marketplace add VonTerraProject501c3/slushpile --ref main
 ```
 
 ```bash
@@ -118,7 +118,7 @@ cuáles:
 ## Gemini CLI
 
 ```bash
-gemini extensions install https://github.com/aaddrick/slushpile
+gemini extensions install https://github.com/VonTerraProject501c3/slushpile
 ```
 
 La extensión declara `GEMINI.md` como su archivo de contexto, que importa cada
@@ -138,7 +138,7 @@ secuencial.
 Clona dentro del directorio de extensiones:
 
 ```bash
-git clone https://github.com/aaddrick/slushpile ~/.gemini/extensions/slushpile
+git clone https://github.com/VonTerraProject501c3/slushpile ~/.gemini/extensions/slushpile
 ```
 
 ---
@@ -149,7 +149,7 @@ Cursor lee `.cursor/skills/` y `.cursor/rules/` del espacio de trabajo que tenga
 abierto. Clona el repositorio y cópialos a tu espacio de trabajo:
 
 ```bash
-git clone https://github.com/aaddrick/slushpile /tmp/slushpile
+git clone https://github.com/VonTerraProject501c3/slushpile /tmp/slushpile
 ```
 
 ```bash
@@ -176,7 +176,7 @@ leer archivos puede ejecutarlo.
 Clona el repositorio en algún lugar al que tu agente llegue:
 
 ```bash
-git clone https://github.com/aaddrick/slushpile ~/.slushpile
+git clone https://github.com/VonTerraProject501c3/slushpile ~/.slushpile
 ```
 
 Después pon esto en tu `AGENTS.md`, en tu system prompt, o en lo que sea que tu

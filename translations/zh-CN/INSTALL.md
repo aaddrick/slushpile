@@ -26,7 +26,7 @@ slushpile 就是9个技能和8个智能体定义，全部是 Markdown。下面�
 完整流水线。技能变成斜杠命令，8个智能体作为子智能体被调度，5个并行审阅者是真正并行跑的。
 
 ```bash
-claude plugin marketplace add aaddrick/slushpile
+claude plugin marketplace add VonTerraProject501c3/slushpile
 ```
 
 ```bash
@@ -76,7 +76,7 @@ claude plugin marketplace remove slushpile
 ## Codex
 
 ```bash
-codex plugin marketplace add aaddrick/slushpile --ref main
+codex plugin marketplace add VonTerraProject501c3/slushpile --ref main
 ```
 
 ```bash
@@ -103,7 +103,7 @@ $slushpile:onboard
 ## Gemini CLI
 
 ```bash
-gemini extensions install https://github.com/aaddrick/slushpile
+gemini extensions install https://github.com/VonTerraProject501c3/slushpile
 ```
 
 扩展把 `GEMINI.md` 指定为它的上下文文件，而那个文件会导入每一个技能和智能体定义。
@@ -121,7 +121,7 @@ Gemini 同样没有子智能体调度，所以上面那条关于顺序执行的�
 克隆进扩展目录：
 
 ```bash
-git clone https://github.com/aaddrick/slushpile ~/.gemini/extensions/slushpile
+git clone https://github.com/VonTerraProject501c3/slushpile ~/.gemini/extensions/slushpile
 ```
 
 ---
@@ -131,7 +131,7 @@ git clone https://github.com/aaddrick/slushpile ~/.gemini/extensions/slushpile
 Cursor 从它当前打开的那个工作区里读 `.cursor/skills/` 和 `.cursor/rules/`。克隆仓库，把它们复制进你的工作区：
 
 ```bash
-git clone https://github.com/aaddrick/slushpile /tmp/slushpile
+git clone https://github.com/VonTerraProject501c3/slushpile /tmp/slushpile
 ```
 
 ```bash
@@ -155,7 +155,7 @@ Cursor 那个技能是个路由器：它指向 `.slushpile/` 下面真正的技�
 把仓库克隆到你的智能体够得着的地方：
 
 ```bash
-git clone https://github.com/aaddrick/slushpile ~/.slushpile
+git clone https://github.com/VonTerraProject501c3/slushpile ~/.slushpile
 ```
 
 然后把下面这段放进你的 `AGENTS.md`、你的系统提示词，或者你的宿主环境用来放常驻指令的任何地方：

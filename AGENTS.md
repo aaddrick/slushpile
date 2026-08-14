@@ -411,7 +411,7 @@ uploaded by hand in the repository settings, and until someone does, every
 unfurl shows the owner's avatar. Check with:
 
 ```bash
-gh api graphql -f query='{ repository(owner:"aaddrick", name:"slushpile") { usesCustomOpenGraphImage } }'
+gh api graphql -f query='{ repository(owner:"VonTerraProject501c3", name:"slushpile") { usesCustomOpenGraphImage } }'
 ```
 
 Redraw all of them after any change to the header text, the file list, or the

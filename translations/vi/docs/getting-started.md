@@ -22,7 +22,7 @@ Codex, Gemini CLI, Cursor, và một đoạn dán sẵn cho mọi thứ còn l�
 cho Claude Code:
 
 ```bash
-claude plugin marketplace add aaddrick/slushpile
+claude plugin marketplace add VonTerraProject501c3/slushpile
 claude plugin install slushpile@slushpile
 ```
 

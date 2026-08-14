@@ -8,7 +8,7 @@ Two things still work, and both are better fits for this project.
 
 ## Found a problem? Open an issue
 
-[Open an issue](https://github.com/aaddrick/slushpile/issues/new). Include:
+[Open an issue](https://github.com/VonTerraProject501c3/slushpile/issues/new). Include:
 
 1. The harness and version: `claude --version`, `codex --version`.
 2. The exact command you ran.

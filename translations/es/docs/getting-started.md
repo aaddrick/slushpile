@@ -23,7 +23,7 @@ Gemini CLI, Cursor y un fragmento para pegar en cualquier otro. La versión cort
 para Claude Code:
 
 ```bash
-claude plugin marketplace add aaddrick/slushpile
+claude plugin marketplace add VonTerraProject501c3/slushpile
 claude plugin install slushpile@slushpile
 ```
 

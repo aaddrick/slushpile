@@ -539,7 +539,7 @@ MARKET_NOTE = {
         "不放照片、不写出生日期、按时间倒序、并附上工作许可说明。若你投递的是使用"
         "标准化简历表格的本地岗位，其中的版式建议并不适用，审阅也会把本地惯例判为"
         "缺陷。相关讨论见 "
-        "[issue #2](https://github.com/aaddrick/slushpile/issues/2)。"
+        "[issue #2](https://github.com/VonTerraProject501c3/slushpile/issues/2)。"
     ),
     "es": (
         "> **Alcance**: este pipeline modela convenciones de contratación "
@@ -548,7 +548,7 @@ MARKET_NOTE = {
         "trabajo. Si postulas en un mercado local con otras convenciones, los "
         "consejos de formato no aplican y la revisión marcará como defectos "
         "cosas que allí son normales. Seguimiento en el "
-        "[issue #2](https://github.com/aaddrick/slushpile/issues/2)."
+        "[issue #2](https://github.com/VonTerraProject501c3/slushpile/issues/2)."
     ),
     "pt-BR": (
         "> **Escopo**: este pipeline modela convenções de contratação "
@@ -557,7 +557,7 @@ MARKET_NOTE = {
         "trabalho. Se você se candidata em um mercado local com outras "
         "convenções, os conselhos de formatação não valem e a revisão vai "
         "apontar como defeito o que lá é normal. Acompanhe no "
-        "[issue #2](https://github.com/aaddrick/slushpile/issues/2)."
+        "[issue #2](https://github.com/VonTerraProject501c3/slushpile/issues/2)."
     ),
     "en-x-aibro": (
         "> **Market fit**: this pipeline is built against anglophone hiring "
@@ -567,7 +567,7 @@ MARKET_NOTE = {
         "for your use case and the review will score local convention as a "
         "defect. Expansion is a roadmap conversation, not a translation "
         "conversation, and it is tracked in "
-        "[issue #2](https://github.com/aaddrick/slushpile/issues/2)."
+        "[issue #2](https://github.com/VonTerraProject501c3/slushpile/issues/2)."
     ),
     "vi": (
         "> **Phạm vi**: quy trình này mô phỏng quy ước tuyển dụng của các thị "
@@ -576,7 +576,7 @@ MARKET_NOTE = {
         "làm việc. Nếu bạn ứng tuyển ở thị trường trong nước với quy ước khác, "
         "lời khuyên về định dạng không áp dụng và vòng đánh giá sẽ coi những gì "
         "bình thường ở đó là lỗi. Theo dõi tại "
-        "[issue #2](https://github.com/aaddrick/slushpile/issues/2)."
+        "[issue #2](https://github.com/VonTerraProject501c3/slushpile/issues/2)."
     ),
 }
 

@@ -72,15 +72,21 @@ PATTERNS: tuple[tuple[str, re.Pattern[str], str], ...] = (
         # name `slushpile-pool-analyst`.
         #
         # `github.com/aaddrick/...` is a URL to a tool the pipeline points users
-        # at, and `aaddrick/slushpile` is the marketplace slug an install
-        # command has to name. A repository address is not a claim about the
-        # user, and neither is the plugin's own coordinates.
+        # at — `written-voice-replication` is where they generate a voice agent
+        # of their own. A repository address is not a claim about the user.
+        #
+        # This plugin's own coordinates are deliberately not exempt. They were,
+        # as `aaddrick/slushpile`, for as long as that was the marketplace slug.
+        # The repository moved to `VonTerraProject501c3` and the exemption stopped
+        # protecting anything while still permitting the old slug — an install
+        # command pointing at a redirect that dies the moment somebody claims the
+        # abandoned name. A stale slug now fails here instead.
         #
         # Bare `aaddrick` anywhere else is still a leak, which is the case that
         # actually matters: a skill asserting something about the author as if
         # it were true of whoever installed this.
         re.compile(
-            r"(?<!github\.com/)\baaddrick\b(?!-voice)(?!/slushpile\b)"
+            r"(?<!github\.com/)\baaddrick\b(?!-voice)"
             r"|Non-?Convex Labs"
             r"|nonconvexlabs",
             re.I,

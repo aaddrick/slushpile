@@ -37,7 +37,7 @@ Full topology, no degradation. Skills become slash commands, the 8 agents
 dispatch as real subagents, and the 5 blind reviewers actually run concurrent.
 
 ```bash
-claude plugin marketplace add aaddrick/slushpile
+claude plugin marketplace add VonTerraProject501c3/slushpile
 ```
 
 ```bash
@@ -88,7 +88,7 @@ the plugin.
 ## Codex
 
 ```bash
-codex plugin marketplace add aaddrick/slushpile --ref main
+codex plugin marketplace add VonTerraProject501c3/slushpile --ref main
 ```
 
 ```bash
@@ -127,7 +127,7 @@ next. That limits the drift. It does not eliminate it.
 ## Gemini CLI
 
 ```bash
-gemini extensions install https://github.com/aaddrick/slushpile
+gemini extensions install https://github.com/VonTerraProject501c3/slushpile
 ```
 
 The extension names `GEMINI.md` as its context file, which imports every skill
@@ -146,7 +146,7 @@ No subagent dispatch here either. Same caveat, same reason.
 Clone into the extensions directory:
 
 ```bash
-git clone https://github.com/aaddrick/slushpile ~/.gemini/extensions/slushpile
+git clone https://github.com/VonTerraProject501c3/slushpile ~/.gemini/extensions/slushpile
 ```
 
 ---
@@ -157,7 +157,7 @@ Cursor reads `.cursor/skills/` and `.cursor/rules/` out of the workspace it has
 open. Clone and copy them in:
 
 ```bash
-git clone https://github.com/aaddrick/slushpile /tmp/slushpile
+git clone https://github.com/VonTerraProject501c3/slushpile /tmp/slushpile
 ```
 
 ```bash
@@ -184,7 +184,7 @@ this. That is the whole integration surface.
 Clone the repository somewhere your agent can reach:
 
 ```bash
-git clone https://github.com/aaddrick/slushpile ~/.slushpile
+git clone https://github.com/VonTerraProject501c3/slushpile ~/.slushpile
 ```
 
 Then drop this into your `AGENTS.md`, your system prompt, or whatever your

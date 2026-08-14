@@ -9,8 +9,8 @@
 </p>
 
 <p align="center">
-  <a href="../../LICENSE"><img src="https://img.shields.io/github/license/aaddrick/slushpile?style=flat" alt="许可证"></a>
-  <a href="../../.github/workflows/plugin-load-check.yml"><img src="https://img.shields.io/github/actions/workflow/status/aaddrick/slushpile/plugin-load-check.yml?label=plugin%20loads&style=flat" alt="插件加载检查"></a>
+  <a href="../../LICENSE"><img src="https://img.shields.io/github/license/VonTerraProject501c3/slushpile?style=flat" alt="许可证"></a>
+  <a href="../../.github/workflows/plugin-load-check.yml"><img src="https://img.shields.io/github/actions/workflow/status/VonTerraProject501c3/slushpile/plugin-load-check.yml?label=plugin%20loads&style=flat" alt="插件加载检查"></a>
 </p>
 
 <p align="center">
@@ -32,7 +32,7 @@
 
 <!-- BEGIN GENERATED market-note: scripts/sync_docs.py -->
 
-> **适用范围**：本流水线针对英语国家（尤其是美国）的招聘惯例设计：简历一页、不放照片、不写出生日期、按时间倒序、并附上工作许可说明。若你投递的是使用标准化简历表格的本地岗位，其中的版式建议并不适用，审阅也会把本地惯例判为缺陷。相关讨论见 [issue #2](https://github.com/aaddrick/slushpile/issues/2)。
+> **适用范围**：本流水线针对英语国家（尤其是美国）的招聘惯例设计：简历一页、不放照片、不写出生日期、按时间倒序、并附上工作许可说明。若你投递的是使用标准化简历表格的本地岗位，其中的版式建议并不适用，审阅也会把本地惯例判为缺陷。相关讨论见 [issue #2](https://github.com/VonTerraProject501c3/slushpile/issues/2)。
 
 <!-- END GENERATED market-note -->
 
@@ -42,7 +42,7 @@
 <summary><strong>Claude Code</strong></summary>
 
 ```bash
-claude plugin marketplace add aaddrick/slushpile
+claude plugin marketplace add VonTerraProject501c3/slushpile
 ```
 
 ```bash
@@ -61,7 +61,7 @@ claude plugin install slushpile@slushpile
 <summary><strong>Codex</strong></summary>
 
 ```bash
-codex plugin marketplace add aaddrick/slushpile --ref main
+codex plugin marketplace add VonTerraProject501c3/slushpile --ref main
 ```
 
 ```bash
