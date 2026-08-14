@@ -386,15 +386,19 @@ to see whether the work is worth doing before anyone has spent a day on it.
 **Keep the issue short.** State what is wrong and what should be true instead,
 in a few sentences. "The help skill lists eight of the nine skills, so the one
 it drops is unreachable from the file whose job is answering what to run next."
-That is a whole issue. Do not front-load the research: the file inventory, the
-grep output, the design of the fix, and the reasons the obvious approach fails
-all belong to the pull request that does the work, where a reviewer reads them
-next to the diff they justify. An issue written as a report gets skimmed, and
-the sentence that says what is broken is the one that gets skimmed past.
+That is a whole issue. An issue front-loaded with the investigation gets
+skimmed, and the sentence saying what broke is what gets skimmed past.
 
-**Branch, and name the issue from the pull request.** `Closes #12` in the body
-links them, so the issue closes on merge and the search that finds one finds the
-other. The evidence goes here, not in the issue.
+**Keep the pull request short too.** What changed, and why this way. Enough for
+a reviewer to decide where to look, and no further. The file inventory, the grep
+output, and the reasoning that ruled out the obvious approach go in the commit
+bodies, where the person deep-diving is already reading. A description that
+retells the diff in prose gets read instead of the diff, and it is the copy that
+goes stale.
+
+**Reference the issue from the pull request.** `Closes #12` in the body links
+them, so the issue closes on merge and the search that finds one finds the
+other.
 
 **CI gates the merge rather than reporting on it.** All four checks plus the
 plugin-load check run on the pull request, so a red gate costs a push instead of
