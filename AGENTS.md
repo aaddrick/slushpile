@@ -405,6 +405,28 @@ plugin-load check run on the pull request, so a red gate costs a push instead of
 a public commit. Run the four locally first anyway. A CI round trip is slower
 than the local run that would have caught the same thing.
 
+**`main` is protected, administrators included.** A pull request is required,
+force-pushes and deletions are refused, and the `issue link` check must pass.
+Nothing here is a convention you can decide to skip on a small change.
+
+That check is a workflow rather than a setting, because branch protection can
+require a pull request and cannot require that it names an issue.
+`.github/workflows/issue-link.yml` reads the body for a closing keyword and an
+issue number, which is the same thing that closes the issue on merge. A bare
+`#12` links the two and leaves the issue open, so it does not pass.
+
+The check is required by job name, so renaming that job blocks every pull
+request on a check that will never report, and the branch fixing the workflow is
+blocked by the same rule. Read the current protection before touching either:
+
+```bash
+gh api repos/VonTerraProject501c3/slushpile/branches/main/protection
+```
+
+The four gates and the plugin-load check are not required to merge. They run on
+every pull request and every push, and a red one is a reason to stop rather than
+a block the platform enforces.
+
 **Merge by rebase or squash.** Never a merge commit. The history here is linear
 and worth keeping that way. Squash when the branch is one change told in several
 commits; rebase when each commit stands on its own.

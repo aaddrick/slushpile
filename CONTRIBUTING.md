@@ -139,8 +139,10 @@ whose priors are correct.
 ## Maintainers
 
 Every change goes issue, branch, pull request, merge. Nothing lands by a direct
-push to `main`. Pull request creation stays collaborators only, so this is the
-route for people with commit access; everyone else arrives through an issue.
+push to `main`: the branch is protected, administrators included, and a pull
+request that names no issue fails the `issue link` check. Pull request creation
+stays collaborators only, so this is the route for people with commit access;
+everyone else arrives through an issue.
 
 Open the issue first, including for your own work. Keep it short: what is wrong,
 and what should be true instead. A few sentences is a whole issue, and one
@@ -153,9 +155,10 @@ the commit bodies, where someone deep-diving is already reading, and the diff is
 the authority over both.
 
 Reference the issue with `Closes #12`, so it closes on merge and the search that
-finds one finds the other. CI runs all five jobs on the pull request, which is
-the point of the route: a gate fails before the commit is public rather than
-after. Run the four locally first anyway.
+finds one finds the other. The `issue link` check requires the closing keyword;
+a bare `#12` links the two and leaves the issue open. Every gate also runs on
+the pull request, which is the point of the route: a failure arrives before the
+commit is public rather than after. Run the four locally first anyway.
 
 Merge by rebase or squash, never a merge commit. Squash a branch that is one
 change told in several commits; rebase one whose commits each stand alone.

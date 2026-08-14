@@ -1,0 +1,43 @@
+name: issue link
+
+# Branch protection can require a pull request. It cannot require that the pull
+# request names an issue, and an unnamed one loses the only record of why the
+# change was wanted: the commit body explains what shipped, and nothing explains
+# what was considered and dropped.
+#
+# So this is a required check rather than a convention. It reads the pull
+# request body for a closing keyword and an issue number, which is also what
+# closes the issue on merge. A reference without a keyword links the two but
+# leaves the issue open, so it is not enough.
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: issue-link-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  issue-link:
+    name: issue link
+    runs-on: ubuntu-latest
+    steps:
+      - name: The body closes an issue
+        env:
+          # Through the environment rather than inline, so a body containing
+          # shell metacharacters is data instead of script.
+          BODY: ${{ github.event.pull_request.body }}
+        run: |
+          pattern='(close[sd]?|fix(e[sd])?|resolve[sd]?)[[:space:]]+#[0-9]+'
+          if printf '%s' "$BODY" | grep -Eqi "$pattern"; then
+            echo "Found a closing reference."
+            exit 0
+          fi
+          echo "::error::This pull request names no issue. Add 'Closes #12' to"\
+               "the body, naming the issue this change was opened against. If"\
+               "there is no issue yet, open one first: it is the only record of"\
+               "a change that was considered and dropped."
+          exit 1
