@@ -154,19 +154,33 @@ git clone https://github.com/VonTerraProject501c3/slushpile ~/.gemini/extensions
 ## Cursor
 
 Cursor reads `.cursor/skills/` and `.cursor/rules/` out of the workspace it has
-open. Clone and copy them in:
+open. Three things go in: the skill router, the rules file, and the pipeline
+itself. Point `WORKSPACE` at the directory Cursor has open and run the block as
+one unit:
 
 ```bash
+WORKSPACE="/path/to/your/workspace"
+rm -rf /tmp/slushpile
 git clone https://github.com/VonTerraProject501c3/slushpile /tmp/slushpile
+mkdir -p "$WORKSPACE/.cursor/skills" "$WORKSPACE/.cursor/rules" "$WORKSPACE/.slushpile"
+cp -r /tmp/slushpile/.cursor/skills/slushpile "$WORKSPACE/.cursor/skills/"
+cp /tmp/slushpile/.cursor/rules/slushpile.mdc "$WORKSPACE/.cursor/rules/"
+cp -r /tmp/slushpile/skills /tmp/slushpile/agents /tmp/slushpile/templates "$WORKSPACE/.slushpile/"
 ```
 
-```bash
-cp -r /tmp/slushpile/.cursor/skills/slushpile <your-workspace>/.cursor/skills/
-```
+Confirm all three landed:
 
 ```bash
-cp -r /tmp/slushpile/skills /tmp/slushpile/agents /tmp/slushpile/templates <your-workspace>/.slushpile/
+ls "$WORKSPACE/.cursor/skills/slushpile/SKILL.md" "$WORKSPACE/.cursor/rules/slushpile.mdc" "$WORKSPACE/.slushpile/skills"
 ```
+
+The rules file is the one to verify. It carries the two standing rules — read
+`preferences.yaml` before claiming anything about the user, and never submit
+anything — and Cursor is the only harness where it arrives by hand-copy rather
+than with the plugin. A workspace missing it looks exactly like a working one.
+
+`rm -rf /tmp/slushpile` is there so you can re-run the block; `git clone`
+refuses a destination that already exists.
 
 The Cursor skill is a router. It points at the real skill files under
 `.slushpile/`. One copy of the pipeline, four harnesses. Not four forks that

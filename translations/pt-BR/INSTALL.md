@@ -145,20 +145,34 @@ git clone https://github.com/VonTerraProject501c3/slushpile ~/.gemini/extensions
 ## Cursor
 
 O Cursor lê `.cursor/skills/` e `.cursor/rules/` do espaço de trabalho que
-estiver aberto. Clone o repositório e copie os dois para o seu espaço de
-trabalho:
+estiver aberto. Três coisas entram: o roteador de habilidades, o arquivo de
+regras e o próprio pipeline. Aponte `WORKSPACE` para o diretório que o Cursor
+tem aberto e rode o bloco como uma unidade só:
 
 ```bash
+WORKSPACE="/path/to/your/workspace"
+rm -rf /tmp/slushpile
 git clone https://github.com/VonTerraProject501c3/slushpile /tmp/slushpile
+mkdir -p "$WORKSPACE/.cursor/skills" "$WORKSPACE/.cursor/rules" "$WORKSPACE/.slushpile"
+cp -r /tmp/slushpile/.cursor/skills/slushpile "$WORKSPACE/.cursor/skills/"
+cp /tmp/slushpile/.cursor/rules/slushpile.mdc "$WORKSPACE/.cursor/rules/"
+cp -r /tmp/slushpile/skills /tmp/slushpile/agents /tmp/slushpile/templates "$WORKSPACE/.slushpile/"
 ```
 
-```bash
-cp -r /tmp/slushpile/.cursor/skills/slushpile <your-workspace>/.cursor/skills/
-```
+Confira se as três chegaram:
 
 ```bash
-cp -r /tmp/slushpile/skills /tmp/slushpile/agents /tmp/slushpile/templates <your-workspace>/.slushpile/
+ls "$WORKSPACE/.cursor/skills/slushpile/SKILL.md" "$WORKSPACE/.cursor/rules/slushpile.mdc" "$WORKSPACE/.slushpile/skills"
 ```
+
+O arquivo de regras é o que vale conferir. Ele carrega as duas regras
+permanentes — ler `preferences.yaml` antes de afirmar qualquer coisa sobre o
+usuário, e nunca enviar nada — e o Cursor é o único harness onde ele chega
+copiado à mão em vez de junto com o plugin. Um espaço de trabalho sem ele é
+idêntico a um que funciona.
+
+`rm -rf /tmp/slushpile` está ali para o bloco poder ser repetido; `git clone`
+recusa um destino que já existe.
 
 A habilidade do Cursor é um roteador: ela aponta para os arquivos de habilidade
 reais em `.slushpile/`. Isso mantém uma cópia do pipeline em vez de quatro.
