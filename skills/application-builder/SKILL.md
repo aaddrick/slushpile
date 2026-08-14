@@ -126,6 +126,12 @@ Check for new overfull-hbox warnings. Extract with `pdftotext <file>.pdf -` and 
 
 ## Phase 3: Cover Letter, First Draft
 
+**When the posting calls the letter optional, `application_policy.cover_letter_when_optional` decides.** The Notes section of `job_description.md` records whether the form has a letter field and whether it is required. If the letter is optional and that setting is false, skip 3a through 3d and Phase 3.5, go straight to 3e, and say so in the handoff — the user has decided their hours are better spent elsewhere, and a letter written against that decision is an hour taken from the next application.
+
+**Skipping the letter never skips 3e.** Screening questions are where the argument goes when there is no letter, and dropping both leaves a resume submitted with no prose at all — the opposite of what the setting is for.
+
+Write the letter whenever the posting requires it, whenever the form's structure is unrecorded, and whenever the setting is true. Only a posting that says the letter is optional puts the setting in play; unknown is not optional.
+
 ### 3a. Draft
 
 The letter's container is `templates/cover_letter.tex`, or the letter from whichever application you took the base resume from in 1a. Take the container first and draft into it, rather than drafting loose prose and formatting it afterwards. The template's header carries the requisition ID and the exact role title, which large employers route on, and a letter assembled at the end is where that line gets dropped.

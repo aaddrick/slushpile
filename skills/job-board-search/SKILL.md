@@ -239,8 +239,8 @@ The calibration that matters: a differentiator can be rare in absolute terms and
 
 These reduce the score. They do not auto-pass. Whether any of them is a hard blocker is set in `preferences.yaml`, and by default none of them are.
 
-- **Clearance requirement.** Note as a gap for the cover letter. Roughly 5-10 percentile points. Auto-pass only if `clearance.hard_blocker` is true.
-- **Degree requirement**, even without "or equivalent". Same treatment. Auto-pass only if `education.degree_requirement_is_hard_blocker` is true.
+- **Clearance requirement.** Note as a gap for the cover letter. Roughly 5-10 percentile points. Auto-pass only if `clearance.hard_blocker` is true. Check `clearance.eligible_for` before scoring the gap at full weight: a clearance the candidate is eligible for is a sponsorship timeline, not a missing credential, and it is worth a line in the letter saying so.
+- **Degree requirement**, even without "or equivalent". Same treatment. Compare the posting's requirement against `education.highest_degree`, and score the gap only where there actually is one — a posting asking for a bachelor's is not a risk factor for someone holding one, and scoring it as though it were is how a role drifts a tier for no reason. Auto-pass only if `education.degree_requirement_is_hard_blocker` is true.
 - **Years-in-domain minimums.** Assess whether the pattern transfers. NOT MET only when no meaningful analog exists.
 - **Location.** Check against `relocation`. Only a blocker if it falls in `excluded_regions` or the user is not willing to relocate.
 
@@ -308,11 +308,13 @@ Every one of these comes from `preferences.yaml`. Nothing is hardcoded.
 **Hard kills. Mark the role passed, name the trigger, skip scoring.**
 
 1. **Compensation floor.** Apply whatever method `compensation.method` specifies.
-   - `nominal` — total compensation below `nominal.floor` kills the role.
+   - `nominal` — total compensation below `nominal.floor` kills the role. Count equity toward the total only when `nominal.include_equity` is true; when it is false the comparison is cash against the floor, and unvested paper is noted as upside rather than counted as pay.
    - `net_qol` — compute `net_qol = after_tax(total_comp) − annual_housing(where they would live) − healthcare_haircut`, then `delta = net_qol − current_baseline`. Below `minimum_delta` kills. Between `minimum_delta` and `comfortable_delta`, proceed with a `tight_band` flag. At or above `strong_delta`, flag `strong_comp`. In a `homecoming_corridor`, the threshold relaxes to `homecoming_minimum_delta`.
    - `none` — skip this check.
 
-   Use total compensation, not base alone. If only base is posted, use base and note equity as upside. Estimate housing for where the candidate would **live**, not the office address — for a remote role that is their choice of location, and it frequently decides the outcome.
+   Use total compensation, not base alone. If only base is posted, use base and note equity as upside. Estimate housing for where the candidate would **live**, not the office address — `net_qol.housing_notes` says where that is when it differs from the office, and for a remote role it is the candidate's choice of location. It frequently decides the outcome.
+
+   **Convert the posted band into `compensation.currency` before comparing, and show the rate you used.** Every threshold in this block is denominated in that currency. Comparing a posted figure against a floor set in a different one is not a close call, it is off by the exchange rate — and it fails silently, because both numbers look like compensation.
 
    For `net_qol`, do the arithmetic and show it. A one-line calculation in the role analysis is what makes this auditable later. Falling back to comparing nominal base is the failure this method exists to prevent, and it is invisible unless the arithmetic is written down.
 
@@ -343,6 +345,8 @@ Every one of these comes from `preferences.yaml`. Nothing is hardcoded.
 - Company conversion below 2% empirically, with no warm channel available
 
 A soft kill means the expected value is low. **It is not an instruction to a downstream skill.** Record the finding; never write a prohibition into the role analysis. See Anti-Pattern 8.
+
+**Soft preferences are not kills of any kind.** Every entry in `constraints.soft_preferences` that the posting speaks to goes in the role analysis, met or unmet, and changes no score. They earn their place at the point where two roles are otherwise close and the user is choosing between them — which is exactly when nobody remembers what they wrote in `preferences.yaml` months earlier.
 
 Hard kills go to the search report's Passed table with the trigger named. They get no folder.
 
