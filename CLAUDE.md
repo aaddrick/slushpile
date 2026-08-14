@@ -409,3 +409,96 @@ A commit subject states what changed. The body states why, with the evidence.
 | `GEMINI.md` | the pipeline, as the Gemini extension's context file |
 | `.gemini/settings.json` | the context file list for an agent working here |
 | `.cursor/` | the Cursor rule and skill routing |
+
+## Voice
+
+This is the register every hand-written file here is in: this file, `README.md`,
+`INSTALL.md`, `docs/`, the skills, the agents, and commit bodies. It is
+`agents/aaddrick-voice.md` with the person taken out. That agent replicates one
+author for the cover letter; the rules below are the parts of it that describe
+writing rather than describing him.
+
+### Shape
+
+**Position first.** State the answer or the recommendation in the first sentence
+or two, then the evidence and the reasoning. A reader who stops after one line
+should still have the answer.
+
+**Alternate short and long sentences.** Average 8 to 12 words, ranging from 3 to
+25. Never write a run of sentences that are all one length. This is the single
+most visible difference between prose a person wrote and prose a model wrote.
+
+**Plain words for hard ideas.** Aim at a grade 6 to 8 reading level. Technical
+vocabulary is fine when the reader is technical, and does not need defining.
+
+**Contractions, at about one word in fifty.** Not fully expanded formal English,
+not every possible contraction either.
+
+**State facts flat. Hedge only what is uncertain.** "I think", "probably", and
+"might" belong on opinions and predictions. A measured number, a file path, or a
+gate's behavior gets stated directly.
+
+**Concede, then reinforce.** "but", "though", "granted", "to be fair". An
+argument that never acknowledges the other side reads as marketing.
+
+**Structure once there are three or more discrete items.** Numbered lists, a
+table, or bold labels. Prefer that to a prose wall.
+
+**Report. Do not editorialize.** Say what a thing does and what it costs. Do not
+tell the reader how to feel about it. Needing to write "that's significant" means
+the paragraph before it failed.
+
+**Stop when the content stops.** No closing sentence that summarizes what the
+section already said.
+
+Starting a sentence with "And" or "But" is natural. Rhetorical questions are
+rare, and diagnostic when they appear.
+
+### Cut these
+
+Every item is a pattern that appears far more often in generated text than in
+written text. A reader who has seen a few of them stops trusting the page.
+
+- **"It's not X, it's Y."** All variants: "Not X. Y." as a two-sentence punch,
+  "X, not Y" as a comma correction, "X isn't just Y" as a setup. State the
+  positive claim. If the reader needs to know what it isn't, say that second.
+- **"Not X" alone as emphasis.** Same move, compressed further.
+- **Participial endings.** "The update shipped, revealing a deeper issue." End
+  the sentence and start a new one.
+- **Significance labels.** "That's the gap between policy and practice." "That
+  changes the framing." Naming the meaning of a fact you just stated is
+  redundant. If it needs the label, restate the fact better.
+- **Vague gestures at meaning.** "says a lot about", "is the most telling thing
+  about". Either say what it tells you or let the fact stand.
+- **Announced frames.** "Here's what this looks like in practice:", "Let me walk
+  through". The content announces itself.
+- **Throat-clearing hedges.** The whole "it's worth [verb]-ing" family, plus
+  "it's important to note", "generally speaking", "to some extent", "from a
+  broader perspective".
+- **Dramatic openers and recaps.** "The takeaway:", "The bottom line:",
+  "Overall,", "In summary,", "In conclusion,".
+- **Transition filler.** "Moreover,", "Furthermore,", "Additionally,".
+- **Authority claims.** "Let's be clear,", "To be sure,", "The reality is,",
+  "Make no mistake".
+- **"From X to Y" as a scene-setter.** Get to the point.
+- **Rhythm devices.** Staccato fragment pairs used as punch. The
+  X-then-"it's also"-Y two-beat. Repeated triplets of parallel clauses. Two
+  consecutive sentences with mirrored structure. One of any of these is fine;
+  the pattern repeating across sections is the tell.
+- **Mechanical lists.** If every item follows the same syntactic template
+  exactly, vary them.
+- **Bookend summaries.** If the intro said it, the conclusion should not echo it.
+- **Em-dash overuse.** A period or a colon does the same work.
+- **Emoji.**
+- **These words.** delve, underscore, harness, illuminate, facilitate, bolster,
+  tapestry, realm, beacon, cacophony, landscape, paradigm, ecosystem, leverage,
+  robust, comprehensive, crucial, utilize, streamline. Plain words instead.
+
+### Check before you commit
+
+1. Sentence lengths visibly vary, and no paragraph is all one length.
+2. Facts are unhedged. Opinions are hedged.
+3. No reframe, no significance label, no editorial closer.
+4. Ordering claims match the source. Saying A happens before B when A is what
+   fires B is the error that survives review, because it reads fine.
+5. Pronouns still have referents. A cut or a move orphans them silently.
