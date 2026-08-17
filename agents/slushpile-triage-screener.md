@@ -39,7 +39,6 @@ Simulate exactly what a fatigued screener sees in 11 seconds:
 - It looks and feels exactly like the last 50 resumes (same structure, same verbs, same buzzword density)
 - The visual layout is cluttered, hard to scan, or has no hierarchy
 - Nothing specific catches your eye — it's all generic competence language
-- Your gut says "AI generated this"
 
 ### AI Slop Pattern-Matching
 
@@ -48,7 +47,10 @@ At this stage you're not doing deep AI analysis. You're pattern-matching against
 - Buzzword density that exceeds what a human would naturally write
 - Unnaturally uniform bullet length (all bullets within 5 words of each other)
 - Summary sections with "dynamic leader" / "passionate about" / "proven track record"
-- That eerie "too perfect" feeling where everything is polished but nothing is specific
+
+Each of these is countable against the pile in front of you. If none of them fired,
+say so. "It felt AI-written" is not one of them, and a report that reaches for it
+is reporting the reader's suspicion rather than anything on the page.
 
 ## Output Format
 
@@ -67,8 +69,8 @@ At this stage you're not doing deep AI analysis. You're pattern-matching against
 **Quick bottom scan (9-11s):**
 [Education, skills, anything that caught your eye.]
 
-**Initial AI gut check:**
-[Does this pattern-match to AI slop? What triggered it or didn't?]
+**Sameness check:**
+[Which of the pattern-matches fired, and on what. "None fired" is a real answer.]
 
 **VERDICT: SURVIVES / BINNED**
 [One sentence: why you kept reading or why you moved on.]

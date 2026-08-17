@@ -366,6 +366,15 @@ Compile both documents: `latexmk -xelatex <file>.tex && latexmk -c` for each. Ve
 
 The letter's page count is the one that gets skipped. One page is the convention, a second page is read at a much lower rate than the first, and going over is a decision to make deliberately rather than discover after the build. Report the count either way — a check that only reports failures is indistinguishable from one that did not run.
 
+**Proofread the extracted text.** The `.tex` carries macros, and the extracted text is what the reader and every review agent actually see. No review stage checks any of this: the agents grade what a document argues, and a misspelling reaches them as prose they read past. Check, and report the result of each:
+
+- Spelling, across both documents.
+- Every proper noun, against `job_description.md` and `role_analysis.md`: the company, its products, team names, and anyone named. A wrong product name kills credibility faster than any other error in the document, and once the file is built nothing downstream is looking.
+- Date continuity across the employment history. An end date earlier than the next start date reaches a reviewer as an unexplained gap rather than as the typo it is, and gets argued about as a weakness.
+- The contact line against `identity.links`, one more time. A resume reading `linkedin.com/in/USER` survives every review, because the agents read that string as a link the candidate has.
+
+State what passed, not only what failed.
+
 ### 8c. Update `role_analysis.md`
 Add the adversarial results table, swap test outcomes, key quotes, the final narrative angle (the cover letter thesis), and an honest recommendation naming any structural gaps.
 
