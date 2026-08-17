@@ -400,11 +400,6 @@ goes stale.
 them, so the issue closes on merge and the search that finds one finds the
 other.
 
-**CI gates the merge rather than reporting on it.** All four checks plus the
-plugin-load check run on the pull request, so a red gate costs a push instead of
-a public commit. Run the four locally first anyway. A CI round trip is slower
-than the local run that would have caught the same thing.
-
 **`main` is protected, administrators included.** A pull request is required,
 force-pushes and deletions are refused, and the `issue link` check must pass.
 Nothing here is a convention you can decide to skip on a small change.
