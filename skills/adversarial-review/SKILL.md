@@ -176,7 +176,7 @@ You are the gatekeeper. The agents are deliberately harsh and some of what they 
 
 **Pool analyst.** Are the percentile estimates calibrated for this specific company tier? A frontier AI lab pool and a regional manufacturer pool differ enormously and generic priors flatten them. Did it adjust, or reach for a default?
 
-**Triage screener.** Did it simulate eleven seconds, or did it over-read? A triage report that cites something from the third page did not stay in character.
+**Triage screener.** Did it simulate eleven seconds, or did it over-read? A triage report that cites something from the third page did not stay in character. Did its sameness check name what fired, or did it report a suspicion that the document was machine-written? The second one is the concern this review retired, arriving from the one stage that still has a field for it.
 
 **Requirements analyst.** Are the "So What?" failures genuine, or is the context present somewhere the agent did not look? Did it grade in absolute terms when the pool says otherwise?
 
